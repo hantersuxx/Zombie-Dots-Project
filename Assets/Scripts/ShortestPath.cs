@@ -19,6 +19,9 @@ public class ShortestPath
 
     public IEnumerable<Vector3> GetPath(Vector3 start, Vector3 goal)
     {
+        var positions = Tiles.Select(t => t.Position);
+        start = Extensions.GetClosestPosition(start, positions);
+        goal = Extensions.GetClosestPosition(goal, positions);
         var closedSet = new HashSet<Node>();
         var startNode = new Node
         {

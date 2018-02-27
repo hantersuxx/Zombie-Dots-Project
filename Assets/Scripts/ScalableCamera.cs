@@ -10,6 +10,7 @@ public class ScalableCamera : MonoBehaviour
 
     void Start()
     {
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
         Camera.orthographicSize = tileSizeInPixels * Screen.height / Screen.width * 0.25f;
     }
 }

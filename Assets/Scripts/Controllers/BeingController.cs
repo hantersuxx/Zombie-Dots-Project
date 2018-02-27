@@ -7,7 +7,7 @@ using UnityEngine;
 
 public abstract class BeingController : MonoBehaviour
 {
-    [Range(1f, 4f)]
+    [Range(1f, 2f)]
     public float speedRange = 1f;
 
     protected abstract BoardManager BoardManager { get; }
@@ -24,7 +24,7 @@ public abstract class BeingController : MonoBehaviour
         Speed = UnityEngine.Random.Range(0.1f, speedRange) * Time.deltaTime;
         ShortestPath = new ShortestPath(BoardManager.Tiles, BoardManager.TileSize);
         AllTilePositions = BoardManager.Tiles.Select(t => t.Position);
-        DropDownOnClosestPosition();
+        SetupRoute();
         CanMove = true;
     }
 
@@ -54,7 +54,7 @@ public abstract class BeingController : MonoBehaviour
     protected virtual void OnDestinationChanged()
     {
         StopMovement();
-        DropDownOnClosestPosition();
+        SetupRoute();
         CanMove = true;
     }
     protected virtual void OnMovement()
@@ -86,15 +86,15 @@ public abstract class BeingController : MonoBehaviour
         AllowMovement();
     }
 
-    public virtual void DropDownOnClosestPosition()
+    private void SetupRoute()
     {
-        transform.position = Extensions.GetClosestPosition(transform.position, AllTilePositions);
         Route = ShortestPath.GetPath(transform.position, Destination.position).Reverse().ToList();
     }
 
-    public virtual void ChangeDestination(Transform newDestination)
+    public virtual void DropDownOnClosestPosition()
     {
-        Destination = newDestination;
+        transform.position = Extensions.GetClosestPosition(transform.position, AllTilePositions);
+        SetupRoute();
     }
 
     public virtual void AllowMovement()
