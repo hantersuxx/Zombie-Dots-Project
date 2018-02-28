@@ -28,6 +28,7 @@ public class BoardManager : MonoBehaviour
 
     private IEnumerable<CustomTile> InitList()
     {
+        var hashSet = new HashSet<CustomTile>();
         var bounds = Camera.OrthographicBounds();
         int minX = (int)Math.Ceiling(bounds.min.x),
             minY = (int)Math.Ceiling(bounds.min.y),
@@ -43,13 +44,12 @@ public class BoardManager : MonoBehaviour
                 for (int y = minY; y <= maxY; y += cellSizeY)
                 {
                     var position = new Vector3Int(x, y, 0);
-                    var tile = tilemap.GetTile<TileBase>(position);
-                    if (tile != null)
-                    {
-                        yield return new CustomTile(position, tile);
-                    }
+                    var hasObstruction = Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), cellSizeX / 2f)
+                        .Any(t => t.gameObject.GetComponent<SpriteRenderer>().sortingLayerName == TileType.Obstruction.ToString());
+                    hashSet.Add(new CustomTile(position, (hasObstruction) ? TileType.Obstruction : TileType.Ground));
                 }
             }
         }
+        return hashSet;
     }
 }

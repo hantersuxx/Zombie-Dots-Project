@@ -10,11 +10,13 @@ public class ShortestPath
 {
     IEnumerable<CustomTile> Tiles { get; }
     Vector3 Step { get; }
+    TileType[] Filters { get; }
 
-    public ShortestPath(IEnumerable<CustomTile> tiles, Vector3 step)
+    public ShortestPath(IEnumerable<CustomTile> tiles, Vector3 step, TileType[] filters)
     {
         Tiles = tiles;
         Step = step;
+        Filters = filters;
     }
 
     public IEnumerable<Vector3> GetPath(Vector3 start, Vector3 goal)
@@ -130,7 +132,9 @@ public class ShortestPath
     //todo: add logic
     private bool IsPositionAvailable(Vector3 position)
     {
-        return true;
+        return !Tiles
+             .Where(t => Filters.Contains(t.TileType) && t.Position == position)
+             .Any();
     }
 }
 

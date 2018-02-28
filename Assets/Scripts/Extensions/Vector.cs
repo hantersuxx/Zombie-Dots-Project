@@ -10,5 +10,6 @@ namespace Assets.Scripts.Extensions
     public static partial class Extensions
     {
         public static Vector3 GetClosestPosition(Vector3 position, IEnumerable<Vector3> positions) => positions.OrderBy(p => (p - position).sqrMagnitude).FirstOrDefault();
+        //TODO:add get closest ground tile
     }
 }

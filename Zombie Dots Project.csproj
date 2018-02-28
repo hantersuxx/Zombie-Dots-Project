@@ -305,7 +305,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\BeingController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\HumanControlller.cs" />
+    <Compile Include="Assets\Scripts\Controllers\HumanController.cs" />
     <Compile Include="Assets\Scripts\Controllers\ZombieController.cs" />
     <Compile Include="Assets\Scripts\DragAndDrop.cs" />
     <Compile Include="Assets\Scripts\DragAndDropZombie.cs" />

@@ -7,6 +7,6 @@ namespace Assets.Scripts.Models
 {
     public enum TileType
     {
-        GroundTile, ObstructionTile
+        Ground, Obstruction, Zombie, Human
     }
 }

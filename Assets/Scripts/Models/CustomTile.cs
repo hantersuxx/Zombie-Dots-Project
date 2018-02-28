@@ -11,14 +11,14 @@ namespace Assets.Scripts.Models
     public class CustomTile
     {
         public Vector3 Position { get; }
-        public bool IsOccupied { get; set; } = false;
-        public TileBase TileBase { get; }
+        public TileType TileType { get; set; }
+        //public TileBase TileBase { get; }
 
 
-        public CustomTile(Vector3 position, TileBase tileBase)
+        public CustomTile(Vector3 position, TileType tileType)
         {
             Position = position;
-            TileBase = tileBase;
+            TileType = tileType;
         }
     }
 }

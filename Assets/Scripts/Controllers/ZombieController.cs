@@ -8,22 +8,14 @@ using UnityEngine.AI;
 
 public class ZombieController : BeingController
 {
-    public BoardManager boardManager;
     [Range(1f, 2f)]
     public float searchRadius = 1f;
 
-    protected override BoardManager BoardManager => boardManager;
-    protected override Transform Destination { get; set; }
+    protected override TileType[] Filters => new TileType[] { TileType.Obstruction };
     float SearchRadius => searchRadius;
     GameObject LastSeen { get; set; }
     bool IsTimerActive { get; set; } = false;
     float TimerSeconds { get; set; } = 0;
-
-    protected override void Start()
-    {
-        Destination = GameObject.FindGameObjectWithTag(Tags.Vault).transform;
-        base.Start();
-    }
 
     protected override void Update()
     {
@@ -44,6 +36,15 @@ public class ZombieController : BeingController
         base.Update();
     }
 
+    protected override void OnMovement()
+    {
+        var currentPosition = Extensions.GetClosestPosition(transform.position, AllTilePositions);
+        var tile = BoardManager.Tiles.FirstOrDefault(t => t.Position == currentPosition);
+        tile.TileType = TileType.Zombie;
+        base.OnMovement();
+        tile.TileType = TileType.Ground;
+    }
+
     private void OnTargetHuman(Transform human)
     {
         LastSeen = new GameObject();
@@ -59,7 +60,7 @@ public class ZombieController : BeingController
         {
             if (TimerSeconds >= 1)
             {
-                Instantiate(this).transform.position = collision.gameObject.transform.position;
+                Instantiate(this, collision.gameObject.transform.position, Quaternion.identity, GetComponentInParent<BoardManager>().transform);
                 Destroy(collision.gameObject);
                 TimerSeconds = 0;
             }

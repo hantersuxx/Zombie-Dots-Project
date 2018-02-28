@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Extensions;
+using Assets.Scripts.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,23 +8,27 @@ using UnityEngine;
 
 public abstract class BeingController : MonoBehaviour
 {
-    [Range(1f, 2f)]
-    public float speedRange = 1f;
+    [Range(1f, 4f)]
+    public float speedRange = 2f;
 
-    protected abstract BoardManager BoardManager { get; }
-    protected abstract Transform Destination { get; set; }
+    protected abstract TileType[] Filters { get; }
+    protected virtual BoardManager BoardManager { get; set; }
+    protected virtual Transform Destination { get; set; }
     protected virtual float Speed { get; set; }
-    protected virtual ShortestPath ShortestPath { get; set; }
     protected virtual IEnumerable<Vector3> AllTilePositions { get; set; }
+    protected virtual ShortestPath ShortestPath { get; set; }
     protected virtual List<Vector3> Route { get; set; }
     protected virtual Vector3 CurrentHeading { get; set; }
     protected virtual bool CanMove { get; set; } = false;
 
     protected virtual void Start()
     {
-        Speed = UnityEngine.Random.Range(0.1f, speedRange) * Time.deltaTime;
-        ShortestPath = new ShortestPath(BoardManager.Tiles, BoardManager.TileSize);
+        BoardManager = GetComponentInParent<BoardManager>();
+        Destination = GameObject.FindGameObjectWithTag(Tags.Vault).transform;
+        Speed = UnityEngine.Random.Range(0.5f, speedRange);
         AllTilePositions = BoardManager.Tiles.Select(t => t.Position);
+        ShortestPath = new ShortestPath(BoardManager.Tiles, BoardManager.TileSize, Filters);
+
         SetupRoute();
         CanMove = true;
     }
@@ -55,7 +60,7 @@ public abstract class BeingController : MonoBehaviour
     {
         StopMovement();
         SetupRoute();
-        CanMove = true;
+        AllowMovement();
     }
     protected virtual void OnMovement()
     {
@@ -63,23 +68,23 @@ public abstract class BeingController : MonoBehaviour
         MoveTo(CurrentHeading);
     }
 
-    protected virtual Vector3 GetNextHeading()
+    private Vector3 GetNextHeading()
     {
         var returnValue = Route.FirstOrDefault();
         Route.Remove(returnValue);
         return returnValue;
     }
 
-    protected virtual void MoveTo(Vector3 goal)
+    private void MoveTo(Vector3 goal)
     {
         StartCoroutine(MovementCoroutine(goal));
     }
 
-    protected virtual IEnumerator MovementCoroutine(Vector3 goal)
+    private IEnumerator MovementCoroutine(Vector3 goal)
     {
         while (transform.position != goal)
         {
-            transform.position = Vector3.MoveTowards(transform.position, goal, Speed);
+            transform.position = Vector3.MoveTowards(transform.position, goal, Speed * Time.deltaTime);
             CanMove = false;
             yield return null;
         }
