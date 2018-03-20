@@ -303,27 +303,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BoardManager.cs" />
-    <Compile Include="Assets\Scripts\Controllers\BeingController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\HumanController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\ZombieController.cs" />
+    <Compile Include="Assets\Scripts\AI\Actions\ChaseAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Actions\MoveAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Decisions\ActiveStateDecision.cs" />
+    <Compile Include="Assets\Scripts\AI\Decisions\LookDecision.cs" />
+    <Compile Include="Assets\Scripts\AI\Models\Action.cs" />
+    <Compile Include="Assets\Scripts\AI\Models\Decision.cs" />
+    <Compile Include="Assets\Scripts\AI\Models\State.cs" />
+    <Compile Include="Assets\Scripts\AI\Models\Transition.cs" />
+    <Compile Include="Assets\Scripts\AI\StateController.cs" />
+    <Compile Include="Assets\Scripts\AI\Stats.cs" />
+    <Compile Include="Assets\Scripts\Board\BoardManager.cs" />
+    <Compile Include="Assets\Scripts\Board\CustomTile.cs" />
+    <Compile Include="Assets\Scripts\Board\ShortestPath\Models\Node.cs" />
+    <Compile Include="Assets\Scripts\Board\ShortestPath\Models\PointShortestPath.cs" />
+    <Compile Include="Assets\Scripts\Board\ShortestPath\ShortestPath.cs" />
     <Compile Include="Assets\Scripts\DragAndDrop.cs" />
     <Compile Include="Assets\Scripts\DragAndDropZombie.cs" />
     <Compile Include="Assets\Scripts\Extensions\Camera.cs" />
     <Compile Include="Assets\Scripts\Extensions\Convert.cs" />
     <Compile Include="Assets\Scripts\Extensions\Vector.cs" />
+    <Compile Include="Assets\Scripts\FieldOfView.cs" />
+    <Compile Include="Assets\Scripts\FieldOfViewEditor.cs" />
     <Compile Include="Assets\Scripts\HUDFPS.cs" />
-    <Compile Include="Assets\Scripts\Models\CustomTile.cs" />
-    <Compile Include="Assets\Scripts\Models\Node.cs" />
-    <Compile Include="Assets\Scripts\Models\PointShortestPath.cs" />
-    <Compile Include="Assets\Scripts\Models\Tags.cs" />
-    <Compile Include="Assets\Scripts\Models\TileType.cs" />
-    <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\MovementAgent.cs" />
     <Compile Include="Assets\Scripts\ScalableCamera.cs" />
-    <Compile Include="Assets\Scripts\ShortestPath.cs" />
-    <Compile Include="Assets\Scripts\SortingLayers.cs" />
-    <Compile Include="Assets\Scripts\SpriteColorer.cs" />
-    <Compile Include="Assets\Scripts\SpriteResizerOnCamera.cs" />
+    <Compile Include="Assets\Scripts\Tags.cs" />
+    <Compile Include="Assets\Scripts\TileType.cs" />
+    <Compile Include="Assets\Scripts\ZombieAttack.cs" />
+    <Compile Include="Assets\Scripts\ZombieController.cs" />
+    <Compile Include="Assets\Scripts\ZombieManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

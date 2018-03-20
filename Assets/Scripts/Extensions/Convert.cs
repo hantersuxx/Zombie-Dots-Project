@@ -1,17 +1,9 @@
-﻿using Assets.Scripts.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using System;
 
-namespace Assets.Scripts.Extensions
+public static partial class Extensions
 {
-    public static partial class Extensions
+    public static decimal ToDecimal(float number, int precision)
     {
-        public static decimal ToDecimal(float number, int precision)
-        {
-            return Math.Round((decimal)number, precision);
-        }
+        return Math.Round((decimal)number, precision);
     }
 }

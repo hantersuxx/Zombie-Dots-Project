@@ -5,11 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Extensions
+public static partial class Extensions
 {
-    public static partial class Extensions
+    public static Vector3 GetClosestPosition(Vector3 position, IEnumerable<Vector3> positions) => positions.OrderBy(p => (p - position).sqrMagnitude).FirstOrDefault();
+    //TODO:add get closest ground tile
+    public static Vector3 DirectionFromAngle(this Transform transform, float angleInDegrees, bool angleIsGlobal)
     {
-        public static Vector3 GetClosestPosition(Vector3 position, IEnumerable<Vector3> positions) => positions.OrderBy(p => (p - position).sqrMagnitude).FirstOrDefault();
-        //TODO:add get closest ground tile
+        if (!angleIsGlobal)
+        {
+            angleInDegrees -= transform.eulerAngles.z;
+        }
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 }
