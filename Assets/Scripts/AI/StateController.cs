@@ -11,15 +11,15 @@ public class StateController : MonoBehaviour
     private State remainState;
     [SerializeField]
     private Stats stats;
-    [SerializeField]
-    private Transform eyes;
+    //[SerializeField]
+    //private Transform eyes;
     [SerializeField]
     private BoardManager boardManager;
 
     public State CurrentState { get; private set; }
     public State RemainState { get; private set; }
     public Stats Stats => stats;
-    public Transform Eyes => eyes;
+    public Transform Eyes => GetComponentInChildren<Transform>();
     public BoardManager BoardManager => boardManager;
     public MovementAgent MovementAgent => GetComponent<MovementAgent>();
     public FieldOfView FOV => GetComponentInChildren<FieldOfView>();
@@ -37,11 +37,10 @@ public class StateController : MonoBehaviour
 
     void Update()
     {
-        if (!IsAIActive)
+        if (IsAIActive)
         {
-            return;
+            CurrentState.UpdateState(this);
         }
-        CurrentState.UpdateState(this);
     }
 
     void OnDrawGizmos()
@@ -53,16 +52,19 @@ public class StateController : MonoBehaviour
         }
     }
 
-
-    public void SetupAI(bool aiActivationFromZombieManager, List<Vector3> waypointListFromZombieManager)
+    public void SetupAI(bool aiActivation)
     {
-        IsAIActive = aiActivationFromZombieManager;
-        //WaypointList = waypointListFromZombieManager;
+        IsAIActive = aiActivation;
+        if (!IsAIActive)
+        {
+            MovementAgent.StopMovement();
+            ChaseTarget = null;
+        }
     }
 
-    public void SetupAI(bool aiActivationFromZombieManager, Transform chaseTarget)
+    public void SetupAI(bool aiActivation, Transform chaseTarget)
     {
-        IsAIActive = aiActivationFromZombieManager;
+        SetupAI(aiActivation);
         ChaseTarget = chaseTarget;
     }
 

@@ -5,19 +5,20 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
-    public BoardManager boardManager;
+    public StateController Controller => GetComponent<StateController>();
 
-    protected IEnumerable<Vector3> Positions => boardManager.Tiles.Select(t => t.Position);
-    protected Camera Camera => Camera.allCameras[0];
+    private Camera Camera => Camera.allCameras[0];
 
-    protected Vector3 ScreenPoint { get; set; }
-    protected Vector3 Offset { get; set; }
-    protected float DoubleClickTimeout => 0.25f;
-    protected bool ClickEnable { get; set; } = true;
-    protected bool DoubleClick { get; set; } = false;
+    private Vector3 ScreenPoint { get; set; }
+    private Vector3 Offset { get; set; }
+    private float DoubleClickTimeout => 0.25f;
+    private bool ClickEnable { get; set; } = true;
+    private bool DoubleClick { get; set; } = false;
 
     void OnMouseDown()
     {
+        Controller.SetupAI(false);
+
         ScreenPoint = Camera.WorldToScreenPoint(gameObject.transform.position);
         Offset = gameObject.transform.position - Camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, ScreenPoint.z));
     }
@@ -33,6 +34,9 @@ public class DragAndDrop : MonoBehaviour
     {
         if (ClickEnable)
         {
+            transform.position = Extensions.GetClosestTile(transform.position, Controller.BoardManager.Tiles).Position;
+            Controller.SetupAI(true);
+
             ClickEnable = false;
             StartCoroutine(TrapDoubleClicks(DoubleClickTimeout));
         }

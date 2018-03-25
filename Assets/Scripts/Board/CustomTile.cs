@@ -21,3 +21,8 @@ public class CustomTile
     }
 }
 
+public enum TileType
+{
+    Ground, Obstruction, Zombie, Human
+}
+

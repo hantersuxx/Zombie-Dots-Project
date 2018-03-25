@@ -11,8 +11,7 @@ public class MovementAgent : MonoBehaviour
     //private Transform eyes;
 
     public float Speed => speed;
-    public Transform Eyes => GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == "Eyes");
-    public Vector3? CurrentDestination { get; private set; } = null;
+    private Vector3? CurrentDestination { get; set; } = null;
     private bool InMove { get; set; } = false;
     private delegate void MovementStateHandler(bool state);
     private event MovementStateHandler OnMovementStarted;
@@ -55,6 +54,8 @@ public class MovementAgent : MonoBehaviour
 
     public void StopMovement()
     {
+        CurrentDestination = null;
+        InMove = false;
         StopAllCoroutines();
     }
 
