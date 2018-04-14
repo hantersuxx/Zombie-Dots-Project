@@ -12,7 +12,7 @@ public class MoveAction : Action
 
     private void Move(StateController controller)
     {
-        if (controller.NextWaypoint < controller.WaypointList.Count && controller.MovementAgent.MoveTo(controller.WaypointList[controller.NextWaypoint]))
+        if (controller.NextWaypoint < controller.WaypointList.Length && controller.MovementAgent.MoveTo(controller.WaypointList[controller.NextWaypoint]))
         {
             controller.NextWaypoint++;
         }

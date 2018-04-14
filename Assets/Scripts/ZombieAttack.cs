@@ -7,9 +7,6 @@ public class ZombieAttack : MonoBehaviour
 {
     bool IsTimerActive { get; set; } = false;
     float TimerSeconds { get; set; } = 0;
-    [SerializeField]
-    private GameObject prefabToSpawn;
-    public GameObject PrefabToSpawn => prefabToSpawn;
 
     private void OnTriggerStay2D(Collider2D collision)
     {

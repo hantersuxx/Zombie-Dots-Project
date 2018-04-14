@@ -34,7 +34,7 @@ public class DragAndDrop : MonoBehaviour
     {
         if (ClickEnable)
         {
-            transform.position = Extensions.GetClosestTile(transform.position, Controller.BoardManager.Tiles).Position;
+            transform.position = Extensions.GetClosestTile(transform.position, BoardManager.Instance.Tiles).Key;
             Controller.SetupAI(true);
 
             ClickEnable = false;
@@ -77,6 +77,6 @@ public class DragAndDrop : MonoBehaviour
 
     protected virtual void OnDoubleClick()
     {
-
+        Destroy(gameObject);
     }
 }

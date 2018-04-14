@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ShortestPath
 {
-    private IEnumerable<CustomTile> Tiles { get; }
-    private Vector3 Step { get; }
+    private BoardManager BoardManager { get; }
 
-    public ShortestPath(IEnumerable<CustomTile> tiles, Vector3 step)
+    public ShortestPath(BoardManager boardManager)
     {
-        Tiles = tiles;
-        Step = step;
+        BoardManager = boardManager;
     }
 
-    public List<Vector3> GetPath(Vector3 start, Vector3 goal)
+    public Vector3[] GetPath(Vector3 start, Vector3 goal)
     {
-        var positions = Tiles.Select(t => t.Position);
+        var positions = BoardManager.Tiles.Select(t => t.Key);
         start = Extensions.GetClosestPosition(start, positions);
         goal = Extensions.GetClosestPosition(goal, positions);
-        var closedSet = new HashSet<Node>();
+        var closedSet = new List<Node>();
         var startNode = new Node
         {
             Position = start,
@@ -28,61 +27,66 @@ public class ShortestPath
             HeuristicLength = GetHeuristicLength(start, goal)
 
         };
-        var openSet = new HashSet<Node>() { startNode };
-
-        while (openSet.Count > 0)
-        {
-            var currentNode = openSet.OrderBy(node => node.FullLength).First();
-            if (currentNode.Position == goal) { return GetPathForNode(currentNode).Reverse().ToList(); }
-            openSet.Remove(currentNode);
-            closedSet.Add(currentNode);
-            foreach (var successor in GetSuccessors(currentNode, goal))
-            {
-                if (closedSet.Count(node => node.Position.x == successor.Position.x && node.Position.y == successor.Position.y) > 0) { continue; }
-                var openNode = openSet.FirstOrDefault(node => node.Position == successor.Position);
-
-                if (openNode == null)
-                {
-                    openSet.Add(successor);
-                }
-                else if (openNode.LengthFromStart >= successor.LengthFromStart)
-                {
-                    openNode.CameFrom = currentNode;
-                    openNode.LengthFromStart = successor.LengthFromStart;
-                }
-            }
-        }
+        var openSet = new List<Node>() { startNode };
 
         //while (openSet.Count > 0)
         //{
         //    var currentNode = openSet.OrderBy(node => node.FullLength).First();
+        //    if (currentNode.Position == goal) { return GetPathForNode(currentNode).Reverse().ToArray(); }
         //    openSet.Remove(currentNode);
-        //    if (currentNode.Position == goal) { return GetPathForNode(currentNode); }
+        //    closedSet.Add(currentNode);
         //    foreach (var successor in GetSuccessors(currentNode, goal))
         //    {
+        //        if (closedSet
+        //            .Where(node => node.Position.x == successor.Position.x && node.Position.y == successor.Position.y)
+        //            .Count() > 0)
+        //        {
+        //            continue;
+        //        }
         //        var openNode = openSet.FirstOrDefault(node => node.Position == successor.Position);
-        //        if (openNode != null)
-        //        {
-        //            if (openNode.FullLength <= currentNode.FullLength)
-        //            {
-        //                continue;
-        //            }
-        //            openSet.Remove(openNode);
-        //        }
 
-        //        var closedNode = closedSet.FirstOrDefault(node => node.Position == successor.Position);
-        //        if (closedNode != null)
+        //        if (openNode == null)
         //        {
-        //            if (closedNode.FullLength <= currentNode.FullLength)
-        //            {
-        //                continue;
-        //            }
-        //            closedSet.Remove(closedNode);
+        //            openSet.Add(successor);
         //        }
-        //        openSet.Add(successor);
+        //        else if (openNode.LengthFromStart >= successor.LengthFromStart)
+        //        {
+        //            openNode.CameFrom = currentNode;
+        //            openNode.LengthFromStart = successor.LengthFromStart;
+        //        }
         //    }
-        //    closedSet.Add(currentNode);
         //}
+
+        while (openSet.Count > 0)
+        {
+            var currentNode = openSet.OrderBy(node => node.FullLength).First();
+            openSet.Remove(currentNode);
+            if (currentNode.Position == goal) { return GetPathForNode(currentNode).Reverse().ToArray(); }
+            foreach (var successor in GetSuccessors(currentNode, goal))
+            {
+                var openNode = openSet.FirstOrDefault(node => node.Position == successor.Position);
+                if (openNode != null)
+                {
+                    if (openNode.FullLength <= currentNode.FullLength)
+                    {
+                        continue;
+                    }
+                    openSet.Remove(openNode);
+                }
+
+                var closedNode = closedSet.FirstOrDefault(node => node.Position == successor.Position);
+                if (closedNode != null)
+                {
+                    if (closedNode.FullLength <= currentNode.FullLength)
+                    {
+                        continue;
+                    }
+                    closedSet.Remove(closedNode);
+                }
+                openSet.Add(successor);
+            }
+            closedSet.Add(currentNode);
+        }
 
         return null;
     }
@@ -101,13 +105,17 @@ public class ShortestPath
 
     private IEnumerable<Node> GetSuccessors(Node node, Vector3 goal)
     {
-        var expectedSuccessors = new HashSet<VectorShortestPath>
-            {
-                new VectorShortestPath(new Vector3(node.Position.x + Step.x, node.Position.y), Step.x),
-                new VectorShortestPath(new Vector3(node.Position.x - Step.x, node.Position.y), Step.x),
-                new VectorShortestPath(new Vector3(node.Position.x, node.Position.y + Step.y), Step.y),
-                new VectorShortestPath(new Vector3(node.Position.x, node.Position.y - Step.y), Step.y),
-            };
+        IEnumerable<VectorShortestPath> expectedSuccessors = new List<VectorShortestPath>();
+        expectedSuccessors = expectedSuccessors.AddIfNotNull(TryCreateSuccessor(new Vector3(node.Position.x + BoardManager.TileSizeX, node.Position.y), BoardManager.TileSizeX));
+        expectedSuccessors = expectedSuccessors.AddIfNotNull(TryCreateSuccessor(new Vector3(node.Position.x - BoardManager.TileSizeX, node.Position.y), BoardManager.TileSizeX));
+        expectedSuccessors = expectedSuccessors.AddIfNotNull(TryCreateSuccessor(new Vector3(node.Position.x, node.Position.y + BoardManager.TileSizeY), BoardManager.TileSizeY));
+        expectedSuccessors = expectedSuccessors.AddIfNotNull(TryCreateSuccessor(new Vector3(node.Position.x, node.Position.y - BoardManager.TileSizeY), BoardManager.TileSizeY));
+        //{
+        //    new VectorShortestPath(new Vector3(node.Position.x + Step.x, node.Position.y), Step.x),
+        //    new VectorShortestPath(new Vector3(node.Position.x - Step.x, node.Position.y), Step.x),
+        //    new VectorShortestPath(new Vector3(node.Position.x, node.Position.y + Step.y), Step.y),
+        //    new VectorShortestPath(new Vector3(node.Position.x, node.Position.y - Step.y), Step.y),
+        //};
 
         foreach (var point in expectedSuccessors)
         {
@@ -124,12 +132,28 @@ public class ShortestPath
         }
     }
 
+    private VectorShortestPath TryCreateSuccessor(Vector3 position, float movementCost)
+    {
+        if (IsPositionAvailable(position))
+        {
+            return new VectorShortestPath(position, movementCost);
+        }
+        return null;
+    }
+
     //todo: add logic
     private bool IsPositionAvailable(Vector3 position)
     {
-        return !Tiles
-             .Where(t => t.TileType == TileType.Obstruction && t.Position == position)
-             .Any();
+        //return Tiles
+        //     .Any(t => t.TileType == TileType.Ground && t.Position == position);
+        //var tile = BoardManager.Tiles.FirstOrDefault(t => t.Position == position);
+        //return tile?.TileType == TileType.Ground;
+        if (BoardManager.MinX <= position.x && position.x <= BoardManager.MaxX
+            && BoardManager.MinY <= position.y && position.y <= BoardManager.MaxY)
+        {
+            return BoardManager.Tiles[position] == TileType.Ground;
+        }
+        return false;
     }
 }
 
