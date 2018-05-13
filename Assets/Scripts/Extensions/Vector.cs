@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EpPathFinding.cs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,13 @@ public static partial class Extensions
         .OrderBy(p => (p - position).sqrMagnitude)
         .FirstOrDefault();
 
-    public static KeyValuePair<Vector3, TileType> GetClosestTile(Vector3 position, Dictionary<Vector3, TileType> tiles) => tiles
+    public static KeyValuePair<Vector3, TileType> GetClosestTile(Vector3 position, Dictionary<Vector3, TileType> grid) => grid
         .OrderBy(t => (t.Key - position).sqrMagnitude)
         .FirstOrDefault(t => t.Value != TileType.Obstruction);
+
+    public static KeyValuePair<Vector3, EpPathFinding.cs.Node> GetClosestPosition(Vector3 position, Dictionary<Vector3, EpPathFinding.cs.Node> grid) => grid
+        .OrderBy(n => (n.Key - position).sqrMagnitude)
+        .FirstOrDefault(n => n.Value.walkable);
 
     //TODO:add get closest ground tile
     public static Vector3 DirectionFromAngle(this Transform transform, float angleInDegrees, bool angleIsGlobal)

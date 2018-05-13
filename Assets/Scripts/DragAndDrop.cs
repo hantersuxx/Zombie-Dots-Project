@@ -34,7 +34,7 @@ public class DragAndDrop : MonoBehaviour
     {
         if (ClickEnable)
         {
-            transform.position = Extensions.GetClosestTile(transform.position, BoardManager.Instance.Tiles).Key;
+            transform.position = Extensions.GetClosestPosition(transform.position, BoardManager.Instance.GridDictionary).Key;
             Controller.SetupAI(true);
 
             ClickEnable = false;

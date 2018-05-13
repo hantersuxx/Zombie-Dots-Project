@@ -12,17 +12,11 @@ public class MoveAction : Action
 
     private void Move(StateController controller)
     {
-        if (controller.NextWaypoint < controller.WaypointList.Length && controller.MovementAgent.MoveTo(controller.WaypointList[controller.NextWaypoint]))
+        if (controller.WaypointList.Count != 0 && !controller.MovementAgent.InMove)
         {
-            controller.NextWaypoint++;
+            var dequeued = controller.WaypointList.Dequeue();
+            var curDest = new Vector3(dequeued.x, dequeued.y);
+            controller.MovementAgent.MoveTo(new Vector3(curDest.x, curDest.y));
         }
-        else
-        {
-            controller.NextWaypoint = 0;
-        }
-        //if (controller.transform.position == controller.MovementAgent.Destination && controller.NextWaypoint < controller.WaypointList.Count)
-        //{
-        //    controller.NextWaypoint++;
-        //}
     }
 }

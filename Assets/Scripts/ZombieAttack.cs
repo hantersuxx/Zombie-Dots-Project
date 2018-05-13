@@ -14,7 +14,7 @@ public class ZombieAttack : MonoBehaviour
         TimerSeconds += Time.deltaTime;
         if (collision.gameObject.tag == Tags.Human)
         {
-            if (TimerSeconds >= 0.75f)
+            if (TimerSeconds >= 1.5f)
             {
                 Instantiate(gameObject, collision?.transform?.position, Quaternion.identity);
                 Destroy(collision.gameObject);
@@ -27,6 +27,6 @@ public class ZombieAttack : MonoBehaviour
     private void Instantiate(GameObject gameObject, Vector3? position, Quaternion identity)
     {
         var instance = Instantiate<GameObject>(gameObject, position.Value, identity);
-        instance.GetComponent<StateController>().SetupAI(true);
+        instance.GetComponent<ZombieController>().SetupAI(true);
     }
 }

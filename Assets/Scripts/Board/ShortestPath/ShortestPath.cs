@@ -7,15 +7,17 @@ using UnityEngine;
 public class ShortestPath
 {
     private BoardManager BoardManager { get; }
+    public Dictionary<Vector3, TileType> Tiles { get; }
 
-    public ShortestPath(BoardManager boardManager)
+    public ShortestPath(BoardManager boardManager, Dictionary<Vector3, TileType> tiles)
     {
         BoardManager = boardManager;
+        Tiles = tiles;
     }
 
     public Vector3[] GetPath(Vector3 start, Vector3 goal)
     {
-        var positions = BoardManager.Tiles.Select(t => t.Key);
+        var positions = Tiles.Select(t => t.Key);
         start = Extensions.GetClosestPosition(start, positions);
         goal = Extensions.GetClosestPosition(goal, positions);
         var closedSet = new List<Node>();
@@ -141,17 +143,12 @@ public class ShortestPath
         return null;
     }
 
-    //todo: add logic
     private bool IsPositionAvailable(Vector3 position)
     {
-        //return Tiles
-        //     .Any(t => t.TileType == TileType.Ground && t.Position == position);
-        //var tile = BoardManager.Tiles.FirstOrDefault(t => t.Position == position);
-        //return tile?.TileType == TileType.Ground;
         if (BoardManager.MinX <= position.x && position.x <= BoardManager.MaxX
             && BoardManager.MinY <= position.y && position.y <= BoardManager.MaxY)
         {
-            return BoardManager.Tiles[position] == TileType.Ground;
+            return Tiles[position] == TileType.Ground;
         }
         return false;
     }

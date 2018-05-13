@@ -7,28 +7,29 @@ public class MovementAgent : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-    //[SerializeField]
-    //private Transform eyes;
 
     public float Speed => speed;
     private Vector3? CurrentDestination { get; set; } = null;
-    private bool InMove { get; set; } = false;
-    private delegate void MovementStateHandler(bool state);
+    public bool InMove { get; private set; } = false;
+    private delegate void MovementStateHandler();
     private event MovementStateHandler OnMovementStarted;
     private event MovementStateHandler OnMovementEnded;
 
-    void Start()
+    void Awake()
     {
-        OnMovementStarted += SetMovementState;
-        OnMovementEnded += SetMovementState;
+        OnMovementStarted += OnMovementStartedAction;
+        OnMovementEnded += OnMovementEndedAction;
     }
 
-    void Update()
+    private IEnumerator MovementCoroutine()
     {
-        if (CurrentDestination != null && !InMove)
+        OnMovementStarted();
+        while (transform.position != CurrentDestination)
         {
-            StartCoroutine(MovementCoroutine());
+            transform.position = Vector3.MoveTowards(transform.position, CurrentDestination.Value, Speed * Time.deltaTime);
+            yield return null;
         }
+        OnMovementEnded();
     }
 
     public bool MoveTo(Vector3 destination)
@@ -36,20 +37,10 @@ public class MovementAgent : MonoBehaviour
         if (CurrentDestination == null && !InMove)
         {
             CurrentDestination = destination;
+            StartCoroutine(MovementCoroutine());
             return true;
         }
         return false;
-    }
-
-    private IEnumerator MovementCoroutine()
-    {
-        OnMovementStarted(true);
-        while (transform.position != CurrentDestination)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, CurrentDestination.Value, Speed * Time.deltaTime);
-            yield return null;
-        }
-        OnMovementEnded(false);
     }
 
     public void StopMovement()
@@ -59,17 +50,16 @@ public class MovementAgent : MonoBehaviour
         StopAllCoroutines();
     }
 
-    private void SetMovementState(bool state)
+    private void OnMovementStartedAction()
     {
-        InMove = state;
-        if (!state)
-        {
-            CurrentDestination = null;
-        }
-        else
-        {
-            RotateToDirection();
-        }
+        InMove = true;
+        RotateToDirection();
+    }
+
+    private void OnMovementEndedAction()
+    {
+        InMove = false;
+        CurrentDestination = null;
     }
 
     private void RotateToDirection()

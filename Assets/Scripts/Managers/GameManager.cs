@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private GameObject human;
 
     public static GameManager Instance { get; set; } = null;
+    public GameObject Vault { get; private set; }
 
     private void Awake()
     {
@@ -23,21 +24,35 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-
+        Vault = GameObject.FindGameObjectWithTag(Tags.Vault.ToString());
         //var bottom = BoardManager.Tiles.Where(t => t.Key.x == 0f).OrderBy(t => t.Key.y).First();
-        var bottom = new Vector3(0, BoardManager.Instance.MinY);
-        var chaseTarget = GameObject.FindGameObjectWithTag(Tags.Vault.ToString());
-        chaseTarget.transform.position = bottom;
+        var bottom = new Vector3(BoardManager.Instance.MaxX / 2, BoardManager.Instance.MinY);
+        Vault.transform.position = bottom;
 
-        SpawnPrefab(zombie, new Vector3(10, 4));
-        SpawnPrefab(zombie, new Vector3(-10, 4));
-        SpawnPrefab(human, new Vector3(8, 3));
+        StartCoroutine(SpawnCycle(0.1f));
+    }
+
+    private IEnumerator SpawnCycle(float delay)
+    {
+        for (int i = 0; i <= 2; i++)
+        {
+
+            SpawnPrefab(zombie, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            SpawnPrefab(human, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            yield return new WaitForSeconds(delay);
+        }
     }
 
     private void SpawnPrefab(GameObject prefab, Vector3 position)
     {
-        var chaseTarget = GameObject.FindGameObjectWithTag(Tags.Vault.ToString()).transform;
         var spawned = Instantiate(prefab, position, Quaternion.identity);
-        spawned.GetComponent<StateController>().SetupAI(true);
+        if (spawned.tag == Tags.Human)
+        {
+            spawned.GetComponent<HumanController>().SetupAI(true);
+        }
+        else if (spawned.tag == Tags.Zombie)
+        {
+            spawned.GetComponent<ZombieController>().SetupAI(true);
+        }
     }
 }
