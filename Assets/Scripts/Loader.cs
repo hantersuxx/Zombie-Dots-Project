@@ -25,7 +25,7 @@ public class Loader : MonoBehaviour
     private void SetupCamera()
     {
         var camera = GetComponent<Camera>();
-        float tileSizeInPixels = 64f;
+        float tileSizeInPixels = 32f;
         //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
         camera.orthographicSize = tileSizeInPixels * Screen.height / Screen.width * 0.25f;
         float aspectRatio = camera.aspect; //(width divided by height)

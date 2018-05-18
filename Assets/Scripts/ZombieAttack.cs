@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ZombieAttack : MonoBehaviour
 {
+    public VaultHealth VaultHealth => GameManager.Instance.Vault.GetComponent<VaultHealth>();
     bool IsTimerActive { get; set; } = false;
     float TimerSeconds { get; set; } = 0;
 
@@ -12,15 +13,22 @@ public class ZombieAttack : MonoBehaviour
     {
         IsTimerActive = true;
         TimerSeconds += Time.deltaTime;
-        if (collision.gameObject.tag == Tags.Human)
+        if (collision.gameObject.tag == Tags.Vault)
         {
-            if (TimerSeconds >= 1.5f)
+            VaultHealth.TakeDamage(1);
+            StateController.DestroyInstance(gameObject);
+        }
+        else if (TimerSeconds >= 1.5f)
+        {
+            if (collision.gameObject.tag == Tags.Human)
             {
                 Instantiate(gameObject, collision?.transform?.position, Quaternion.identity);
-                Destroy(collision.gameObject);
+                StateController.DestroyInstance(collision.gameObject);
                 TimerSeconds = 0;
             }
         }
+
+
         IsTimerActive = false;
     }
 

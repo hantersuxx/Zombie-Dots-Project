@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class GameManager : MonoBehaviour
     private GameObject zombie;
     [SerializeField]
     private GameObject human;
+    [SerializeField]
+    private Text scoreText;
 
     public static GameManager Instance { get; set; } = null;
     public GameObject Vault { get; private set; }
+    public int Score { get; private set; }
+    public Text ScoreText => scoreText;
 
     private void Awake()
     {
@@ -23,7 +28,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         Vault = GameObject.FindGameObjectWithTag(Tags.Vault.ToString());
         //var bottom = BoardManager.Tiles.Where(t => t.Key.x == 0f).OrderBy(t => t.Key.y).First();
         var bottom = new Vector3(BoardManager.Instance.MaxX / 2, BoardManager.Instance.MinY);
@@ -54,5 +59,16 @@ public class GameManager : MonoBehaviour
         {
             spawned.GetComponent<ZombieController>().SetupAI(true);
         }
+    }
+
+    public void AddScore(int addValue)
+    {
+        Score += addValue;
+        UpdateScore();
+    }
+
+    private void UpdateScore()
+    {
+        ScoreText.text = $"Score: {Score}";
     }
 }

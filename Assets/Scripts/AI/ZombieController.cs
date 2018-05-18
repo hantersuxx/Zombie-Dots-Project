@@ -9,7 +9,7 @@ public class ZombieController : StateController
     {
         get
         {
-            base.WaypointList = GetWaypointList(transform?.position, ChaseTarget?.position);
+            base.WaypointList = GetWaypointList(transform.position, ChaseTarget.position);
             base.WaypointList.Dequeue();
             return base.WaypointList;
         }

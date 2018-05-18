@@ -5,38 +5,72 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
-    public StateController Controller => GetComponent<StateController>();
+    public StateController Controller { get; private set; }
+    public Camera Camera => Camera.allCameras[0];
+    public Vector3 ScreenPoint { get; private set; }
+    public Vector3 Offset { get; private set; }
+    public float DoubleClickTimeout => 0.25f;
+    public bool ClickEnable { get; private set; } = true;
+    public bool DoubleClick { get; private set; } = false;
+    public bool DragAllowed { get; private set; } = false;
+    public GameObject GameObject { get; private set; } = null;
 
-    private Camera Camera => Camera.allCameras[0];
-
-    private Vector3 ScreenPoint { get; set; }
-    private Vector3 Offset { get; set; }
-    private float DoubleClickTimeout => 0.25f;
-    private bool ClickEnable { get; set; } = true;
-    private bool DoubleClick { get; set; } = false;
-
-    void OnMouseDown()
+    private void Update()
     {
-        Controller.SetupAI(false);
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            Vector3 touchPosition = Camera.ScreenToWorldPoint(touch.position);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    OnTouchBegan(touchPosition);
+                    break;
+                case TouchPhase.Moved:
+                    OnTouchMoved(touchPosition);
+                    break;
+                case TouchPhase.Ended:
+                    OnTouchEnded();
+                    break;
+            }
 
-        ScreenPoint = Camera.WorldToScreenPoint(gameObject.transform.position);
-        Offset = gameObject.transform.position - Camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, ScreenPoint.z));
+        }
     }
 
-    void OnMouseDrag()
+    private void OnTouchBegan(Vector3 touchPosition)
     {
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, ScreenPoint.z);
-        Vector3 curPosition = Camera.ScreenToWorldPoint(curScreenPoint) + Offset;
-        transform.position = new Vector3(curPosition.x, curPosition.y, transform.position.z);
+        var hit = Physics2D.OverlapCircle(touchPosition, 1f);
+        if (hit.tag == Tags.Human || hit.tag == Tags.Zombie)
+        {
+            GameObject = hit.gameObject;
+            Controller = GameObject.GetComponent<StateController>();
+            Controller.SetupAI(false);
+            ScreenPoint = Camera.WorldToScreenPoint(GameObject.transform.position);
+            Offset = GameObject.transform.position - Camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, ScreenPoint.z));
+            DragAllowed = true;
+        }
     }
 
-    void OnMouseUp()
+    private void OnTouchMoved(Vector3 touchPosition)
     {
+        if (DragAllowed)
+        {
+            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, ScreenPoint.z);
+            Vector3 curPosition = Camera.ScreenToWorldPoint(curScreenPoint) + Offset;
+            GameObject.transform.position = new Vector3(touchPosition.x, touchPosition.y, GameObject.transform.position.z);
+        }
+    }
+
+    private void OnTouchEnded()
+    {
+        if (DragAllowed)
+        {
+            GameObject.transform.position = Extensions.GetClosestPosition(GameObject.transform.position, BoardManager.Instance.GridDictionary).Key;
+            Controller.SetupAI(true);
+            DragAllowed = false;
+        }
         if (ClickEnable)
         {
-            transform.position = Extensions.GetClosestPosition(transform.position, BoardManager.Instance.GridDictionary).Key;
-            Controller.SetupAI(true);
-
             ClickEnable = false;
             StartCoroutine(TrapDoubleClicks(DoubleClickTimeout));
         }
@@ -67,6 +101,7 @@ public class DragAndDrop : MonoBehaviour
         }
 
         ClickEnable = true;
+        GameObject = null;
         yield return 0;
     }
 
@@ -77,6 +112,6 @@ public class DragAndDrop : MonoBehaviour
 
     protected virtual void OnDoubleClick()
     {
-        Destroy(gameObject);
+        StateController.DestroyInstance(GameObject);
     }
 }

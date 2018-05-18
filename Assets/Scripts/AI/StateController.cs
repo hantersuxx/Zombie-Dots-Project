@@ -13,21 +13,15 @@ public abstract class StateController : MonoBehaviour
     [SerializeField]
     private Stats stats;
 
-    public virtual State CurrentState { get; private set; }
-    public virtual State RemainState { get; private set; }
-    public virtual Stats Stats => stats;
-    public virtual Transform Eyes { get; private set; }
-    public virtual MovementAgent MovementAgent { get; private set; }
-    public virtual FieldOfView FOV { get; private set; }
-    //public virtual Queue<GridPos> WaypointList => GetWaypointList(transform.position, ChaseTarget.position);
-
-    //private Queue<GridPos> waypointList = new Queue<GridPos>();
-
+    public State CurrentState { get; private set; }
+    public State RemainState { get; private set; }
+    public Stats Stats => stats;
+    public Transform Eyes { get; private set; }
+    public MovementAgent MovementAgent { get; private set; }
+    public FieldOfView FOV { get; private set; }
     public virtual Queue<GridPos> WaypointList { get; set; } = new Queue<GridPos>();
-
-    //public virtual int NextWaypoint { get; set; } = 0;
     private bool IsAIActive { get; set; } = false;
-    public virtual Transform ChaseTarget { get; set; }
+    public Transform ChaseTarget { get; set; }
 
     protected virtual void Awake()
     {
@@ -91,11 +85,18 @@ public abstract class StateController : MonoBehaviour
             CurrentState = nextState;
         }
     }
-    public virtual Queue<GridPos> GetWaypointList(Vector3? start, Vector3? end)
+
+    public virtual Queue<GridPos> GetWaypointList(Vector3 start, Vector3 end)
     {
-        Vector3Int? startPos = Vector3Int.CeilToInt(start.Value);
-        Vector3Int? endPos = Vector3Int.CeilToInt(end.Value);
-        BoardManager.Instance.JumpPointParam.Reset(new GridPos(startPos.Value.x, startPos.Value.y), new GridPos(endPos.Value.x, endPos.Value.y), BoardManager.Instance.Grid);
+        Vector3Int startPos = Vector3Int.CeilToInt(start);
+        Vector3Int endPos = Vector3Int.CeilToInt(end);
+        BoardManager.Instance.JumpPointParam.Reset(new GridPos(startPos.x, startPos.y), new GridPos(endPos.x, endPos.y), BoardManager.Instance.Grid);
         return new Queue<GridPos>(JumpPointFinder.FindPath(BoardManager.Instance.JumpPointParam));
+    }
+
+    public static void DestroyInstance(GameObject gameObject)
+    {
+        gameObject.GetComponent<StateController>().SetupAI(false);
+        Destroy(gameObject);
     }
 }
