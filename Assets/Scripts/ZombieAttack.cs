@@ -5,20 +5,28 @@ using UnityEngine;
 
 public class ZombieAttack : MonoBehaviour
 {
+    [SerializeField]
+    private float turnToZombieTimeout = 1.5f;
+    [SerializeField]
+    private int attackAmount = 1;
+
+    public float TurnToZombieTimeout => turnToZombieTimeout;
+    public int AttackAmount => attackAmount;
     public VaultHealth VaultHealth => GameManager.Instance.Vault.GetComponent<VaultHealth>();
-    bool IsTimerActive { get; set; } = false;
-    float TimerSeconds { get; set; } = 0;
+    public bool IsTimerActive { get; private set; } = false;
+    public float TimerSeconds { get; private set; } = 0;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         IsTimerActive = true;
         TimerSeconds += Time.deltaTime;
+
         if (collision.gameObject.tag == Tags.Vault)
         {
-            VaultHealth.TakeDamage(1);
+            VaultHealth.TakeDamage(AttackAmount);
             StateController.DestroyInstance(gameObject);
         }
-        else if (TimerSeconds >= 1.5f)
+        else if (TimerSeconds >= TurnToZombieTimeout)
         {
             if (collision.gameObject.tag == Tags.Human)
             {
@@ -27,7 +35,6 @@ public class ZombieAttack : MonoBehaviour
                 TimerSeconds = 0;
             }
         }
-
 
         IsTimerActive = false;
     }

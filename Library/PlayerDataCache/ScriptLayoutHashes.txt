@@ -121,6 +121,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MoveAction
 2b35d0d7ff6c49eb7c4a2c2dc4083a1b Assembly-CSharp.dll:.FieldOfView
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Restart
 93aa1785d02bb3b473637ad35619fbad Assembly-CSharp.dll:.VaultHealth
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LookDecision
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -138,7 +139,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 c3c25168fbe861192461ec53fa9a66f5 Assembly-CSharp.dll:.ZombieController
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ZombieAttack
+787809d2abcb74de4ab0eeba20870655 Assembly-CSharp.dll:.ZombieAttack
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 f02726adeff0a3ec5905565234b372da UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
@@ -161,6 +162,5 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 c3c25168fbe861192461ec53fa9a66f5 Assembly-CSharp.dll:.HumanController
 cecff3ea538342ecefc400c60a04144b Assembly-CSharp.dll:.ScalableCamera
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DragAndDrop
+4900f84a66baf56821a557db3d281fe3 Assembly-CSharp.dll:.InputHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ActiveStateDecision
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Restart

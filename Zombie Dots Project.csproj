@@ -657,7 +657,6 @@
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\Node.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\VectorShortestPath.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\ShortestPath.cs" />
-    <Compile Include="Assets\Scripts\DragAndDrop.cs" />
     <Compile Include="Assets\Scripts\DragAndDropZombie.cs" />
     <Compile Include="Assets\Scripts\Extensions\Camera.cs" />
     <Compile Include="Assets\Scripts\Extensions\Convert.cs" />
@@ -666,6 +665,7 @@
     <Compile Include="Assets\Scripts\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\FieldOfViewEditor.cs" />
     <Compile Include="Assets\Scripts\HUDFPS.cs" />
+    <Compile Include="Assets\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
     <Compile Include="Assets\Scripts\Managers\BoardManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
