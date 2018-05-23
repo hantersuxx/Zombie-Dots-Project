@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IPooledObject
 {
     void OnObjectSpawn(object transferValue);
+    void Destroy();
 }

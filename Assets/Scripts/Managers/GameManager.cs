@@ -44,10 +44,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i <= 2; i++)
         {
 
-            CreateObject(ZombiePrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
-            CreateObject(HumanPrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            //CreateObject(ZombiePrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            //CreateObject(HumanPrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
             //CreateObject(ZombiePrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MinX), BoardManager.Instance.MaxY));
             //CreateObject(HumanPrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MinX), BoardManager.Instance.MaxY));
+            ObjectPooler.Instance.SpawnFromPool(Tags.Zombie, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            ObjectPooler.Instance.SpawnFromPool(Tags.Human, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
             yield return new WaitForSeconds(delay);
         }
     }

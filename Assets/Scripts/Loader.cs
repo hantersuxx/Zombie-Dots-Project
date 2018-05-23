@@ -6,15 +6,19 @@ using UnityEngine;
 public class Loader : MonoBehaviour
 {
     [SerializeField]
+    private GameObject objectPooler;
+    [SerializeField]
     private GameObject boardManager;
     [SerializeField]
     private GameObject gameManager;
-    [SerializeField]
-    private GameObject objectPooler;
 
     private void Awake()
     {
         SetupCamera();
+        if (ObjectPooler.Instance == null)
+        {
+            Instantiate(objectPooler);
+        }
         if (BoardManager.Instance == null)
         {
             Instantiate(boardManager);
@@ -22,10 +26,6 @@ public class Loader : MonoBehaviour
         if (GameManager.Instance == null)
         {
             Instantiate(gameManager);
-        }
-        if (ObjectPooler.Instance == null)
-        {
-            Instantiate(objectPooler);
         }
     }
 

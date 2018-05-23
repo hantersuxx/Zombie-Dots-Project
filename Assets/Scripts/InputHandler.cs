@@ -6,16 +6,17 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     [SerializeField]
-    private float dragRadius = 0.7f;
+    private float dragRadius = 0.75f;
     [SerializeField]
-    private float doubleTapTimeout = 0.25f;
+    private float doubleTapTimeout = 0.3f;
     [SerializeField]
-    private GameObject creatureParticle;
+    private int particleCount = 20;
 
     public StateController Controller { get; private set; }
     public Camera Camera => Camera.allCameras[0];
     public float DragRadius => dragRadius;
     public float DoubleTapTimeout => doubleTapTimeout;
+    public int ParticleCount => particleCount;
     public float LastTapTime { get; private set; } = 0f;
     public GameObject DragObject { get; private set; } = null;
     public bool DropAllowed { get; private set; } = false;
@@ -43,7 +44,7 @@ public class InputHandler : MonoBehaviour
         //TODO: delete
         if (Input.GetKey(KeyCode.Space))
         {
-            var instance = ObjectPooler.Instance.SpawnFromPool(PoolTags.CreatureParticle, new Vector3(2, 2));
+            var instance = ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, new Vector3(2, 2));
         }
     }
 
@@ -98,23 +99,42 @@ public class InputHandler : MonoBehaviour
 
     protected virtual void OnDoubleTap()
     {
-        GameManager.Instance.DestroyObject(DragObject);
+        DestroyCreature();
         CreateParticles(DragObject);
     }
 
+    private void DestroyCreature()
+    {
+        if (gameObject.tag == Tags.Zombie)
+        {
+            ObjectPooler.Instance.Destroy(Tags.Zombie, DragObject);
+        }
+        else if (gameObject.tag == Tags.Human)
+        {
+            ObjectPooler.Instance.Destroy(Tags.Human, DragObject);
+        }
+    }
 
     private void CreateParticles(GameObject gameObject)
     {
-        for (int i = 0; i <= 20; i++)
+        for (int i = 0; i <= ParticleCount; i++)
         {
             if (gameObject.tag == Tags.Zombie)
             {
-                ObjectPooler.Instance.SpawnFromPool(PoolTags.CreatureParticle, gameObject.transform.position, "#ff0000");
+                ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, gameObject.transform.position, "#ff0000");
             }
             else if (gameObject.tag == Tags.Human)
             {
-                ObjectPooler.Instance.SpawnFromPool(PoolTags.CreatureParticle, gameObject.transform.position, "#00ff00");
+                ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, gameObject.transform.position, "#00ff00");
             }
         }
     }
 }
+
+
+//zomb #f44242
+//hum #00ffb9
+
+
+//zomb #ff0000
+//hum #00ff00

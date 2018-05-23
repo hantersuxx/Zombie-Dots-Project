@@ -8,6 +8,7 @@ public class ActiveStateDecision : Decision
     public override bool Decide(StateController controller)
     {
         if (controller.ChaseTarget == null
+            || !controller.ChaseTarget.gameObject.activeInHierarchy
             || !BoardManager.Instance.GridDictionary.GetClosestPosition(controller.ChaseTarget.position).Value.walkable)
         {
             return false;

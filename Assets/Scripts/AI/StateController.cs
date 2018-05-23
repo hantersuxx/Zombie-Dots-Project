@@ -53,7 +53,7 @@ public abstract class StateController : MonoBehaviour
         }
     }
 
-    public virtual void SetupAI(bool aiActivation)
+    public void SetupAI(bool aiActivation)
     {
         if (aiActivation)
         {

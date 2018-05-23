@@ -16,6 +16,8 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
     private int minY = -100;
     [SerializeField]
     private int maxY = 100;
+    [SerializeField]
+    private float timeToDestroy = 10f;
 
     public float MinSpeed => minSpeed;
     public float MaxSpeed => maxSpeed;
@@ -23,11 +25,18 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
     public int MaxX => maxX;
     public int MinY => minY;
     public int MaxY => maxY;
+    public float TimeToDestroy => timeToDestroy;
+    public MovementAgent MovementAgent { get; private set; }
+
+    private void Awake()
+    {
+        MovementAgent = gameObject.GetComponent<MovementAgent>();
+    }
 
     public void OnObjectSpawn(object transfer)
     {
-        gameObject.GetComponent<MovementAgent>().Speed = Random.Range(MinSpeed, MaxSpeed);
-        gameObject.GetComponent<MovementAgent>().MoveTo(new Vector3(Random.Range(MinX, MaxX), Random.Range(MinY, MaxY)));
+        MovementAgent.Speed = Random.Range(MinSpeed, MaxSpeed);
+        MovementAgent.MoveTo(new Vector3(Random.Range(MinX, MaxX), Random.Range(MinY, MaxY)));
         if (!string.IsNullOrEmpty(transfer?.ToString()))
         {
             Colorize(transfer.ToString());
@@ -40,7 +49,20 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
         ColorUtility.TryParseHtmlString(hexColor, out outColor);
         gameObject.GetComponent<SpriteRenderer>().color = outColor;
     }
-}
 
-//zomb #f44242
-//hum #00ffb9
+    private void OnEnable()
+    {
+        Invoke(nameof(Destroy), timeToDestroy);
+    }
+
+    private void OnDisable()
+    {
+        MovementAgent.StopMovement();
+        CancelInvoke();
+    }
+
+    public void Destroy()
+    {
+        gameObject.SetActive(false);
+    }
+}

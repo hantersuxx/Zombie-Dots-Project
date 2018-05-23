@@ -22,7 +22,7 @@ public class ZombieAttack : MonoBehaviour
         if (obj.tag == Tags.Vault)
         {
             VaultHealth.TakeDamage(AttackAmount);
-            GameManager.Instance.DestroyObject(gameObject);
+            ObjectPooler.Instance.Destroy(Tags.Zombie, gameObject);
         }
         else if (obj.tag == Tags.Human)
         {
@@ -33,8 +33,8 @@ public class ZombieAttack : MonoBehaviour
                 {
                     obj.SetActive(false);
                     Vector3 objPos = obj.transform.position;
-                    GameManager.Instance.DestroyObject(obj);
-                    GameManager.Instance.CreateObject(GameManager.Instance.ZombiePrefab, objPos);
+                    ObjectPooler.Instance.Destroy(Tags.Human, obj);
+                    ObjectPooler.Instance.SpawnFromPool(Tags.Zombie, objPos);
                     ResetTimer();
                 }
             }

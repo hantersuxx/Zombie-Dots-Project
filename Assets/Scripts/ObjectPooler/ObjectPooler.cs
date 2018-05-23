@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
@@ -18,56 +19,10 @@ public class ObjectPooler : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Init();
     }
 
     #endregion
-
-    [System.Serializable]
-    public class Pool
-    {
-        [SerializeField]
-        private string tag;
-        [SerializeField]
-        private GameObject prefab;
-        [SerializeField]
-        private int size;
-
-        public string Tag
-        {
-            get
-            {
-                return tag;
-            }
-            set
-            {
-                tag = value;
-            }
-        }
-
-        public GameObject Prefab
-        {
-            get
-            {
-                return prefab;
-            }
-            set
-            {
-                prefab = value;
-            }
-        }
-
-        public int Size
-        {
-            get
-            {
-                return size;
-            }
-            set
-            {
-                size = value;
-            }
-        }
-    }
 
     [SerializeField]
     private Dictionary<string, Queue<GameObject>> poolDictionary;
@@ -77,7 +32,7 @@ public class ObjectPooler : MonoBehaviour
     public Dictionary<string, Queue<GameObject>> PoolDictionary => poolDictionary;
     public List<Pool> Pools => pools;
 
-    private void Start()
+    private void Init()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (Pool pool in Pools)
@@ -115,5 +70,18 @@ public class ObjectPooler : MonoBehaviour
 
         PoolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
+    }
+
+    public void Destroy(string tag, GameObject gameObject)
+    {
+        if (!PoolDictionary.ContainsKey(tag))
+        {
+            Debug.LogWarning($"Pool with tag {tag} doesn't exist.");
+            return;
+        }
+
+        GameObject objectToDestroy = PoolDictionary[tag].FirstOrDefault(g => g == gameObject);
+        IPooledObject pooledObject = objectToDestroy?.GetComponent<IPooledObject>();
+        pooledObject?.Destroy();
     }
 }
