@@ -20,7 +20,7 @@ public abstract class StateController : MonoBehaviour
     public MovementAgent MovementAgent { get; private set; }
     public FieldOfView FOV { get; private set; }
     public virtual Queue<GridPos> WaypointList { get; set; } = new Queue<GridPos>();
-    private bool IsAIActive { get; set; } = false;
+    public bool IsActive { get; private set; } = false;
     public Transform ChaseTarget { get; set; }
 
     protected virtual void Awake()
@@ -36,9 +36,9 @@ public abstract class StateController : MonoBehaviour
         FOV = GetComponentInChildren<FieldOfView>();
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
-        if (IsAIActive)
+        if (IsActive)
         {
             CurrentState.UpdateState(this);
         }
@@ -63,7 +63,7 @@ public abstract class StateController : MonoBehaviour
         {
             OnAIDeactivated();
         }
-        IsAIActive = aiActivation;
+        IsActive = aiActivation;
     }
 
     protected virtual void OnAIActivated()
@@ -92,11 +92,5 @@ public abstract class StateController : MonoBehaviour
         Vector3Int endPos = Vector3Int.CeilToInt(end);
         BoardManager.Instance.JumpPointParam.Reset(new GridPos(startPos.x, startPos.y), new GridPos(endPos.x, endPos.y), BoardManager.Instance.Grid);
         return new Queue<GridPos>(JumpPointFinder.FindPath(BoardManager.Instance.JumpPointParam));
-    }
-
-    public static void DestroyInstance(GameObject gameObject)
-    {
-        gameObject.GetComponent<StateController>().SetupAI(false);
-        Destroy(gameObject);
     }
 }

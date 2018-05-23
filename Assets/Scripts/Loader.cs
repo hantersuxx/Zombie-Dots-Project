@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Loader : MonoBehaviour
@@ -8,6 +9,8 @@ public class Loader : MonoBehaviour
     private GameObject boardManager;
     [SerializeField]
     private GameObject gameManager;
+    [SerializeField]
+    private GameObject objectPooler;
 
     private void Awake()
     {
@@ -19,6 +22,10 @@ public class Loader : MonoBehaviour
         if (GameManager.Instance == null)
         {
             Instantiate(gameManager);
+        }
+        if (ObjectPooler.Instance == null)
+        {
+            Instantiate(objectPooler);
         }
     }
 

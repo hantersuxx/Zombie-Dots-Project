@@ -66,7 +66,7 @@ public class BoardManager : MonoBehaviour
             {
                 var position = new Vector3Int(x, y, 0);
                 var hasObstruction = Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), TileSizeX / 2f)
-                    .Any(t => t.gameObject.GetComponent<SpriteRenderer>().sortingLayerName == TileType.Obstruction.ToString());
+                    .Any(t => t.gameObject.GetComponent<SpriteRenderer>().sortingLayerName == SortingLayers.Obstruction);
                 Grid.SetWalkableAt(x, y, !hasObstruction);
                 GridDictionary.Add(new Vector3(x, y), Grid.GetNodeAt(x, y));
             }

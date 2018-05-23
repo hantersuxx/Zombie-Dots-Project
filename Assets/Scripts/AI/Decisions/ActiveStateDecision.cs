@@ -7,11 +7,8 @@ public class ActiveStateDecision : Decision
 {
     public override bool Decide(StateController controller)
     {
-        if (controller.ChaseTarget == null)
-        {
-            return false;
-        }
-        if (!Extensions.GetClosestPosition(controller.ChaseTarget.position, BoardManager.Instance.GridDictionary).Value.walkable)
+        if (controller.ChaseTarget == null
+            || !BoardManager.Instance.GridDictionary.GetClosestPosition(controller.ChaseTarget.position).Value.walkable)
         {
             return false;
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,19 +6,19 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     [SerializeField]
+    private float dragRadius = 0.7f;
+    [SerializeField]
     private float doubleTapTimeout = 0.25f;
     [SerializeField]
-    private float dragRadius = 0.75f;
+    private GameObject creatureParticle;
 
     public StateController Controller { get; private set; }
     public Camera Camera => Camera.allCameras[0];
-    //public Vector3 ScreenPoint { get; private set; }
-    public Vector3 Offset { get; private set; }
     public float DragRadius => dragRadius;
-    public bool DropAllowed { get; private set; } = false;
     public float DoubleTapTimeout => doubleTapTimeout;
     public float LastTapTime { get; private set; } = 0f;
     public GameObject DragObject { get; private set; } = null;
+    public bool DropAllowed { get; private set; } = false;
 
     private void Update()
     {
@@ -40,6 +39,12 @@ public class InputHandler : MonoBehaviour
                     break;
             }
         }
+
+        //TODO: delete
+        if (Input.GetKey(KeyCode.Space))
+        {
+            var instance = ObjectPooler.Instance.SpawnFromPool(PoolTags.CreatureParticle, new Vector3(2, 2));
+        }
     }
 
     private void OnTouchBegan(Vector3 touchPosition)
@@ -50,8 +55,6 @@ public class InputHandler : MonoBehaviour
             HandleTaps(hit.gameObject);
             DragObject = hit.gameObject;
             Controller = DragObject.GetComponent<StateController>();
-            //ScreenPoint = Camera.WorldToScreenPoint(DragObject.transform.position);
-            Offset = DragObject.transform.position - Camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
         }
     }
 
@@ -60,9 +63,7 @@ public class InputHandler : MonoBehaviour
         if (DragObject != null)
         {
             Controller.SetupAI(false);
-            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
-            Vector3 curPosition = Camera.ScreenToWorldPoint(curScreenPoint) + Offset;
-            DragObject.transform.position = new Vector3(touchPosition.x, touchPosition.y, DragObject.transform.position.z);
+            DragObject.transform.position = new Vector3(touchPosition.x, touchPosition.y);
             DropAllowed = true;
         }
     }
@@ -71,7 +72,7 @@ public class InputHandler : MonoBehaviour
     {
         if (DragObject != null && DropAllowed)
         {
-            DragObject.transform.position = Extensions.GetClosestPosition(DragObject.transform.position, BoardManager.Instance.GridDictionary).Key;
+            DragObject.transform.position = BoardManager.Instance.GridDictionary.GetClosestPosition(DragObject.transform.position).Key;
             Controller.SetupAI(true);
             DropAllowed = false;
             DragObject = null;
@@ -97,6 +98,23 @@ public class InputHandler : MonoBehaviour
 
     protected virtual void OnDoubleTap()
     {
-        StateController.DestroyInstance(DragObject);
+        GameManager.Instance.DestroyObject(DragObject);
+        CreateParticles(DragObject);
+    }
+
+
+    private void CreateParticles(GameObject gameObject)
+    {
+        for (int i = 0; i <= 20; i++)
+        {
+            if (gameObject.tag == Tags.Zombie)
+            {
+                ObjectPooler.Instance.SpawnFromPool(PoolTags.CreatureParticle, gameObject.transform.position, "#ff0000");
+            }
+            else if (gameObject.tag == Tags.Human)
+            {
+                ObjectPooler.Instance.SpawnFromPool(PoolTags.CreatureParticle, gameObject.transform.position, "#00ff00");
+            }
+        }
     }
 }

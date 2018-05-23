@@ -13,7 +13,7 @@ public class VaultHealth : MonoBehaviour
     [SerializeField]
     private Image damageImage;
     [SerializeField]
-    private float flashSpeed = 5f;
+    private float flashSpeed = 120f;
     [SerializeField]
     private Color flashColor = new Color(1f, 0f, 0f, 0.1f);
 

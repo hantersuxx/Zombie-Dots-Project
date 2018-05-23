@@ -7,9 +7,9 @@ using UnityEngine;
 public class ShortestPath
 {
     private BoardManager BoardManager { get; }
-    public Dictionary<Vector3, TileType> Tiles { get; }
+    public Dictionary<Vector3, string> Tiles { get; }
 
-    public ShortestPath(BoardManager boardManager, Dictionary<Vector3, TileType> tiles)
+    public ShortestPath(BoardManager boardManager, Dictionary<Vector3, string> tiles)
     {
         BoardManager = boardManager;
         Tiles = tiles;
@@ -148,7 +148,7 @@ public class ShortestPath
         if (BoardManager.MinX <= position.x && position.x <= BoardManager.MaxX
             && BoardManager.MinY <= position.y && position.y <= BoardManager.MaxY)
         {
-            return Tiles[position] == TileType.Ground;
+            return Tiles[position] == SortingLayers.Ground;
         }
         return false;
     }

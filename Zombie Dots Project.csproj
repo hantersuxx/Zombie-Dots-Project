@@ -657,7 +657,6 @@
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\Node.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\VectorShortestPath.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\ShortestPath.cs" />
-    <Compile Include="Assets\Scripts\DragAndDropZombie.cs" />
     <Compile Include="Assets\Scripts\Extensions\Camera.cs" />
     <Compile Include="Assets\Scripts\Extensions\Convert.cs" />
     <Compile Include="Assets\Scripts\Extensions\Enumerable.cs" />
@@ -670,8 +669,14 @@
     <Compile Include="Assets\Scripts\Managers\BoardManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\MovementAgent.cs" />
+    <Compile Include="Assets\Scripts\ObjectPooler\CreatureParticle.cs" />
+    <Compile Include="Assets\Scripts\ObjectPooler\DestroyScript.cs" />
+    <Compile Include="Assets\Scripts\ObjectPooler\IPooledObject.cs" />
+    <Compile Include="Assets\Scripts\ObjectPooler\ObjectPooler.cs" />
+    <Compile Include="Assets\Scripts\ObjectPooler\PoolTags.cs" />
     <Compile Include="Assets\Scripts\Restart.cs" />
     <Compile Include="Assets\Scripts\ScalableCamera.cs" />
+    <Compile Include="Assets\Scripts\SortingLayers.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
     <Compile Include="Assets\Scripts\VaultHealth.cs" />
     <Compile Include="Assets\Scripts\ZombieAttack.cs" />

@@ -7,15 +7,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject zombie;
+    private GameObject zombiePrefab;
     [SerializeField]
-    private GameObject human;
+    private GameObject humanPrefab;
     [SerializeField]
     private Text scoreText;
 
     public static GameManager Instance { get; set; } = null;
     public GameObject Vault { get; private set; }
     public int Score { get; private set; }
+    public GameObject ZombiePrefab => zombiePrefab;
+    public GameObject HumanPrefab => humanPrefab;
     public Text ScoreText => scoreText;
 
     private void Awake()
@@ -42,13 +44,15 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i <= 2; i++)
         {
 
-            SpawnPrefab(zombie, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
-            SpawnPrefab(human, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            CreateObject(ZombiePrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            CreateObject(HumanPrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MaxX + 1), BoardManager.Instance.MaxY));
+            //CreateObject(ZombiePrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MinX), BoardManager.Instance.MaxY));
+            //CreateObject(HumanPrefab, new Vector3(Random.Range(BoardManager.Instance.MinX, BoardManager.Instance.MinX), BoardManager.Instance.MaxY));
             yield return new WaitForSeconds(delay);
         }
     }
 
-    private void SpawnPrefab(GameObject prefab, Vector3 position)
+    public void CreateObject(GameObject prefab, Vector3 position)
     {
         var spawned = Instantiate(prefab, position, Quaternion.identity);
         if (spawned.tag == Tags.Human)
@@ -59,6 +63,12 @@ public class GameManager : MonoBehaviour
         {
             spawned.GetComponent<ZombieController>().SetupAI(true);
         }
+    }
+
+    public void DestroyObject(GameObject gameObject)
+    {
+        gameObject.GetComponent<StateController>().SetupAI(false);
+        Destroy(gameObject);
     }
 
     public void AddScore(int addValue)

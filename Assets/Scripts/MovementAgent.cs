@@ -6,9 +6,9 @@ using UnityEngine;
 public class MovementAgent : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    private float speed = 1f;
 
-    public float Speed => speed;
+    public float Speed { get; set; }
     private Vector3? CurrentDestination { get; set; } = null;
     public bool InMove { get; private set; } = false;
     private delegate void MovementStateHandler();
@@ -17,6 +17,7 @@ public class MovementAgent : MonoBehaviour
 
     void Awake()
     {
+        Speed = speed;
         OnMovementStarted += OnMovementStartedAction;
         OnMovementEnded += OnMovementEndedAction;
     }
