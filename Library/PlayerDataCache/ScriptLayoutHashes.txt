@@ -163,8 +163,8 @@ ad04d418936c381fe11a9e7eb0c008a1 Assembly-CSharp.dll:.CreatureParticle
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 c3c25168fbe861192461ec53fa9a66f5 Assembly-CSharp.dll:.HumanController
 cecff3ea538342ecefc400c60a04144b Assembly-CSharp.dll:.ScalableCamera
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Zombie
 8705bc9cd8620bfa62a25f07dffe8b16 Assembly-CSharp.dll:.InputHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ActiveStateDecision
-8657206ec92c09250175cd8350846b28 Assembly-CSharp.dll:.ObjectPooler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Human
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Zombie
+8657206ec92c09250175cd8350846b28 Assembly-CSharp.dll:.ObjectPooler

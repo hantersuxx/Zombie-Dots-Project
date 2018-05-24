@@ -6,7 +6,7 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     [SerializeField]
-    private float dragRadius = 0.75f;
+    private float dragRadius = 0.6f;
     [SerializeField]
     private float doubleTapTimeout = 0.3f;
     [SerializeField]
@@ -99,34 +99,22 @@ public class InputHandler : MonoBehaviour
 
     protected virtual void OnDoubleTap()
     {
-        DestroyCreature();
-        CreateParticles(DragObject);
-    }
-
-    private void DestroyCreature()
-    {
-        if (gameObject.tag == Tags.Zombie)
+        if (DragObject.tag == Tags.Zombie)
         {
-            ObjectPooler.Instance.Destroy(Tags.Zombie, DragObject);
+            DestroyCreature(Tags.Zombie, "#ff0000");
         }
-        else if (gameObject.tag == Tags.Human)
+        else if (DragObject.tag == Tags.Human)
         {
-            ObjectPooler.Instance.Destroy(Tags.Human, DragObject);
+            DestroyCreature(Tags.Human, "#00ff00");
         }
     }
 
-    private void CreateParticles(GameObject gameObject)
+    private void DestroyCreature(string tag, string hexColor)
     {
-        for (int i = 0; i <= ParticleCount; i++)
+        ObjectPooler.Instance.Destroy(tag, DragObject);
+        for (int i = 0; i < ParticleCount; i++)
         {
-            if (gameObject.tag == Tags.Zombie)
-            {
-                ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, gameObject.transform.position, "#ff0000");
-            }
-            else if (gameObject.tag == Tags.Human)
-            {
-                ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, gameObject.transform.position, "#00ff00");
-            }
+            ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, DragObject.transform.position, hexColor);
         }
     }
 }

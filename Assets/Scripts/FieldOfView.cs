@@ -13,11 +13,17 @@ public class FieldOfView : MonoBehaviour
     [SerializeField]
     private LayerMask obstacleMask;
 
-    public float ViewRange => viewRange;
-    public float ViewAngle => viewAngle;
+    public float ViewRange { get; set; }
+    public float ViewAngle { get; set; }
     public List<Transform> VisibleTargets { get; private set; } = new List<Transform>();
     public LayerMask TargetMask => targetMask;
     public LayerMask ObstacleMask => obstacleMask;
+    
+    private void Awake()
+    {
+        ViewRange = viewRange;
+        ViewAngle = viewAngle;
+    }
 
     private void Start()
     {

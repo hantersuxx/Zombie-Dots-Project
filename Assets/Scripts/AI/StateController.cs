@@ -1,6 +1,4 @@
 ﻿using EpPathFinding.cs;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,33 +8,40 @@ public abstract class StateController : MonoBehaviour
     private State currentState;
     [SerializeField]
     private State remainState;
-    [SerializeField]
-    private Stats stats;
 
     public State CurrentState { get; private set; }
     public State RemainState { get; private set; }
-    public Stats Stats => stats;
-    public Transform Eyes { get; private set; }
+    public Stats Stats { get; private set; }
+    //public Transform Eyes { get; private set; }
     public MovementAgent MovementAgent { get; private set; }
     public FieldOfView FOV { get; private set; }
     public virtual Queue<GridPos> WaypointList { get; set; } = new Queue<GridPos>();
     public bool IsActive { get; private set; } = false;
     public Transform ChaseTarget { get; set; }
 
-    protected virtual void Awake()
+    private void Awake()
     {
         CurrentState = currentState;
         RemainState = remainState;
     }
 
-    protected virtual void Start()
+    private void Start()
     {
-        Eyes = GetComponentInChildren<Transform>();
+        //Eyes = GetComponentInChildren<Transform>();
         MovementAgent = GetComponent<MovementAgent>();
         FOV = GetComponentInChildren<FieldOfView>();
+        Stats = GetComponent<Stats>();
+        Init();
     }
 
-    protected virtual void FixedUpdate()
+    private void Init()
+    {
+        MovementAgent.Speed = Stats.MoveSpeed;
+        FOV.ViewRange = Stats.ViewRange;
+        FOV.ViewAngle = Stats.ViewAngle;
+    }
+
+    private void FixedUpdate()
     {
         if (IsActive)
         {
@@ -44,14 +49,14 @@ public abstract class StateController : MonoBehaviour
         }
     }
 
-    protected virtual void OnDrawGizmos()
-    {
-        if (CurrentState != null && Eyes != null)
-        {
-            Gizmos.color = CurrentState.SceneGizmoColor;
-            Gizmos.DrawWireSphere(Eyes.position, Stats.lookSphereCastRadius);
-        }
-    }
+    //protected virtual void OnDrawGizmos()
+    //{
+    //    if (CurrentState != null && Eyes != null)
+    //    {
+    //        Gizmos.color = CurrentState.SceneGizmoColor;
+    //        Gizmos.DrawWireSphere(Eyes.position, Stats.lookSphereCastRadius);
+    //    }
+    //}
 
     public void SetupAI(bool aiActivation)
     {
@@ -66,19 +71,19 @@ public abstract class StateController : MonoBehaviour
         IsActive = aiActivation;
     }
 
-    protected virtual void OnAIActivated()
+    private void OnAIActivated()
     {
         ChaseTarget = GameManager.Instance.Vault.transform;
         WaypointList = GetWaypointList(transform.position, ChaseTarget.position);
     }
 
-    protected virtual void OnAIDeactivated()
+    private void OnAIDeactivated()
     {
         MovementAgent.StopMovement();
         ChaseTarget = null;
     }
 
-    public virtual void TransitionToState(State nextState)
+    public void TransitionToState(State nextState)
     {
         if (nextState != RemainState)
         {
