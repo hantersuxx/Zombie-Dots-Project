@@ -14,7 +14,6 @@ public class Human : MonoBehaviour, IPooledObject
     public void Destroy()
     {
         HumanController.SetupAI(false);
-        gameObject.SetActive(false);
     }
 
     public void OnObjectSpawn(object transferValue)

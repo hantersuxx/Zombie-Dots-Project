@@ -13,7 +13,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private float tileSizeY = 1f;
 
-    public static BoardManager Instance { get; set; } = null;
+    public static BoardManager Instance { get; private set; } = null;
 
     Camera Camera => Camera.allCameras[0];
 

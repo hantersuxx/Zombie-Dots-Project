@@ -8,34 +8,40 @@ public abstract class StateController : MonoBehaviour
     private State currentState;
     [SerializeField]
     private State remainState;
+    [SerializeField]
+    private Transform chaseTarget;
 
     public State CurrentState { get; private set; }
     public State RemainState { get; private set; }
     public Stats Stats { get; private set; }
-    //public Transform Eyes { get; private set; }
     public MovementAgent MovementAgent { get; private set; }
     public FieldOfView FOV { get; private set; }
     public virtual Queue<GridPos> WaypointList { get; set; } = new Queue<GridPos>();
     public bool IsActive { get; private set; } = false;
-    public Transform ChaseTarget { get; set; }
+    public Transform ChaseTarget
+    {
+        get
+        {
+            return chaseTarget;
+        }
+        set
+        {
+            chaseTarget = value;
+        }
+    }
 
     private void Awake()
     {
-        CurrentState = currentState;
-        RemainState = remainState;
-    }
-
-    private void Start()
-    {
-        //Eyes = GetComponentInChildren<Transform>();
-        MovementAgent = GetComponent<MovementAgent>();
-        FOV = GetComponentInChildren<FieldOfView>();
-        Stats = GetComponent<Stats>();
         Init();
     }
 
     private void Init()
     {
+        CurrentState = currentState;
+        RemainState = remainState;
+        MovementAgent = GetComponent<MovementAgent>();
+        FOV = GetComponentInChildren<FieldOfView>();
+        Stats = GetComponent<Stats>();
         MovementAgent.Speed = Stats.MoveSpeed;
         FOV.ViewRange = Stats.ViewRange;
         FOV.ViewAngle = Stats.ViewAngle;
@@ -73,12 +79,14 @@ public abstract class StateController : MonoBehaviour
 
     private void OnAIActivated()
     {
-        ChaseTarget = GameManager.Instance.Vault.transform;
+        FOV.StartSearch();
+        ChaseTarget = GameObject.FindGameObjectWithTag(Tags.Vault).transform;
         WaypointList = GetWaypointList(transform.position, ChaseTarget.position);
     }
 
     private void OnAIDeactivated()
     {
+        FOV.StopSearch();
         MovementAgent.StopMovement();
         ChaseTarget = null;
     }

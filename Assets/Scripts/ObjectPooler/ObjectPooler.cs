@@ -7,7 +7,7 @@ public class ObjectPooler : MonoBehaviour
 {
     #region Singleton
 
-    public static ObjectPooler Instance { get; set; } = null;
+    public static ObjectPooler Instance { get; private set; } = null;
 
     private void Awake()
     {
@@ -83,5 +83,6 @@ public class ObjectPooler : MonoBehaviour
         GameObject objectToDestroy = PoolDictionary[tag].FirstOrDefault(g => g == gameObject);
         IPooledObject pooledObject = objectToDestroy?.GetComponent<IPooledObject>();
         pooledObject?.Destroy();
+        objectToDestroy?.SetActive(false);
     }
 }

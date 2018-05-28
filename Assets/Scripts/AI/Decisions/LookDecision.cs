@@ -23,7 +23,7 @@ public class LookDecision : Decision
         }
         else
         {
-            controller.ChaseTarget = GameManager.Instance.Vault.transform;
+            controller.ChaseTarget = GameObject.FindGameObjectWithTag(Tags.Vault).transform;
             return false;
         }
     }

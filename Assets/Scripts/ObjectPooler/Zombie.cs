@@ -14,7 +14,6 @@ public class Zombie : MonoBehaviour, IPooledObject
     public void Destroy()
     {
         ZombieController.SetupAI(false);
-        gameObject.SetActive(false);
     }
 
     public void OnObjectSpawn(object transferValue)

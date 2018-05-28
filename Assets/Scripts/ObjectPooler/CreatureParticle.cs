@@ -9,13 +9,13 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
     [SerializeField]
     private float maxSpeed = 10f;
     [SerializeField]
-    private int minX = -100;
+    private int minX = -25;
     [SerializeField]
-    private int maxX = 100;
+    private int maxX = 25;
     [SerializeField]
-    private int minY = -100;
+    private int minY = -25;
     [SerializeField]
-    private int maxY = 100;
+    private int maxY = 25;
     [SerializeField]
     private float timeToDestroy = 10f;
 

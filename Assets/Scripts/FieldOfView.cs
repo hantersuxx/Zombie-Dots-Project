@@ -18,7 +18,8 @@ public class FieldOfView : MonoBehaviour
     public List<Transform> VisibleTargets { get; private set; } = new List<Transform>();
     public LayerMask TargetMask => targetMask;
     public LayerMask ObstacleMask => obstacleMask;
-    
+    public bool Searching { get; private set; } = true;
+
     private void Awake()
     {
         ViewRange = viewRange;
@@ -27,12 +28,12 @@ public class FieldOfView : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FindTargetsWithDelay(.2f));
+        StartSearch();
     }
 
     private IEnumerator FindTargetsWithDelay(float delay)
     {
-        while (true)
+        while (Searching)
         {
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
@@ -51,12 +52,23 @@ public class FieldOfView : MonoBehaviour
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
                 var hit = Physics2D.Raycast(transform.position, dirToTarget, distanceToTarget, ObstacleMask);
-                if (hit.transform == null)
+                if (hit.transform == null && collider.gameObject.activeInHierarchy)
                 {
                     VisibleTargets.Add(target);
                 }
             }
         }
+    }
+
+    public void StartSearch()
+    {
+        Searching = true;
+    }
+
+    public void StopSearch()
+    {
+        StopAllCoroutines();
+        Searching = false;
     }
 
     //public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)

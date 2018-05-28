@@ -667,7 +667,9 @@
     <Compile Include="Assets\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
     <Compile Include="Assets\Scripts\Managers\BoardManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\MovementAgent.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\CreatureParticle.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\Human.cs" />
@@ -679,6 +681,7 @@
     <Compile Include="Assets\Scripts\ScalableCamera.cs" />
     <Compile Include="Assets\Scripts\SortingLayers.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
+    <Compile Include="Assets\Scripts\Vault.cs" />
     <Compile Include="Assets\Scripts\VaultHealth.cs" />
     <Compile Include="Assets\Scripts\ZombieAttack.cs" />
   </ItemGroup>
