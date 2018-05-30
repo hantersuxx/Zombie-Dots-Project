@@ -18,15 +18,16 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        VaultHealth vaultHealth = GameObject.FindGameObjectWithTag(Tags.Vault).GetComponent<VaultHealth>();
-        StartCoroutine(SpawnCycle(vaultHealth));
+        var vault = GameObject.FindGameObjectWithTag(Tags.Vault).GetComponent<Vault>();
+        StartCoroutine(SpawnCycle(vault));
     }
 
-    private IEnumerator SpawnCycle(VaultHealth vaultHealth)
+    private IEnumerator SpawnCycle(Vault vault)
     {
         //TODO: remove
+        //TODO: probably add waves
         while (true)
-        //while (!vaultHealth.IsDead)
+        //while (!vault.IsDead && !LevelManager.Instance.LevelCompleted)
         {
             ObjectPooler.Instance.SpawnFromPool(
                 DiceRoll(),

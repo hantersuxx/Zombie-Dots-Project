@@ -6,12 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private Text scoreText;
-
     public static GameManager Instance { get; private set; } = null;
-    public int Score { get; private set; }
-    public Text ScoreText => scoreText;
 
     private void Awake()
     {
@@ -27,15 +22,4 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
     }
-
-    public void AddScore(int addValue)
-    {
-        Score += addValue;
-        //UpdateScore();
-    }
-
-    //private void UpdateScore()
-    //{
-    //    ScoreText.text = $"Score: {Score}";
-    //}
 }

@@ -12,7 +12,7 @@ public class ZombieAttack : MonoBehaviour
 
     public float TurnToZombieTimeout => turnToZombieTimeout;
     public int AttackAmount => attackAmount;
-    public VaultHealth VaultHealth => GameObject.FindGameObjectWithTag(Tags.Vault).GetComponent<VaultHealth>();
+    public Vault Vault => GameObject.FindGameObjectWithTag(Tags.Vault).GetComponent<Vault>();
     public bool TimerActive { get; private set; } = false;
     public float TimerSeconds { get; private set; } = 0;
 
@@ -21,8 +21,8 @@ public class ZombieAttack : MonoBehaviour
         var obj = collision.gameObject;
         if (obj.tag == Tags.Vault)
         {
-            VaultHealth.TakeDamage(AttackAmount);
-            GameManager.Instance.AddScore(-1);
+            Vault.TakeDamage(AttackAmount);
+            LevelManager.Instance.AddScore(-1);
             ObjectPooler.Instance.Destroy(Tags.Zombie, gameObject);
         }
         else if (obj.tag == Tags.Human)
