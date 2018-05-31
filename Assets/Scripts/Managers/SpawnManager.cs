@@ -18,11 +18,10 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        var vault = GameObject.FindGameObjectWithTag(Tags.Vault).GetComponent<Vault>();
-        StartCoroutine(SpawnCycle(vault));
+        StartCoroutine(SpawnCycle());
     }
 
-    private IEnumerator SpawnCycle(Vault vault)
+    private IEnumerator SpawnCycle()
     {
         //TODO: remove
         //TODO: probably add waves

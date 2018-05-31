@@ -23,7 +23,10 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1
+            && !LevelManager.Instance.GameIsPaused
+            && !LevelManager.Instance.GameIsOver
+            && !LevelManager.Instance.LevelFinished)
         {
             Touch touch = Input.GetTouch(0);
             Vector3 touchPosition = Camera.ScreenToWorldPoint(touch.position);
@@ -39,12 +42,6 @@ public class InputHandler : MonoBehaviour
                     OnTouchEnded();
                     break;
             }
-        }
-
-        //TODO: delete
-        if (Input.GetKey(KeyCode.Space))
-        {
-            var instance = ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, new Vector3(2, 2));
         }
     }
 
@@ -101,11 +98,15 @@ public class InputHandler : MonoBehaviour
     {
         if (DragObject.tag == Tags.Zombie)
         {
-            DestroyCreature(Tags.Zombie, "#ff0000");
+            DestroyCreature(Tags.Zombie, Globals.ZombieParticleHexColor);
+            LevelManager.Instance.AddScore(Globals.KillZombieScore);
+            LevelManager.Instance.KillZombie();
         }
         else if (DragObject.tag == Tags.Human)
         {
-            DestroyCreature(Tags.Human, "#00ff00");
+            DestroyCreature(Tags.Human, Globals.HumanParticleHexColor);
+            LevelManager.Instance.AddScore(Globals.KillHumanScore);
+            LevelManager.Instance.KillHuman();
         }
     }
 
@@ -116,13 +117,13 @@ public class InputHandler : MonoBehaviour
         {
             ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, DragObject.transform.position, hexColor);
         }
+        Reset();
+    }
+
+    private void Reset()
+    {
+        DropAllowed = false;
+        LastTapTime = 0f;
+        DragObject = null;
     }
 }
-
-
-//zomb #f44242
-//hum #00ffb9
-
-
-//zomb #ff0000
-//hum #00ff00

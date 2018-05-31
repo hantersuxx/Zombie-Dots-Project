@@ -59,10 +59,9 @@ public class ObjectPooler : MonoBehaviour
         }
 
         GameObject objectToSpawn = PoolDictionary[tag].Dequeue();
-
-        objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = Quaternion.identity;
+        objectToSpawn.SetActive(true);
 
         //TODO: get rid of getComponent
         IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();

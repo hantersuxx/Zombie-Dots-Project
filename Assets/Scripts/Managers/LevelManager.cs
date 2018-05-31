@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,27 +8,48 @@ public class LevelManager : MonoBehaviour
 {
     [Header("Loader")]
     [SerializeField]
-    private GameObject gameManager;
-    [SerializeField]
     private GameObject cameraManager;
+
     [SerializeField]
     private GameObject objectPooler;
+
     [SerializeField]
     private GameObject boardManager;
-    [Header("Goals")]
+
+    [Header("Stats")]
     [SerializeField]
-    private Text scoreText;
-    [SerializeField]
-    private Text goalText;
+    [Range(10, 100)]
+    private int baseHealth = 10;
+
     [SerializeField]
     [Range(1, 1000)]
     private int goal = 10;
+
     [SerializeField]
     private bool isInfinite = false;
-    private int score;
 
-    public Text ScoreText => scoreText;
-    public Text GoalText => goalText;
+    [Header("Damage image")]
+    [SerializeField]
+    private Image damageImage;
+
+    [SerializeField]
+    private float flashSpeed = 0.5f;
+
+    [SerializeField]
+    private Color flashColor = new Color(1f, 0f, 0f, 0.1f);
+
+    [Header("Panels")]
+    [SerializeField]
+    private GameObject levelMenuPanel;
+    [SerializeField]
+    private GameObject pauseMenuPanel;
+    [SerializeField]
+    private GameObject gameOverPanel;
+
+    private int currentHealth;
+    private int currentScore;
+
+    public int BaseHealth => baseHealth;
     public int Goal
     {
         get
@@ -40,18 +62,40 @@ public class LevelManager : MonoBehaviour
         }
     }
     public bool IsInfinite => isInfinite;
+    public Image DamageImage => damageImage;
+    public float FlashSpeed => flashSpeed;
+    public Color FlashColor => flashColor;
+    public bool Damaged { get; private set; } = false;
+    public int CurrentHealth
+    {
+        get
+        {
+            return currentHealth;
+        }
+        private set
+        {
+            currentHealth = (value <= 0) ? 0 : value;
+        }
+    }
     public int Score
     {
         get
         {
-            return score;
+            return currentScore;
         }
         private set
         {
-            score = (value <= 0) ? 0 : value;
+            currentScore = (value <= 0) ? 0 : value;
         }
     }
-    public bool LevelCompleted { get; private set; } = false;
+    public GameObject LevelMenuPanel => levelMenuPanel;
+    public GameObject PauseMenuPanel => pauseMenuPanel;
+    public GameObject GameOverPanel => gameOverPanel;
+    public int ZombiesKilled { get; private set; } = 0;
+    public int HumansKilled { get; private set; } = 0;
+    public bool GameIsPaused { get; set; } = false;
+    public bool GameIsOver { get; private set; } = false;
+    public bool LevelFinished { get; private set; } = false;
     public static LevelManager Instance { get; private set; } = null;
 
     private void Awake()
@@ -65,16 +109,50 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        InstantiateManager(gameManager, GameManager.Instance);
         InstantiateManager(cameraManager, CameraManager.Instance);
         InstantiateManager(objectPooler, ObjectPooler.Instance);
         InstantiateManager(boardManager, BoardManager.Instance);
+        CurrentHealth = BaseHealth;
     }
 
     private void Update()
     {
-        UpdateText(ScoreText, $"Score: {Score}");
-        UpdateText(GoalText, $"{Goal} left to save");
+        if (GameIsPaused || GameIsOver || LevelFinished)
+        {
+            return;
+        }
+
+        if (CurrentHealth <= 0)
+        {
+            EndGame();
+        }
+
+        if (Goal <= 0)
+        {
+            FinishLevel();
+        }
+
+        if (Damaged)
+        {
+            DamageImage.color = FlashColor;
+        }
+        else
+        {
+            DamageImage.color = Color.Lerp(DamageImage.color, Color.clear, FlashSpeed * Time.deltaTime);
+        }
+        Damaged = false;
+    }
+
+    private void EndGame()
+    {
+        GameIsOver = true;
+        GameOverPanel.SetActive(true);
+    }
+
+    private void FinishLevel()
+    {
+        LevelFinished = true;
+        //LevelFinishedPanel.SetActive(true);
     }
 
     private void InstantiateManager<T>(GameObject gameObject, T staticInstance) where T : class
@@ -93,10 +171,22 @@ public class LevelManager : MonoBehaviour
     public void AchieveGoal()
     {
         Goal--;
-        if (Goal <= 0)
-        {
-            LevelCompleted = true;
-        }
+    }
+
+    public void KillZombie()
+    {
+        ZombiesKilled++;
+    }
+
+    public void KillHuman()
+    {
+        HumansKilled++;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        Damaged = true;
+        CurrentHealth -= amount;
     }
 
     public static void UpdateText(Text field, string text)

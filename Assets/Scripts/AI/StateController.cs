@@ -66,6 +66,7 @@ public abstract class StateController : MonoBehaviour
 
     public void SetupAI(bool aiActivation)
     {
+        IsActive = aiActivation;
         if (aiActivation)
         {
             OnAIActivated();
@@ -74,7 +75,6 @@ public abstract class StateController : MonoBehaviour
         {
             OnAIDeactivated();
         }
-        IsActive = aiActivation;
     }
 
     private void OnAIActivated()
@@ -89,6 +89,7 @@ public abstract class StateController : MonoBehaviour
         FOV.StopSearch();
         MovementAgent.StopMovement();
         ChaseTarget = null;
+        WaypointList = null;
     }
 
     public void TransitionToState(State nextState)

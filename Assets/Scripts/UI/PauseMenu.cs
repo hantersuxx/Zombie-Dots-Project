@@ -1,26 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused { get; set; } = false;
-    [SerializeField]
-    private GameObject pauseMenuPanel;
-    public GameObject PauseMenuPanel => pauseMenuPanel;
-
     public void Pause()
     {
-        PauseMenuPanel.SetActive(true);
         Time.timeScale = 0f;
-        GameIsPaused = true;
+        LevelManager.Instance.PauseMenuPanel.SetActive(true);
+        LevelManager.Instance.LevelMenuPanel.SetActive(false);
+        LevelManager.Instance.GameIsPaused = true;
     }
 
     public void Resume()
     {
-        PauseMenuPanel.SetActive(false);
         Time.timeScale = 1f;
-        GameIsPaused = false;
+        LevelManager.Instance.PauseMenuPanel.SetActive(false);
+        LevelManager.Instance.LevelMenuPanel.SetActive(true);
+        LevelManager.Instance.GameIsPaused = false;
     }
 
     public void LoadMenu()

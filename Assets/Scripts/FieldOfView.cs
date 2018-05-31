@@ -18,7 +18,6 @@ public class FieldOfView : MonoBehaviour
     public List<Transform> VisibleTargets { get; private set; } = new List<Transform>();
     public LayerMask TargetMask => targetMask;
     public LayerMask ObstacleMask => obstacleMask;
-    public bool Searching { get; private set; } = true;
 
     private void Awake()
     {
@@ -33,7 +32,7 @@ public class FieldOfView : MonoBehaviour
 
     private IEnumerator FindTargetsWithDelay(float delay)
     {
-        while (Searching)
+        while (true)
         {
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
@@ -62,21 +61,11 @@ public class FieldOfView : MonoBehaviour
 
     public void StartSearch()
     {
-        Searching = true;
+        StartCoroutine(FindTargetsWithDelay(0.2f));
     }
 
     public void StopSearch()
     {
         StopAllCoroutines();
-        Searching = false;
     }
-
-    //public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
-    //{
-    //    if (!angleIsGlobal)
-    //    {
-    //        angleInDegrees -= transform.eulerAngles.z;
-    //    }
-    //    return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad) * ViewRange, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad) * ViewRange);
-    //}
 }

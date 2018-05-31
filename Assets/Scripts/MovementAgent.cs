@@ -70,7 +70,6 @@ public class MovementAgent : MonoBehaviour
         {
             float angle = Mathf.Atan2(relativePos.x, relativePos.y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(-angle, transform.forward);
-            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(-angle, transform.forward), 75f * Time.deltaTime);
         }
     }
 }
