@@ -38,13 +38,17 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private Color flashColor = new Color(1f, 0f, 0f, 0.1f);
 
-    [Header("Panels")]
+    [Header("UI")]
     [SerializeField]
-    private GameObject levelMenuPanel;
+    private LevelMenu levelMenu;
     [SerializeField]
-    private GameObject pauseMenuPanel;
+    private PauseMenu pauseMenu;
     [SerializeField]
-    private GameObject gameOverPanel;
+    private GameOver gameOver;
+    //[SerializeField]
+    //private Image healthBar;
+    [SerializeField]
+    private SceneFader sceneFader;
 
     private int currentHealth;
     private int currentScore;
@@ -88,12 +92,14 @@ public class LevelManager : MonoBehaviour
             currentScore = (value <= 0) ? 0 : value;
         }
     }
-    public GameObject LevelMenuPanel => levelMenuPanel;
-    public GameObject PauseMenuPanel => pauseMenuPanel;
-    public GameObject GameOverPanel => gameOverPanel;
+    public LevelMenu LevelMenu => levelMenu;
+    public PauseMenu PauseMenu => pauseMenu;
+    public GameOver GameOver => gameOver;
+    //public Image HealthBar => healthBar;
+    public SceneFader SceneFader => sceneFader;
     public int ZombiesKilled { get; private set; } = 0;
     public int HumansKilled { get; private set; } = 0;
-    public bool GameIsPaused { get; set; } = false;
+    public bool GameIsPaused { get; private set; } = false;
     public bool GameIsOver { get; private set; } = false;
     public bool LevelFinished { get; private set; } = false;
     public static LevelManager Instance { get; private set; } = null;
@@ -146,13 +152,14 @@ public class LevelManager : MonoBehaviour
     private void EndGame()
     {
         GameIsOver = true;
-        GameOverPanel.SetActive(true);
+        ToggleGameOver();
     }
 
     private void FinishLevel()
     {
         LevelFinished = true;
         //LevelFinishedPanel.SetActive(true);
+        Score += Globals.FinishLevelMultiplier * CurrentHealth;
     }
 
     private void InstantiateManager<T>(GameObject gameObject, T staticInstance) where T : class
@@ -187,6 +194,39 @@ public class LevelManager : MonoBehaviour
     {
         Damaged = true;
         CurrentHealth -= amount;
+        //HealthBar.fillAmount = (float)CurrentHealth / BaseHealth;
+    }
+
+    public void TogglePauseMenu()
+    {
+        Instance.PauseMenu.gameObject.SetActive(!Instance.PauseMenu.gameObject.activeSelf);
+        Instance.LevelMenu.gameObject.SetActive(!Instance.LevelMenu.gameObject.activeSelf);
+
+        if (Instance.PauseMenu.gameObject.activeSelf)
+        {
+            Time.timeScale = 0f;
+            Instance.GameIsPaused = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            Instance.GameIsPaused = false;
+        }
+    }
+
+    public void ToggleGameOver()
+    {
+        Instance.GameOver.gameObject.SetActive(!Instance.GameOver.gameObject.activeSelf);
+        Instance.LevelMenu.gameObject.SetActive(!Instance.LevelMenu.gameObject.activeSelf);
+
+        if (Instance.GameOver.gameObject.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     public static void UpdateText(Text field, string text)

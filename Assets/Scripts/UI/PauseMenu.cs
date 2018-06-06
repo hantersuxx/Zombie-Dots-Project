@@ -2,26 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public void Pause()
+    public void Retry()
     {
-        Time.timeScale = 0f;
-        LevelManager.Instance.PauseMenuPanel.SetActive(true);
-        LevelManager.Instance.LevelMenuPanel.SetActive(false);
-        LevelManager.Instance.GameIsPaused = true;
+        LevelManager.Instance.TogglePauseMenu();
+        LevelManager.Instance.SceneFader.FadeTo(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void Resume()
-    {
-        Time.timeScale = 1f;
-        LevelManager.Instance.PauseMenuPanel.SetActive(false);
-        LevelManager.Instance.LevelMenuPanel.SetActive(true);
-        LevelManager.Instance.GameIsPaused = false;
-    }
-
-    public void LoadMenu()
+    public void Menu()
     {
         Debug.Log("Loading menu...");
     }

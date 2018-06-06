@@ -2,9 +2,10 @@ Android
 PlayerPath?
 D:/Projects/Build/test.apk
 SceneListBegin?
-Assets/Scenes/MainMenuScene.unity
+Assets/Scenes/MainMenu.unity
+Assets/Scenes/LevelSelect.unity
 Assets/Scenes/LevelTest.unity
-Assets/Scenes/LoadingScene.unity
+Assets/Scenes/Loading.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PauseMenu
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -127,7 +128,9 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 193aae9c226fe30a4107d22e35a67995 Assembly-CSharp.dll:.LoadingScreenManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MoveAction
 2b35d0d7ff6c49eb7c4a2c2dc4083a1b Assembly-CSharp.dll:.FieldOfView
+5141fb41d9c8e6b1b89cab133c71ca90 Assembly-CSharp.dll:.MainMenu
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LookDecision
+207621242d5b06c2a2b1a59f7e084b9c Assembly-CSharp.dll:.LevelSelectionManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraManager
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -143,9 +146,10 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 3f32f08a64daf40b09ed864d96fe3840 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Vault
+bb89da37bf3af5d384fa02b0f095d18b Assembly-CSharp.dll:.Vault
 69527e648e2a4f9f30f570cc50f1c727 Assembly-CSharp.dll:.ZombieController
 787809d2abcb74de4ab0eeba20870655 Assembly-CSharp.dll:.ZombieAttack
+16e2c58d08d06c6d03772ec527ae1aac Assembly-CSharp.dll:.GameOver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LoadTargetSceneButton
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 f02726adeff0a3ec5905565234b372da UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
@@ -170,11 +174,10 @@ ad04d418936c381fe11a9e7eb0c008a1 Assembly-CSharp.dll:.CreatureParticle
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CanvasAutoscaler
 69527e648e2a4f9f30f570cc50f1c727 Assembly-CSharp.dll:.HumanController
-44079037db4fb244e6d76fcd371ca018 Assembly-CSharp.dll:.LevelManager
+d3524a43c78042d2f7715b07e1899c51 Assembly-CSharp.dll:.LevelManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Zombie
 8705bc9cd8620bfa62a25f07dffe8b16 Assembly-CSharp.dll:.InputHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ActiveStateDecision
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Human
 8657206ec92c09250175cd8350846b28 Assembly-CSharp.dll:.ObjectPooler
-207621242d5b06c2a2b1a59f7e084b9c Assembly-CSharp.dll:.LevelSelectionManager
-16e2c58d08d06c6d03772ec527ae1aac Assembly-CSharp.dll:.GameOver
+7e4271ad701bf66d6c8bfc436b3324ed Assembly-CSharp.dll:.SceneFader

@@ -17,27 +17,42 @@ public class ZombieAttack : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (LevelManager.Instance.GameIsPaused || LevelManager.Instance.GameIsOver || LevelManager.Instance.LevelFinished)
+        {
+            return;
+        }
+
         var obj = collision.gameObject;
         if (obj.tag == Tags.Vault)
         {
-            LevelManager.Instance.TakeDamage(AttackAmount);
-            LevelManager.Instance.AddScore(Globals.MissZombieScore);
-            ObjectPooler.Instance.Destroy(Tags.Zombie, gameObject);
+            OnVaultStay();
         }
         else if (obj.tag == Tags.Human)
         {
-            if (TimerActive && obj.GetComponent<StateController>().IsActive)
+            OnHumanStay(obj);
+        }
+    }
+
+    private void OnVaultStay()
+    {
+        LevelManager.Instance.TakeDamage(AttackAmount);
+        LevelManager.Instance.AddScore(Globals.MissZombieScore);
+        ObjectPooler.Instance.Destroy(Tags.Zombie, gameObject);
+    }
+
+    private void OnHumanStay(GameObject obj)
+    {
+        if (TimerActive && obj.GetComponent<StateController>().IsActive)
+        {
+            TimerSeconds += Time.deltaTime;
+            if (TimerSeconds >= TurnToZombieTimeout)
             {
-                TimerSeconds += Time.deltaTime;
-                if (TimerSeconds >= TurnToZombieTimeout)
-                {
-                    obj.SetActive(false);
-                    Vector3 objPos = obj.transform.position;
-                    LevelManager.Instance.AddScore(Globals.KillHumanScore);
-                    ObjectPooler.Instance.Destroy(Tags.Human, obj);
-                    ObjectPooler.Instance.SpawnFromPool(Tags.Zombie, objPos);
-                    ResetTimer();
-                }
+                obj.SetActive(false);
+                Vector3 objPos = obj.transform.position;
+                LevelManager.Instance.AddScore(Globals.KillHumanScore);
+                ObjectPooler.Instance.Destroy(Tags.Human, obj);
+                ObjectPooler.Instance.SpawnFromPool(Tags.Zombie, objPos);
+                ResetTimer();
             }
         }
     }
@@ -56,11 +71,5 @@ public class ZombieAttack : MonoBehaviour
     {
         TimerActive = false;
         TimerSeconds = 0;
-    }
-
-    private void Instantiate(GameObject gameObject, Vector3? position, Quaternion identity)
-    {
-        var instance = Instantiate<GameObject>(gameObject, position.Value, identity);
-        instance.GetComponent<ZombieController>().SetupAI(true);
     }
 }

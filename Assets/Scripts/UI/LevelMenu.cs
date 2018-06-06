@@ -26,6 +26,6 @@ public class LevelMenu : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.SceneFader.FadeTo(SceneManager.GetActiveScene().buildIndex);
     }
 }

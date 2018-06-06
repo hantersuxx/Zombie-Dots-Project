@@ -5,9 +5,10 @@ using UnityEngine;
 public static class Globals
 {
     public static int KillZombieScore { get; private set; } = 10;
-    public static int KillHumanScore { get; private set; } = -10;
+    public static int KillHumanScore { get; private set; } = -15;
     public static int SaveHumanScore { get; private set; } = 10;
     public static int MissZombieScore { get; private set; } = -10;
+    public static int FinishLevelMultiplier { get; private set; } = 100;
     public static string ZombieParticleHexColor { get; private set; } = "#ff0000";
     public static string HumanParticleHexColor { get; private set; } = "#00ff00";
 }

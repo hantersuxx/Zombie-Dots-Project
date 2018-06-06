@@ -14,18 +14,6 @@ public class GameOver : MonoBehaviour
     public Text ZombiesKilled => zombiesKilled;
     public Text HumansLeft => humansLeft;
 
-    private void OnEnable()
-    {
-        Time.timeScale = 0f;
-        LevelManager.Instance.LevelMenuPanel.SetActive(false);
-    }
-
-    private void OnDisable()
-    {
-        Time.timeScale = 1f;
-        LevelManager.Instance.LevelMenuPanel.SetActive(true);
-    }
-
     private void Update()
     {
         ZombiesKilled.text = LevelManager.Instance.ZombiesKilled.ToString();
@@ -34,7 +22,8 @@ public class GameOver : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.ToggleGameOver();
+        LevelManager.Instance.SceneFader.FadeTo(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Menu()

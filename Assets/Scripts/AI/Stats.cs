@@ -7,7 +7,7 @@ public class Stats : MonoBehaviour
     [Header("Movement")]
     [SerializeField]
     [Range(1, 3)]
-    private float maxMoveSpeed = 1f;
+    private float maxMoveSpeed = 3f;
     [Header("Field of view")]
     [SerializeField]
     [Range(1, 3)]

@@ -113,11 +113,13 @@
     <Compile Include="Assets\Scripts\ObjectPooler\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\Pool.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\Zombie.cs" />
+    <Compile Include="Assets\Scripts\SceneFader.cs" />
     <Compile Include="Assets\Scripts\SortingLayers.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
     <Compile Include="Assets\Scripts\UI\GameOver.cs" />
     <Compile Include="Assets\Scripts\UI\HUDFPS.cs" />
     <Compile Include="Assets\Scripts\UI\LevelMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Vault.cs" />
     <Compile Include="Assets\Scripts\ZombieAttack.cs" />
