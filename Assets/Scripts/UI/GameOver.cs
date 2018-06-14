@@ -8,22 +8,22 @@ public class GameOver : MonoBehaviour
 {
     [SerializeField]
     private Text zombiesKilled;
-    [SerializeField]
-    private Text humansLeft;
-
     public Text ZombiesKilled => zombiesKilled;
-    public Text HumansLeft => humansLeft;
 
-    private void Update()
+    [SerializeField]
+    private Text hpLeft;
+    public Text HpLeft => hpLeft;
+
+    private void OnEnable()
     {
-        ZombiesKilled.text = LevelManager.Instance.ZombiesKilled.ToString();
-        HumansLeft.text = LevelManager.Instance.Goal.ToString();
+        ZombiesKilled.text = LevelStats.Instance.ZombiesKilled.ToString();
+        HpLeft.text = LevelStats.Instance.CurrentHealth.ToString();
     }
 
     public void Retry()
     {
         LevelManager.Instance.ToggleGameOver();
-        LevelManager.Instance.SceneFader.FadeTo(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.Storage.SceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()

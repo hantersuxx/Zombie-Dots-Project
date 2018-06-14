@@ -26,12 +26,7 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
     public int MinY => minY;
     public int MaxY => maxY;
     public float TimeToDestroy => timeToDestroy;
-    public MovementAgent MovementAgent { get; private set; }
-
-    private void Awake()
-    {
-        MovementAgent = gameObject.GetComponent<MovementAgent>();
-    }
+    public MovementAgent MovementAgent => GetComponent<MovementAgent>();
 
     public void OnObjectSpawn(object transfer)
     {
@@ -41,6 +36,7 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
         {
             Colorize(transfer.ToString());
         }
+        StartCoroutine(ExecuteAfterTime(TimeToDestroy));
     }
 
     private void Colorize(string hexColor)
@@ -50,19 +46,17 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
         gameObject.GetComponent<SpriteRenderer>().color = outColor;
     }
 
-    private void OnEnable()
+    IEnumerator ExecuteAfterTime(float seconds)
     {
-        Invoke(nameof(Destroy), timeToDestroy);
-    }
+        yield return new WaitForSeconds(seconds);
 
-    private void OnDisable()
-    {
-        MovementAgent.StopMovement();
-        CancelInvoke();
+        // Code to execute after the delay
+        ObjectPooler.Instance.Destroy(tag, gameObject);
     }
 
     public void Destroy()
     {
+        MovementAgent.StopMovement();
         gameObject.SetActive(false);
     }
 }

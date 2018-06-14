@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    #region Singleton
+    [SerializeField]
+    private Dictionary<string, Queue<GameObject>> poolDictionary;
+    public Dictionary<string, Queue<GameObject>> PoolDictionary { get => poolDictionary; private set => poolDictionary = value; }
+
+    [SerializeField]
+    private List<Pool> pools;
+    public List<Pool> Pools { get => pools; private set => pools = value; }
 
     public static ObjectPooler Instance { get; private set; } = null;
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
         {
@@ -22,19 +28,9 @@ public class ObjectPooler : MonoBehaviour
         Init();
     }
 
-    #endregion
-
-    [SerializeField]
-    private Dictionary<string, Queue<GameObject>> poolDictionary;
-    [SerializeField]
-    private List<Pool> pools;
-
-    public Dictionary<string, Queue<GameObject>> PoolDictionary => poolDictionary;
-    public List<Pool> Pools => pools;
-
     private void Init()
     {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        PoolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (Pool pool in Pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();

@@ -7,14 +7,15 @@ public class State : ScriptableObject
 {
     [SerializeField]
     private Action[] actions;
+    public Action[] Actions { get => actions; private set => actions = value; }
+
     [SerializeField]
     private Transition[] transitions;
+    public Transition[] Transitions { get => transitions; private set => transitions = value; }
+
     [SerializeField]
     private Color sceneGizmoColor;
-
-    public Action[] Actions => actions;
-    public Transition[] Transitions => transitions;
-    public Color SceneGizmoColor => sceneGizmoColor;
+    public Color SceneGizmoColor { get => sceneGizmoColor; private set => sceneGizmoColor = value; }
 
     public void UpdateState(StateController controller)
     {

@@ -19,13 +19,13 @@ public class LevelMenu : MonoBehaviour
 
     private void Update()
     {
-        LevelManager.UpdateText(HealthPointsText, $"{LevelManager.Instance.CurrentHealth} HP");
-        LevelManager.UpdateText(ScorePointsText, $"Score: {LevelManager.Instance.Score}");
-        LevelManager.UpdateText(GoalPointsText, $"{LevelManager.Instance.Goal} left to save");
+        LevelManager.UpdateText(HealthPointsText, $"{LevelStats.Instance.CurrentHealth} HP");
+        LevelManager.UpdateText(ScorePointsText, $"Score: {LevelStats.Instance.Score}");
+        LevelManager.UpdateText(GoalPointsText, $"Goal: {LevelStats.Instance.GoalValue}");
     }
 
     public void Restart()
     {
-        LevelManager.Instance.SceneFader.FadeTo(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.Storage.SceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 }

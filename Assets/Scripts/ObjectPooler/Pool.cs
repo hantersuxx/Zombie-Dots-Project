@@ -3,7 +3,7 @@
 [System.Serializable]
 public class Pool
 {
-    [SerializeField]
+    [SerializeField, TagSelector]
     private string tag;
     [SerializeField]
     private GameObject prefab;

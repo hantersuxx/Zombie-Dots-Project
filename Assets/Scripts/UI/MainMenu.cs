@@ -1,24 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private int levelSelectNum;
+    [Scene]
+    private string levelSelect;
     [SerializeField]
-    private int levelTestNum;
+    [Scene]
+    private string levelTest;
     [SerializeField]
     private SceneFader sceneFader;
 
-    public int LevelSelectNum => levelSelectNum;
-    public int LevelTestNum => levelTestNum;
+    public string LevelSelect => levelSelect;
+    public string LevelTest => levelTest;
     public SceneFader SceneFader => sceneFader;
 
     public void Play()
     {
-        SceneFader.FadeTo(LevelTestNum);
+        SceneFader.FadeTo(LevelTest);
     }
 
     public void Achievements()
@@ -33,6 +36,6 @@ public class MainMenu : MonoBehaviour
 
     public void Quit()
     {
-        SceneFader.FadeTo(LevelSelectNum);
+        SceneFader.FadeTo(LevelSelect);
     }
 }

@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{77A22DF7-B035-FE50-A265-6047A7698F5B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -27,6 +28,7 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <LangVersion>7.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <LangVersion>7.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -73,7 +76,7 @@
     <Compile Include="Assets\PathFinder\ParamBase.cs" />
     <Compile Include="Assets\PathFinder\Util.cs" />
     <Compile Include="Assets\Scripts\AI\Actions\MoveAction.cs" />
-    <Compile Include="Assets\Scripts\AI\Decisions\ActiveStateDecision.cs" />
+    <Compile Include="Assets\Scripts\AI\Decisions\ChaseDecision.cs" />
     <Compile Include="Assets\Scripts\AI\Decisions\LookDecision.cs" />
     <Compile Include="Assets\Scripts\AI\HumanController.cs" />
     <Compile Include="Assets\Scripts\AI\Models\Action.cs" />
@@ -81,48 +84,67 @@
     <Compile Include="Assets\Scripts\AI\Models\State.cs" />
     <Compile Include="Assets\Scripts\AI\Models\Transition.cs" />
     <Compile Include="Assets\Scripts\AI\StateController.cs" />
-    <Compile Include="Assets\Scripts\AI\Stats.cs" />
     <Compile Include="Assets\Scripts\AI\ZombieController.cs" />
     <Compile Include="Assets\Scripts\Board\CustomTile.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\Node.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\VectorShortestPath.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\ShortestPath.cs" />
-    <Compile Include="Assets\Scripts\CanvasAutoscaler.cs" />
-    <Compile Include="Assets\Scripts\Extensions\Camera.cs" />
-    <Compile Include="Assets\Scripts\Extensions\Convert.cs" />
-    <Compile Include="Assets\Scripts\Extensions\Enumerable.cs" />
-    <Compile Include="Assets\Scripts\Extensions\Vector.cs" />
-    <Compile Include="Assets\Scripts\FieldOfView.cs" />
-    <Compile Include="Assets\Scripts\FieldOfViewEditor.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\InterfaceHelperDrawer.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\ReadOnlyDrawer.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\ReadOnlyWhenPlayingAttributeDrawer.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\SceneDrawer.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\TagSelectorPropertyDrawer.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\InterfaceHelper.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\ReadOnlyAttribute.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\ReadOnlyWhenPlayingAttribute.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\SceneAttribute.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\TagSelectorAttribute.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
-    <Compile Include="Assets\Scripts\HumanSave.cs" />
-    <Compile Include="Assets\Scripts\InputHandler.cs" />
-    <Compile Include="Assets\Scripts\Level.cs" />
-    <Compile Include="Assets\Scripts\LoadTargetSceneButton.cs" />
     <Compile Include="Assets\Scripts\Managers\BoardManager.cs" />
     <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\LevelSelectionManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\LoadingScreenManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
-    <Compile Include="Assets\Scripts\MovementAgent.cs" />
+    <Compile Include="Assets\Scripts\Managers\LevelsManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Models\CanvasAutoscaler.cs" />
+    <Compile Include="Assets\Scripts\Models\FieldOfView.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelManager\HumanSave.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelManager\InputHandler.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelManager\LevelStats.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelManager\LevelStorage.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelManager\SpawnObject.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelManager\Vault.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelManager\ZombieAttack.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelsManager\Level.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelsManager\LevelCollection.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelsManager\LevelData.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelsManager\LevelsStorage.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelsManager\LoadTargetSceneButton.cs" />
+    <Compile Include="Assets\Scripts\Models\MovementAgent.cs" />
+    <Compile Include="Assets\Scripts\Models\SpawnPositions.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\CreatureParticle.cs" />
-    <Compile Include="Assets\Scripts\ObjectPooler\Human.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\IPooledObject.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\Pool.cs" />
-    <Compile Include="Assets\Scripts\ObjectPooler\Zombie.cs" />
-    <Compile Include="Assets\Scripts\SceneFader.cs" />
     <Compile Include="Assets\Scripts\SortingLayers.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
+    <Compile Include="Assets\Scripts\UI\CompleteLevel.cs" />
     <Compile Include="Assets\Scripts\UI\GameOver.cs" />
     <Compile Include="Assets\Scripts\UI\HUDFPS.cs" />
     <Compile Include="Assets\Scripts\UI\LevelMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\LevelsContent.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
-    <Compile Include="Assets\Scripts\Vault.cs" />
-    <Compile Include="Assets\Scripts\ZombieAttack.cs" />
+    <Compile Include="Assets\Scripts\Utils\Camera.cs" />
+    <Compile Include="Assets\Scripts\Utils\Convert.cs" />
+    <Compile Include="Assets\Scripts\Utils\Enumerable.cs" />
+    <Compile Include="Assets\Scripts\Utils\LoadingScreenManager.cs" />
+    <Compile Include="Assets\Scripts\Utils\Object.cs" />
+    <Compile Include="Assets\Scripts\Utils\SceneFader.cs" />
+    <Compile Include="Assets\Scripts\Utils\Serializer.cs" />
+    <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Utils\Vector.cs" />
+    <Compile Include="Assets\Scripts\Utils\Vibrator.cs" />
     <None Include="Assets\Fonts\Roboto\LICENSE.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Projects/Zombie Dots Project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

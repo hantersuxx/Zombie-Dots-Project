@@ -9,17 +9,11 @@ public class PauseMenu : MonoBehaviour
     public void Retry()
     {
         LevelManager.Instance.TogglePauseMenu();
-        LevelManager.Instance.SceneFader.FadeTo(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.Storage.SceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
         Debug.Log("Loading menu...");
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("Quitting game...");
-        Application.Quit();
     }
 }

@@ -24,15 +24,11 @@ public class BoardManager : MonoBehaviour
     public int MaxX { get; private set; }
     public int MaxY { get; private set; }
 
-    //public Dictionary<Vector3, TileType> Tiles { get; private set; }
-
-    //public ShortestPath ShortestPath { get; private set; }
-
     public BaseGrid Grid { get; private set; }
     public Dictionary<Vector3, EpPathFinding.cs.Node> GridDictionary { get; private set; }
     public JumpPointParam JumpPointParam { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
         {
@@ -42,7 +38,6 @@ public class BoardManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //DontDestroyOnLoad(gameObject);
 
         Init();
     }

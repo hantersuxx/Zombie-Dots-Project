@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EpPathFinding.cs;
-using UnityEngine;
 
 public class ZombieController : StateController
 {
@@ -17,5 +15,24 @@ public class ZombieController : StateController
         {
             base.WaypointList = value;
         }
+    }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        for (int i = 0; i < ParticleCount; i++)
+        {
+            ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, transform.position, Globals.ZombieParticleHexColor);
+        }
+    }
+
+    public override void OnObjectSpawn(object transferValue)
+    {
+        base.OnObjectSpawn(transferValue);
+    }
+
+    public override void Destroy()
+    {
+        base.Destroy();
     }
 }
