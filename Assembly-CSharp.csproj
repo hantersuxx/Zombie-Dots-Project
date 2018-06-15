@@ -76,6 +76,7 @@
     <Compile Include="Assets\PathFinder\ParamBase.cs" />
     <Compile Include="Assets\PathFinder\Util.cs" />
     <Compile Include="Assets\Scripts\AI\Actions\MoveAction.cs" />
+    <Compile Include="Assets\Scripts\AI\BossController.cs" />
     <Compile Include="Assets\Scripts\AI\Decisions\ChaseDecision.cs" />
     <Compile Include="Assets\Scripts\AI\Decisions\LookDecision.cs" />
     <Compile Include="Assets\Scripts\AI\HumanController.cs" />
@@ -89,11 +90,7 @@
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\Node.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\VectorShortestPath.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\ShortestPath.cs" />
-    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\InterfaceHelperDrawer.cs" />
-    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\ReadOnlyDrawer.cs" />
-    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\ReadOnlyWhenPlayingAttributeDrawer.cs" />
-    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\SceneDrawer.cs" />
-    <Compile Include="Assets\Scripts\CustomAttributes\Drawers\TagSelectorPropertyDrawer.cs" />
+    <Compile Include="Assets\Scripts\CustomAttributes\EnumFlagsAttribute.cs" />
     <Compile Include="Assets\Scripts\CustomAttributes\InterfaceHelper.cs" />
     <Compile Include="Assets\Scripts\CustomAttributes\ReadOnlyAttribute.cs" />
     <Compile Include="Assets\Scripts\CustomAttributes\ReadOnlyWhenPlayingAttribute.cs" />
@@ -121,12 +118,12 @@
     <Compile Include="Assets\Scripts\Models\LevelsManager\LevelsStorage.cs" />
     <Compile Include="Assets\Scripts\Models\LevelsManager\LoadTargetSceneButton.cs" />
     <Compile Include="Assets\Scripts\Models\MovementAgent.cs" />
-    <Compile Include="Assets\Scripts\Models\SpawnPositions.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\CreatureParticle.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\IPooledObject.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\Pool.cs" />
     <Compile Include="Assets\Scripts\SortingLayers.cs" />
+    <Compile Include="Assets\Scripts\SpawnPositions.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
     <Compile Include="Assets\Scripts\UI\CompleteLevel.cs" />
     <Compile Include="Assets\Scripts\UI\GameOver.cs" />

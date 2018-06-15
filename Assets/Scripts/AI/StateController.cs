@@ -1,4 +1,5 @@
 ﻿using EpPathFinding.cs;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +38,7 @@ public abstract class StateController : MonoBehaviour, IPooledObject
         {
             if (value <= 0)
             {
-                OnDeath();
+                Death();
             }
             else
             {
@@ -72,9 +73,14 @@ public abstract class StateController : MonoBehaviour, IPooledObject
 
     public bool IsDead { get; private set; } = false;
 
+    private delegate void VoidMethodContainer();
+    private event VoidMethodContainer TakingDamage;
+    private event VoidMethodContainer Death;
 
     private void Start()
     {
+        TakingDamage += OnTakingDamage;
+        Death += OnDeath;
         Init();
     }
 
@@ -152,6 +158,7 @@ public abstract class StateController : MonoBehaviour, IPooledObject
     public void TakeDamage(int amount)
     {
         CurrentHealth -= amount;
+        TakingDamage();
     }
 
     protected virtual void OnDeath()
@@ -160,6 +167,11 @@ public abstract class StateController : MonoBehaviour, IPooledObject
         IsDead = true;
         gameObject.SetActive(false);
         ObjectPooler.Instance.Destroy(tag, gameObject);
+    }
+
+    protected virtual void OnTakingDamage()
+    {
+
     }
 
     public virtual void OnObjectSpawn(object transferValue)

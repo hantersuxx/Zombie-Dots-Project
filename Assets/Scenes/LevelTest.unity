@@ -2667,7 +2667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnObjects:
   - tag: Human
-    rate: 30
+    rate: 3
   - tag: AverageZombie
     rate: 1
   - tag: SlowZombie
@@ -2675,7 +2675,8 @@ MonoBehaviour:
   - tag: FastZombie
     rate: 1
   timeBetweenWaves: 2
-  spawnPosition: {x: 0, y: 0, z: 0}
+  positions: 1
+  spawnVector: {x: 0, y: 0, z: 0}
 --- !u!114 &827957626
 MonoBehaviour:
   m_ObjectHideFlags: 0

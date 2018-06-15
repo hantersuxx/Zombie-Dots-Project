@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,23 +15,47 @@ public class Spawner : MonoBehaviour
     private float timeBetweenWaves = 2;
     public float TimeBetweenWaves { get => timeBetweenWaves; private set => timeBetweenWaves = value; }
 
+    [SerializeField, EnumFlags]
+    private SpawnPositions positions;
+    public SpawnPositions Positions { get => positions; private set => positions = value; }
+
     [SerializeField, ReadOnly]
-    private Vector3 spawnPosition;
-    public Vector3 SpawnPosition
+    private Vector3 spawnVector;
+    public Vector3 SpawnVector
     {
         get
         {
-            spawnPosition = new List<Vector3>() { SpawnPositions.Left, SpawnPositions.Top, SpawnPositions.Right }.PickRandom();
-            return spawnPosition;
+            var spawnList = new List<Vector3>();
+            if (Positions.HasFlag(SpawnPositions.Left))
+            {
+                spawnList.Add(SpawnPosition.Left);
+            }
+            else if (Positions.HasFlag(SpawnPositions.Right))
+            {
+                spawnList.Add(SpawnPosition.Right);
+            }
+            else if (Positions.HasFlag(SpawnPositions.Top))
+            {
+                spawnList.Add(SpawnPosition.Top);
+            }
+            else if (Positions.HasFlag(SpawnPositions.Nearby))
+            {
+                Vector3 vector = BoardManager.Instance.GridDictionary.GetClosestPosition(
+                    new Vector3(transform.position.x + UnityEngine.Random.insideUnitCircle.x * 2f,
+                    transform.position.y + UnityEngine.Random.insideUnitCircle.y * 2f)).Key;
+                spawnList.Add(vector);
+            }
+            spawnVector = spawnList.PickRandom();
+            return spawnVector;
         }
     }
 
     public Dictionary<SpawnObject, float> SpawnObjectProbabilities { get; private set; } = new Dictionary<SpawnObject, float>();
-    
+
     public int TotalRate { get; private set; }
 
     public bool IsSpawning { get; private set; } = false;
-    
+
     private void Start()
     {
         TotalRate = SpawnObjects.Sum(o => o.Rate);
@@ -60,14 +85,14 @@ public class Spawner : MonoBehaviour
         {
             ObjectPooler.Instance.SpawnFromPool(
                 DiceRoll(),
-                SpawnPosition);
+                SpawnVector);
             yield return new WaitForSeconds(TimeBetweenWaves);
         }
     }
 
     private string DiceRoll()
     {
-        int diceRoll = Random.Range(0, 101);
+        int diceRoll = UnityEngine.Random.Range(0, 101);
         float cumulative = 0;
         foreach (var item in SpawnObjectProbabilities)
         {

@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212559003582428956}
   - component: {fileID: 58730776808817996}
   - component: {fileID: 50968619398521400}
-  - component: {fileID: 114115994373040766}
+  - component: {fileID: 114318723954621116}
   - component: {fileID: 114797745047913764}
-  - component: {fileID: 114223447681656466}
+  - component: {fileID: 114577018357966514}
+  - component: {fileID: 114436993045064000}
   m_Layer: 8
   m_Name: BossZombie
   m_TagString: BossZombie
@@ -110,7 +111,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
---- !u!114 &114115994373040766
+--- !u!114 &114318723954621116
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -118,11 +119,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1157411847165974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c69d1d9f8ef2474fbd79cb3d41b5bba, type: 3}
+  m_Script: {fileID: 11500000, guid: 566ae416298f6ef42a641f80aa9a05f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   particleCount: 50
-  movementSpeed: 0.1
+  movementSpeed: 0.05
   isDraggable: 0
   viewRange: 1
   viewAngle: 1
@@ -131,7 +132,33 @@ MonoBehaviour:
   currentState: {fileID: 11400000, guid: 0ece63b1183949c4aa5cfbb3879f7fc0, type: 2}
   remainState: {fileID: 11400000, guid: aa47a908f5b026c4b805e8ef794184b5, type: 2}
   chaseTarget: {fileID: 0}
---- !u!114 &114223447681656466
+  states:
+  - {fileID: 21300000, guid: 0b94787222fc6ad4b82ecbad7eed982d, type: 3}
+  - {fileID: 21300000, guid: 547321f5f1c748649bb2a19afee6c550, type: 3}
+  - {fileID: 21300000, guid: ccf33a06a9be25f428ceb5eeb2dee4a8, type: 3}
+  - {fileID: 21300000, guid: 28cc71faabc09f44d863f6647eaa3d0e, type: 3}
+--- !u!114 &114436993045064000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157411847165974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f597582e1dd20f4b8b3be9e769d769a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnObjects:
+  - tag: AverageZombie
+    rate: 1
+  - tag: SlowZombie
+    rate: 1
+  - tag: FastZombie
+    rate: 1
+  timeBetweenWaves: 2
+  positions: 8
+  spawnVector: {x: 0, y: 0, z: 0}
+--- !u!114 &114577018357966514
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -209,7 +236,7 @@ SpriteRenderer:
   m_SortingLayerID: -144213153
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0b94787222fc6ad4b82ecbad7eed982d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28cc71faabc09f44d863f6647eaa3d0e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

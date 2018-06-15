@@ -20,6 +20,11 @@ public class ZombieController : StateController
     protected override void OnDeath()
     {
         base.OnDeath();
+        SpawnParticles();
+    }
+
+    protected void SpawnParticles()
+    {
         for (int i = 0; i < ParticleCount; i++)
         {
             ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, transform.position, Globals.ZombieParticleHexColor);

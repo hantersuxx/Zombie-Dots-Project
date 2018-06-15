@@ -58,6 +58,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Editor\Drawers\EnumFlagsDrawer.cs" />
+    <Compile Include="Assets\Scripts\Editor\Drawers\InterfaceHelperDrawer.cs" />
+    <Compile Include="Assets\Scripts\Editor\Drawers\ReadOnlyDrawer.cs" />
+    <Compile Include="Assets\Scripts\Editor\Drawers\ReadOnlyWhenPlayingAttributeDrawer.cs" />
+    <Compile Include="Assets\Scripts\Editor\Drawers\SceneDrawer.cs" />
+    <Compile Include="Assets\Scripts\Editor\Drawers\TagSelectorPropertyDrawer.cs" />
     <Compile Include="Assets\Scripts\Editor\FieldOfViewEditor.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Projects/Zombie Dots Project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
