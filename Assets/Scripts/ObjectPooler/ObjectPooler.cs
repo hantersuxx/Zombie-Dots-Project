@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -46,7 +47,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject SpawnFromPool(string tag, Vector3 position, object transferValue = null)
+    public GameObject SpawnFromPool(string tag, Vector3 position, object value = null)
     {
         if (!PoolDictionary.ContainsKey(tag))
         {
@@ -61,7 +62,7 @@ public class ObjectPooler : MonoBehaviour
 
         //TODO: get rid of getComponent
         IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
-        pooledObject?.OnObjectSpawn(transferValue);
+        pooledObject?.HandleObjectSpawn(value);
 
         PoolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
@@ -77,7 +78,7 @@ public class ObjectPooler : MonoBehaviour
 
         GameObject objectToDestroy = PoolDictionary[tag].FirstOrDefault(g => g == gameObject);
         IPooledObject pooledObject = objectToDestroy?.GetComponent<IPooledObject>();
-        pooledObject?.Destroy();
+        pooledObject?.HandleObjectDestroy();
         objectToDestroy?.SetActive(false);
     }
 }

@@ -11,7 +11,7 @@ public class Serializer : MonoBehaviour
     public static void SaveLocally<T>(T data, string filename)
     {
         string json = JsonUtility.ToJson(data);
-        string fullFilename = $@"{Application.persistentDataPath}\{filename}";
+        string fullFilename = $@"{Application.persistentDataPath}/{filename}";
         Debug.Log($"Saving to {fullFilename}");
         File.WriteAllText(fullFilename, json);
         //BinaryFormatter bf = new BinaryFormatter();
@@ -23,7 +23,7 @@ public class Serializer : MonoBehaviour
 
     public static T LoadLocally<T>(string filename)
     {
-        string fullFilename = $@"{Application.persistentDataPath}\{filename}";
+        string fullFilename = $@"{Application.persistentDataPath}/{filename}";
         Debug.Log($"Loading from {fullFilename}");
         if (File.Exists(fullFilename))
         {

@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IPooledObject
+﻿public interface IPooledObject
 {
-    void OnObjectSpawn(object transferValue);
-    void Destroy();
+    void HandleObjectSpawn(object value);
+    void HandleObjectDestroy();
 }

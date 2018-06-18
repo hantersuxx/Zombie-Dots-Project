@@ -30,15 +30,15 @@ public class Spawner : MonoBehaviour
             {
                 spawnList.Add(SpawnPosition.Left);
             }
-            else if (Positions.HasFlag(SpawnPositions.Right))
+            if (Positions.HasFlag(SpawnPositions.Right))
             {
                 spawnList.Add(SpawnPosition.Right);
             }
-            else if (Positions.HasFlag(SpawnPositions.Top))
+            if (Positions.HasFlag(SpawnPositions.Top))
             {
                 spawnList.Add(SpawnPosition.Top);
             }
-            else if (Positions.HasFlag(SpawnPositions.Nearby))
+            if (Positions.HasFlag(SpawnPositions.Nearby))
             {
                 Vector3 vector = BoardManager.Instance.GridDictionary.GetClosestPosition(
                     new Vector3(transform.position.x + UnityEngine.Random.insideUnitCircle.x * 2f,
@@ -83,9 +83,9 @@ public class Spawner : MonoBehaviour
         //TODO: add boss spawn
         while (IsSpawning)
         {
-            ObjectPooler.Instance.SpawnFromPool(
-                DiceRoll(),
-                SpawnVector);
+            string tag = DiceRoll();
+            CreatureStats stats = SpawnObjects.First(i => i.Tag == tag).Stats;
+            ObjectPooler.Instance.SpawnFromPool(tag, SpawnVector, stats);
             yield return new WaitForSeconds(TimeBetweenWaves);
         }
     }

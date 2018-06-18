@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EpPathFinding.cs;
 
 public class ZombieController : StateController
@@ -17,27 +18,9 @@ public class ZombieController : StateController
         }
     }
 
-    protected override void OnDeath()
+    protected override void HandleDeath(object sender, EventArgs e)
     {
-        base.OnDeath();
-        SpawnParticles();
-    }
-
-    protected void SpawnParticles()
-    {
-        for (int i = 0; i < ParticleCount; i++)
-        {
-            ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, transform.position, Globals.ZombieParticleHexColor);
-        }
-    }
-
-    public override void OnObjectSpawn(object transferValue)
-    {
-        base.OnObjectSpawn(transferValue);
-    }
-
-    public override void Destroy()
-    {
-        base.Destroy();
+        base.HandleDeath(sender, e);
+        SpawnParticles(Globals.ZombieParticleHexColor);
     }
 }

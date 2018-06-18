@@ -52,21 +52,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: CreatureParticle
-    prefab: {fileID: 1170655568073380, guid: 121593b5e157da941b7d344ad287318a, type: 2}
-    size: 300
   - tag: Human
     prefab: {fileID: 1209278348040724, guid: 65017fc9555d7b84da8a84721e987353, type: 2}
-    size: 50
+    size: 300
   - tag: AverageZombie
     prefab: {fileID: 1872530929107082, guid: f91997f5ba195974fabbd872815ee106, type: 2}
-    size: 100
-  - tag: SlowZombie
-    prefab: {fileID: 1191591905136056, guid: a93339c28d1194f48bbe45b2e30155a3, type: 2}
     size: 100
   - tag: FastZombie
     prefab: {fileID: 1332456165524062, guid: 87e4d4a2cae7a5044bc3f2879d9297ac, type: 2}
     size: 100
+  - tag: SlowZombie
+    prefab: {fileID: 1191591905136056, guid: a93339c28d1194f48bbe45b2e30155a3, type: 2}
+    size: 100
   - tag: BossZombie
     prefab: {fileID: 1157411847165974, guid: 080895532cc762344892b08e6102a277, type: 2}
     size: 1
+  - tag: CreatureParticle
+    prefab: {fileID: 1170655568073380, guid: 121593b5e157da941b7d344ad287318a, type: 2}
+    size: 1000

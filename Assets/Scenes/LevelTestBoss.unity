@@ -1444,7 +1444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &483091736
@@ -2424,7 +2424,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2668,6 +2668,16 @@ MonoBehaviour:
   spawnObjects:
   - tag: BossZombie
     rate: 1
+    stats:
+      particleCount: 100
+      movementSpeed: 0.05
+      viewRange: 1
+      viewAngle: 1
+      baseHealth: 10
+      attack: 10000
+      isDraggable: 0
+      canRotateInMovement: 0
+    useStats: 1
   timeBetweenWaves: 1e+37
   positions: 1
   spawnVector: {x: 0, y: 0, z: 0}
@@ -2683,9 +2693,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentScene: 
-  baseHealth: 10
+  baseHealth: 14665
   tapDamage: 1
-  goalValue: 5
+  goalValue: 1
   currentHealth: 0
   score: 0
   zombiesKilled: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,28 +10,45 @@ public class MovementAgent : MonoBehaviour
     private float speed = 1f;
 
     public float Speed { get; set; }
+    public bool CanRotateInMovement { get; set; }
     private Vector3? CurrentDestination { get; set; } = null;
     public bool InMove { get; private set; } = false;
-    private delegate void MovementStateHandler();
-    private event MovementStateHandler OnMovementStarted;
-    private event MovementStateHandler OnMovementEnded;
+
+    public event EventHandler MovementStarted;
+    public event EventHandler MovementEnded;
+
+    protected virtual void OnMovementStarted(EventArgs e)
+    {
+        MovementStarted?.Invoke(this, e);
+    }
+
+    protected virtual void OnMovementEnded(EventArgs e)
+    {
+        MovementEnded?.Invoke(this, e);
+    }
 
     private void Awake()
     {
         Speed = speed;
-        OnMovementStarted += OnMovementStartedAction;
-        OnMovementEnded += OnMovementEndedAction;
+        MovementStarted += HandleMovementStarted;
+        MovementEnded += HandleMovementEnded;
+    }
+
+    private void OnDestroy()
+    {
+        MovementStarted -= HandleMovementStarted;
+        MovementEnded -= HandleMovementEnded;
     }
 
     private IEnumerator MovementCoroutine()
     {
-        OnMovementStarted();
+        OnMovementStarted(EventArgs.Empty);
         while (transform.position != CurrentDestination)
         {
             transform.position = Vector3.MoveTowards(transform.position, CurrentDestination.Value, Speed * Time.deltaTime);
             yield return null;
         }
-        OnMovementEnded();
+        OnMovementEnded(EventArgs.Empty);
     }
 
     public bool MoveTo(Vector3 destination)
@@ -51,13 +69,13 @@ public class MovementAgent : MonoBehaviour
         StopAllCoroutines();
     }
 
-    private void OnMovementStartedAction()
+    private void HandleMovementStarted(object sender, EventArgs e)
     {
         InMove = true;
         RotateToDirection();
     }
 
-    private void OnMovementEndedAction()
+    private void HandleMovementEnded(object sender, EventArgs e)
     {
         InMove = false;
         CurrentDestination = null;
@@ -65,11 +83,14 @@ public class MovementAgent : MonoBehaviour
 
     private void RotateToDirection()
     {
-        var relativePos = CurrentDestination.Value - transform.position;
-        if (relativePos != Vector3.zero)
+        if (CanRotateInMovement)
         {
-            float angle = Mathf.Atan2(relativePos.x, relativePos.y) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(-angle, transform.forward);
+            var relativePos = CurrentDestination.Value - transform.position;
+            if (relativePos != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(relativePos.x, relativePos.y) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(-angle, transform.forward);
+            }
         }
     }
 }

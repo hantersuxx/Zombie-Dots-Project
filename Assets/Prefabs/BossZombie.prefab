@@ -122,21 +122,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566ae416298f6ef42a641f80aa9a05f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleCount: 50
-  movementSpeed: 0.05
-  isDraggable: 0
-  viewRange: 1
-  viewAngle: 1
-  baseHealth: 100
-  attack: 100
+  stats:
+    particleCount: 20
+    movementSpeed: 0.05
+    viewRange: 1
+    viewAngle: 1
+    baseHealth: 10
+    attack: 10000
+    isDraggable: 0
+    canRotateInMovement: 0
+  currentHealth: 0
   currentState: {fileID: 11400000, guid: 0ece63b1183949c4aa5cfbb3879f7fc0, type: 2}
   remainState: {fileID: 11400000, guid: aa47a908f5b026c4b805e8ef794184b5, type: 2}
   chaseTarget: {fileID: 0}
   states:
-  - {fileID: 21300000, guid: 0b94787222fc6ad4b82ecbad7eed982d, type: 3}
-  - {fileID: 21300000, guid: 547321f5f1c748649bb2a19afee6c550, type: 3}
-  - {fileID: 21300000, guid: ccf33a06a9be25f428ceb5eeb2dee4a8, type: 3}
-  - {fileID: 21300000, guid: 28cc71faabc09f44d863f6647eaa3d0e, type: 3}
+  - {fileID: 21300000, guid: 04901e0949a99a84d9f45a985b7bf21c, type: 3}
+  - {fileID: 21300000, guid: 498f4d4705015e44bac9a4f0f3c051d7, type: 3}
+  - {fileID: 21300000, guid: 1bfb22140d26e074aa410b484b81ed97, type: 3}
 --- !u!114 &114436993045064000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,10 +153,40 @@ MonoBehaviour:
   spawnObjects:
   - tag: AverageZombie
     rate: 1
+    stats:
+      particleCount: 20
+      movementSpeed: 1
+      viewRange: 1
+      viewAngle: 360
+      baseHealth: 0
+      attack: 0
+      isDraggable: 1
+      canRotateInMovement: 1
+    useStats: 0
   - tag: SlowZombie
     rate: 1
+    stats:
+      particleCount: 20
+      movementSpeed: 1
+      viewRange: 1
+      viewAngle: 360
+      baseHealth: 0
+      attack: 0
+      isDraggable: 1
+      canRotateInMovement: 1
+    useStats: 0
   - tag: FastZombie
     rate: 1
+    stats:
+      particleCount: 20
+      movementSpeed: 0.0001
+      viewRange: 1
+      viewAngle: 360
+      baseHealth: 0
+      attack: 0
+      isDraggable: 1
+      canRotateInMovement: 1
+    useStats: 0
   timeBetweenWaves: 2
   positions: 8
   spawnVector: {x: 0, y: 0, z: 0}
@@ -236,7 +268,7 @@ SpriteRenderer:
   m_SortingLayerID: -144213153
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 28cc71faabc09f44d863f6647eaa3d0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04901e0949a99a84d9f45a985b7bf21c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

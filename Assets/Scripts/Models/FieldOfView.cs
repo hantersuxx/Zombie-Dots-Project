@@ -22,10 +22,10 @@ public class FieldOfView : MonoBehaviour
 
     public List<Transform> VisibleTargets { get; private set; } = new List<Transform>();
 
-    private void Start()
-    {
-        StartSearch();
-    }
+    //private void Start()
+    //{
+    //    StartSearch();
+    //}
 
     public void StartSearch()
     {

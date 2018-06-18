@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,14 +11,16 @@ public class BossController : ZombieController
 
     int currentState { get; set; } = 0;
 
-    protected override void OnTakingDamage()
+    protected override void HandleTakingDamage(object sender, EventArgs e)
     {
-        float statesCount = States.Count + 1;
-        float portion = BaseHealth / statesCount;
-        if (CurrentHealth <= portion * (States.Count - currentState))
+        base.HandleTakingDamage(sender, e);
+
+        float statesCount = States.Count;
+        float portion = Stats.BaseHealth / statesCount;
+        if (CurrentHealth <= portion * (States.Count - currentState) && currentState < States.Count)
         {
             GetComponent<SpriteRenderer>().sprite = States[currentState];
-            SpawnParticles();
+            SpawnParticles(Globals.ZombieParticleHexColor);
             currentState++;
         }
     }

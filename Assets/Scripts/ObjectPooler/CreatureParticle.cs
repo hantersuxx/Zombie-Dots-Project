@@ -28,17 +28,6 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
     public float TimeToDestroy => timeToDestroy;
     public MovementAgent MovementAgent => GetComponent<MovementAgent>();
 
-    public void OnObjectSpawn(object transfer)
-    {
-        MovementAgent.Speed = Random.Range(MinSpeed, MaxSpeed);
-        MovementAgent.MoveTo(new Vector3(Random.Range(MinX, MaxX), Random.Range(MinY, MaxY)));
-        if (!string.IsNullOrEmpty(transfer?.ToString()))
-        {
-            Colorize(transfer.ToString());
-        }
-        StartCoroutine(ExecuteAfterTime(TimeToDestroy));
-    }
-
     private void Colorize(string hexColor)
     {
         Color outColor;
@@ -46,7 +35,7 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
         gameObject.GetComponent<SpriteRenderer>().color = outColor;
     }
 
-    IEnumerator ExecuteAfterTime(float seconds)
+    private IEnumerator ExecuteAfterTime(float seconds)
     {
         yield return new WaitForSeconds(seconds);
 
@@ -54,7 +43,19 @@ public class CreatureParticle : MonoBehaviour, IPooledObject
         ObjectPooler.Instance.Destroy(tag, gameObject);
     }
 
-    public void Destroy()
+    public void HandleObjectSpawn(object value)
+    {
+        MovementAgent.Speed = Random.Range(MinSpeed, MaxSpeed);
+        MovementAgent.MoveTo(new Vector3(Random.Range(MinX, MaxX), Random.Range(MinY, MaxY)));
+        string val = value?.ToString();
+        if (!string.IsNullOrEmpty(val))
+        {
+            Colorize(val);
+        }
+        StartCoroutine(ExecuteAfterTime(TimeToDestroy));
+    }
+
+    public void HandleObjectDestroy()
     {
         MovementAgent.StopMovement();
         gameObject.SetActive(false);

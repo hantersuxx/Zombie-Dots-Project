@@ -164,13 +164,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c69d1d9f8ef2474fbd79cb3d41b5bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleCount: 20
-  movementSpeed: 1
-  isDraggable: 1
-  viewRange: 2
-  viewAngle: 360
-  baseHealth: 1
-  attack: 1
+  stats:
+    particleCount: 20
+    movementSpeed: 1.5
+    viewRange: 1.5
+    viewAngle: 360
+    baseHealth: 1
+    attack: 1
+    isDraggable: 1
+    canRotateInMovement: 1
+  currentHealth: 0
   currentState: {fileID: 11400000, guid: f114469fd0da0e4489995063ba20a977, type: 2}
   remainState: {fileID: 11400000, guid: aa47a908f5b026c4b805e8ef794184b5, type: 2}
   chaseTarget: {fileID: 0}
@@ -209,7 +212,7 @@ SpriteRenderer:
   m_SortingLayerID: -144213153
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0b94787222fc6ad4b82ecbad7eed982d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04901e0949a99a84d9f45a985b7bf21c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

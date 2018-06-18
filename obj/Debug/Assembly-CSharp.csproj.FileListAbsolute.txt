@@ -113,9 +113,7 @@ D:\Projects\Zombie Dots Project\Temp\bin\Debug\System.Xml.XmlSerializer.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\System.Xml.XPath.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\System.Xml.XPath.XDocument.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.Locator.dll
-D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.dll
-D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.StandardEvents.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.AccessibilityModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.AIModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.Analytics.dll

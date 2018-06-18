@@ -54,6 +54,11 @@ public class LevelsManager : MonoBehaviour
 
     private void OnDisable()
     {
+        SaveLocally();
+    }
+
+    private void SaveLocally()
+    {
         Serializer.SaveLocally(LevelCollection, Globals.LevelCollectionFileName);
     }
 
@@ -184,14 +189,17 @@ public class LevelsManager : MonoBehaviour
         {
             NextLevelData.Unlock();
         }
-        //UpdateUnlockedView(CurrentLevelData, LevelDataViews[CurrentLevelData]);
-        //int nextIndex = LevelCollection.LevelsData.IndexOf(CurrentLevelData) + 1;
-        //if (nextIndex < LevelCollection.LevelsData.Count)
-        //{
-        //    NextLevelData = LevelCollection.LevelsData.ElementAt(nextIndex);
-        //    NextLevelData.Level.Locked = false;
-        //    //nextLevel.Level.Locked = false;
-        //    //LevelDataViews[nextLevel] = AddUnlockedItemToView(nextLevel);
-        //}
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus)
+        {
+            SaveLocally();
+        }
+        else
+        {
+
+        }
     }
 }
