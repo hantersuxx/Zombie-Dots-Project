@@ -4,16 +4,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : BackNavigation
 {
     public void Retry()
     {
+        Extensions.Log(GetType(), "Retry pressed");
         LevelManager.Instance.TogglePauseMenu();
         LevelManager.Instance.Storage.SceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
-        Debug.Log("Loading menu...");
+        Extensions.Log(GetType(), "Menu pressed");
+        LevelManager.Instance.TogglePauseMenu();
+        NavigateBack(LevelManager.Instance.Storage.SceneFader);
     }
 }

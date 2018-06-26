@@ -8,10 +8,11 @@ public class SceneFader : MonoBehaviour
 {
     [SerializeField]
     private Image image;
+    public Image Image => image;
+
+
     [SerializeField]
     private AnimationCurve curve;
-
-    public Image Image => image;
     public AnimationCurve Curve => curve;
 
     private void Start()
@@ -22,6 +23,7 @@ public class SceneFader : MonoBehaviour
     public void FadeTo(string scene)
     {
         StartCoroutine(FadeOut(scene));
+        Extensions.Log(GetType(), $"Fading to \"{scene}\"");
     }
 
     private IEnumerator FadeIn()

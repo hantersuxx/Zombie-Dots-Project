@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public static class ObjectExtensions
+public static partial class Extensions
 {
     public static void SetValue<TValue>(this object @object, string propertyName, TValue value)
     {
@@ -16,5 +16,10 @@ public static class ObjectExtensions
     public static void SetValue<TObject>(this TObject @object, Action<TObject> assignment)
     {
         assignment(@object);
+    }
+
+    public static bool IsNull<T>(this T value)
+    {
+        return value == null || value.Equals(default(T));
     }
 }

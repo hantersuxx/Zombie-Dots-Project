@@ -166,7 +166,6 @@ D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.ParticleSystemModule.
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.PerformanceReportingModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.Physics2DModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.PhysicsModule.dll
-D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.Purchasing.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.ScreenCaptureModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.SharedInternalsModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.SpatialTracking.dll
@@ -306,3 +305,10 @@ D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.
 D:\Projects\Zombie Dots Project\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
 D:\Projects\Zombie Dots Project\obj\Debug\Assembly-CSharp-Editor.dll
 D:\Projects\Zombie Dots Project\obj\Debug\Assembly-CSharp-Editor.pdb
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Google.VersionHandler.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.OSXStandalone.Extensions.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Google.IOSResolver_v1.2.64.0.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Google.JarResolver_v1.2.64.0.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Google.VersionHandlerImpl_v1.2.64.0.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.StandardEvents.pdb
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb

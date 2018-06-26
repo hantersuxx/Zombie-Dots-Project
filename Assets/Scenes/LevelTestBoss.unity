@@ -833,7 +833,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &222127254
 MonoBehaviour:
@@ -2478,7 +2478,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 668312014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a13c9d9ce81b10246963fd322ea8da79, type: 3}
   m_Name: 
@@ -2652,7 +2652,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &827957622
 MonoBehaviour:
@@ -2698,12 +2698,10 @@ MonoBehaviour:
   goalValue: 1
   currentHealth: 0
   score: 0
-  zombiesKilled: 0
-  humansKilled: 0
-  humansSaved: 0
   stars: 0
   gameIsPaused: 0
   gameIsOver: 0
+  damaged: 0
 --- !u!114 &827957627
 MonoBehaviour:
   m_ObjectHideFlags: 0

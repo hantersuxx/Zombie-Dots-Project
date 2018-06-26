@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CompleteLevel : MonoBehaviour
+public class CompleteLevel : BackNavigation
 {
     [SerializeField]
     private Text zombiesKilled;
@@ -16,19 +16,28 @@ public class CompleteLevel : MonoBehaviour
 
     private void OnEnable()
     {
-        ZombiesKilled.text = LevelStats.Instance.ZombiesKilled.ToString();
-        HpLeft.text = LevelStats.Instance.CurrentHealth.ToString();
+        ZombiesKilled.text = LevelVariables.Instance.Score.ToString();
+        HpLeft.text = LevelVariables.Instance.CurrentHealth.ToString();
     }
 
     public void Continue()
     {
-        Debug.Log("Continue from level won");
-        LevelManager.Instance.ToggleCompleteLevel();
-        LevelManager.Instance.Storage.SceneFader.FadeTo("LevelSelect");
+        Extensions.Log(GetType(), "Continue pressed");
+        if (LevelsManager.Instance.NextLevelData != null)
+        {
+            LevelManager.Instance.ToggleCompleteLevel();
+            LevelManager.Instance.Storage.SceneFader.FadeTo(LevelsManager.Instance.NextLevelData.AssociatedScene);
+        }
+        else
+        {
+            Menu();
+        }
     }
 
     public void Menu()
     {
-        Debug.Log("Go to menu from level won");
+        Extensions.Log(GetType(), "Menu pressed");
+        LevelManager.Instance.ToggleCompleteLevel();
+        NavigateBack(LevelManager.Instance.Storage.SceneFader);
     }
 }

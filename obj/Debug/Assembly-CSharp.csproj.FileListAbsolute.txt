@@ -144,7 +144,6 @@ D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.ParticleSystemModule.
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.PerformanceReportingModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.Physics2DModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.PhysicsModule.dll
-D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.Purchasing.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.ScreenCaptureModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.SharedInternalsModule.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEngine.SpatialTracking.dll
@@ -269,3 +268,7 @@ D:\Projects\Zombie Dots Project\obj\Debug\Assembly-CSharp.csproj.CoreCompileInpu
 D:\Projects\Zombie Dots Project\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Projects\Zombie Dots Project\obj\Debug\Assembly-CSharp.dll
 D:\Projects\Zombie Dots Project\obj\Debug\Assembly-CSharp.pdb
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.StandardEvents.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.StandardEvents.pdb
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb

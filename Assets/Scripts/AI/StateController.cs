@@ -1,5 +1,6 @@
 ﻿using EpPathFinding.cs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,30 +9,6 @@ public abstract class StateController : MonoBehaviour, IPooledObject
     [SerializeField]
     private CreatureStats stats;
     public CreatureStats Stats { get => stats; private set => stats = value; }
-    //[Header("Stats")]
-    //[SerializeField, Range(1, 100), ReadOnlyWhenPlaying]
-    //private int particleCount = 20;
-    //public int ParticleCount { get => particleCount; private set => particleCount = value; }
-
-    //[SerializeField, Range(0.0001f, 3), ReadOnlyWhenPlaying]
-    //private float movementSpeed = 1f;
-    //public float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
-
-    //[SerializeField]
-    //private bool isDraggable = true;
-    //public bool IsDraggable { get => isDraggable; set => isDraggable = value; }
-
-    //[SerializeField, Range(1, 3), Space, ReadOnlyWhenPlaying]
-    //private float viewRange = 1f;
-    //public float ViewRange { get => viewRange; set => viewRange = value; }
-
-    //[SerializeField, Range(1, 360), ReadOnlyWhenPlaying]
-    //private float viewAngle = 360f;
-    //public float ViewAngle { get => viewAngle; set => viewAngle = value; }
-
-    //[SerializeField, Range(1, 1000), Space, ReadOnlyWhenPlaying]
-    //private int baseHealth = 0;
-    //public int BaseHealth { get => baseHealth; set => baseHealth = value; }
 
     [SerializeField, ReadOnly]
     private int currentHealth = 0;
@@ -50,10 +27,6 @@ public abstract class StateController : MonoBehaviour, IPooledObject
             }
         }
     }
-
-    //[SerializeField, Range(0, 10000), ReadOnlyWhenPlaying]
-    //private int attack = 0;
-    //public int Attack { get => attack; private set => attack = value; }
 
     [SerializeField, ReadOnlyWhenPlaying]
     private State currentState;
@@ -117,22 +90,41 @@ public abstract class StateController : MonoBehaviour, IPooledObject
         CurrentHealth = Stats.BaseHealth;
     }
 
-    private void FixedUpdate()
+    //private void FixedUpdate()
+    //{
+    //    if (IsActive)
+    //    {
+    //        CurrentState.UpdateState(this);
+    //    }
+    //}
+
+    private void ActivateAICoroutine()
     {
-        if (IsActive)
+        StartCoroutine(AICoroutine(Stats.UpdateStateTime));
+    }
+
+    private IEnumerator AICoroutine(float delay)
+    {
+        while (IsActive)
         {
             CurrentState.UpdateState(this);
+            yield return new WaitForSeconds(delay);
         }
     }
 
-    protected virtual void OnDrawGizmos()
+    private void DeactivateAICoroutine()
     {
-        if (CurrentState != null && FOV != null)
-        {
-            Gizmos.color = CurrentState.SceneGizmoColor;
-            Gizmos.DrawWireSphere(FOV.transform.position, FOV.ViewRange);
-        }
+        StopAllCoroutines();
     }
+
+    //protected virtual void OnDrawGizmos()
+    //{
+    //    if (CurrentState != null && FOV != null)
+    //    {
+    //        Gizmos.color = CurrentState.SceneGizmoColor;
+    //        Gizmos.DrawWireSphere(FOV.transform.position, FOV.ViewRange);
+    //    }
+    //}
 
     public void SetupAI(bool aiActivation)
     {
@@ -152,10 +144,12 @@ public abstract class StateController : MonoBehaviour, IPooledObject
         FOV.StartSearch();
         ChaseTarget = GameObject.FindGameObjectWithTag(Tags.Vault).transform;
         WaypointList = GetWaypointList(transform.position, ChaseTarget.position);
+        ActivateAICoroutine();
     }
 
     private void OnAIDeactivated()
     {
+        DeactivateAICoroutine();
         FOV.StopSearch();
         MovementAgent.StopMovement();
         ChaseTarget = null;
@@ -215,7 +209,7 @@ public abstract class StateController : MonoBehaviour, IPooledObject
 
     }
 
-    public void HandleObjectSpawn(object value)
+    public virtual void HandleObjectSpawn(object value)
     {
         if (value != null)
         {
@@ -225,7 +219,7 @@ public abstract class StateController : MonoBehaviour, IPooledObject
         SetupAI(true);
     }
 
-    public void HandleObjectDestroy()
+    public virtual void HandleObjectDestroy()
     {
         SetupAI(false);
     }

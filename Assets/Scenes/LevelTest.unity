@@ -833,7 +833,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &222127254
 MonoBehaviour:
@@ -2478,7 +2478,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 668312014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a13c9d9ce81b10246963fd322ea8da79, type: 3}
   m_Name: 
@@ -2652,7 +2652,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &827957622
 MonoBehaviour:
@@ -2668,12 +2668,52 @@ MonoBehaviour:
   spawnObjects:
   - tag: Human
     rate: 3
+    stats:
+      particleCount: 20
+      movementSpeed: 1
+      viewRange: 1
+      viewAngle: 360
+      baseHealth: 1
+      attack: 0
+      isDraggable: 1
+      canRotateInMovement: 1
+    useStats: 0
   - tag: AverageZombie
     rate: 1
+    stats:
+      particleCount: 20
+      movementSpeed: 1
+      viewRange: 1
+      viewAngle: 360
+      baseHealth: 1
+      attack: 0
+      isDraggable: 1
+      canRotateInMovement: 1
+    useStats: 0
   - tag: SlowZombie
     rate: 1
+    stats:
+      particleCount: 20
+      movementSpeed: 1
+      viewRange: 1
+      viewAngle: 360
+      baseHealth: 1
+      attack: 0
+      isDraggable: 1
+      canRotateInMovement: 1
+    useStats: 0
   - tag: FastZombie
     rate: 1
+    stats:
+      particleCount: 20
+      movementSpeed: 1
+      viewRange: 1
+      viewAngle: 360
+      baseHealth: 1
+      attack: 0
+      isDraggable: 1
+      canRotateInMovement: 1
+    useStats: 0
   timeBetweenWaves: 2
   positions: 1
   spawnVector: {x: 0, y: 0, z: 0}
@@ -2694,12 +2734,10 @@ MonoBehaviour:
   goalValue: 5
   currentHealth: 0
   score: 0
-  zombiesKilled: 0
-  humansKilled: 0
-  humansSaved: 0
   stars: 0
   gameIsPaused: 0
   gameIsOver: 0
+  damaged: 0
 --- !u!114 &827957627
 MonoBehaviour:
   m_ObjectHideFlags: 0

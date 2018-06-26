@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "896870708868",
+    "firebase_url": "https://zombie-dots-18923476.firebaseio.com",
+    "project_id": "zombie-dots-18923476",
+    "storage_bucket": "zombie-dots-18923476.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896870708868:android:e75e0ac6d538dca4",
+        "android_client_info": {
+          "package_name": "com.doublejoy.zombiedots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896870708868-00fuq4lj74gpn8dcspp61mqssfle2lc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYAD5-y6BUl_OG5iNh9znk--lxkHhS0Dw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

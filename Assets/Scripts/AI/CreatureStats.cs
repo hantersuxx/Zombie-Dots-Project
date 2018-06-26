@@ -14,6 +14,17 @@ public class CreatureStats
     private float movementSpeed = 1f;
     public float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
 
+    [SerializeField, ReadOnly]
+    private float updateStateTime = 1f;
+    public float UpdateStateTime
+    {
+        get
+        {
+            updateStateTime = 0.5f / MovementSpeed;
+            return updateStateTime;
+        }
+    }
+
     [SerializeField, Range(1, 3), Space, ReadOnlyWhenPlaying]
     private float viewRange = 1f;
     public float ViewRange { get => viewRange; set => viewRange = value; }

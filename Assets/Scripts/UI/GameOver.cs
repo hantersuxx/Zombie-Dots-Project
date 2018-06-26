@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameOver : MonoBehaviour
+public class GameOver : BackNavigation
 {
     [SerializeField]
     private Text zombiesKilled;
@@ -16,18 +14,21 @@ public class GameOver : MonoBehaviour
 
     private void OnEnable()
     {
-        ZombiesKilled.text = LevelStats.Instance.ZombiesKilled.ToString();
-        HpLeft.text = LevelStats.Instance.CurrentHealth.ToString();
+        ZombiesKilled.text = LevelVariables.Instance.Score.ToString();
+        HpLeft.text = LevelVariables.Instance.CurrentHealth.ToString();
     }
 
     public void Retry()
     {
+        Extensions.Log(GetType(), "Retry pressed");
         LevelManager.Instance.ToggleGameOver();
         LevelManager.Instance.Storage.SceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
-        Debug.Log("Go to menu from game over");
+        Extensions.Log(GetType(), "Menu pressed");
+        LevelManager.Instance.ToggleGameOver();
+        NavigateBack(LevelManager.Instance.Storage.SceneFader);
     }
 }

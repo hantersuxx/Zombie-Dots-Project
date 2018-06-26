@@ -123,7 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     particleCount: 20
-    movementSpeed: 0.5
+    movementSpeed: 0.75
+    updateStateTime: 1
     viewRange: 3
     viewAngle: 360
     baseHealth: 1

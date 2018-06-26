@@ -19,9 +19,9 @@ public class LevelMenu : MonoBehaviour
 
     private void Update()
     {
-        LevelManager.UpdateText(HealthPointsText, $"{LevelStats.Instance.CurrentHealth} HP");
-        LevelManager.UpdateText(ScorePointsText, $"Score: {LevelStats.Instance.Score}");
-        LevelManager.UpdateText(GoalPointsText, $"Goal: {LevelStats.Instance.GoalValue}");
+        LevelManager.UpdateText(HealthPointsText, $"{LevelVariables.Instance.CurrentHealth} HP");
+        LevelManager.UpdateText(ScorePointsText, $"Score: {LevelVariables.Instance.Score}");
+        LevelManager.UpdateText(GoalPointsText, $"Goal: {LevelVariables.Instance.GoalValue}");
     }
 
     public void Restart()

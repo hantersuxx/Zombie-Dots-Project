@@ -24,4 +24,9 @@ public class BossController : ZombieController
             currentState++;
         }
     }
+
+    public override void HandleObjectSpawn(object value)
+    {
+        base.HandleObjectSpawn(value);
+    }
 }
