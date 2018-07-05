@@ -113,6 +113,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &173671455
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366348830585024, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a8155357b0109ef4084df1fea2f039fe, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &286613430
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +319,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &381821732
 MonoBehaviour:
@@ -401,7 +443,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4897972562733600, guid: 36b93874b6de30a45836b820415b35b1, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 36b93874b6de30a45836b820415b35b1, type: 2}
@@ -765,7 +807,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1355076381}
-  - component: {fileID: 1355076380}
   - component: {fileID: 1355076383}
   m_Layer: 0
   m_Name: GameMaster
@@ -774,17 +815,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1355076380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1355076379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d19aa7216b80546a343b6f4d657208, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1355076381
 Transform:
   m_ObjectHideFlags: 0
@@ -796,7 +826,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1355076383
 MonoBehaviour:
@@ -809,75 +839,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f391420c9e2f340bd2333c021dbf52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCollection:
-    levelsData:
-    - associatedScene: LevelTest
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-    - associatedScene: LevelTestBoss
-      level:
-        completed: 0
-        stars: 0
-        score: 0
-        locked: 0
-  gameStats:
-    zombiesKilledTotal: 0
-    humansKilledTotal: 0
-    humansSavedTotal: 0
-    starsTotal: 0
-    scoreTotal: 0
-  scenesNesting: []
+  gameData:
+    levelCollection:
+      levelsData:
+      - associatedScene: LevelTest
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+      - associatedScene: LevelTestBoss
+        level:
+          completed: 0
+          stars: 0
+          score: 0
+          locked: 0
+    gameStats:
+      zombiesKilledTotal: 0
+      humansKilledTotal: 0
+      humansSavedTotal: 0
+      starsTotal: 0
+      scoreTotal: 0
+      adsEnabled: 1
 --- !u!1 &1441040457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,7 +1192,7 @@ RectTransform:
   - {fileID: 2093393298}
   - {fileID: 1945505926}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1297,6 +1328,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4113847159286574, guid: 7fd915e8101d7ea44b1c89f1d210e0bf, type: 2}
       propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324180889574752, guid: 7fd915e8101d7ea44b1c89f1d210e0bf, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1368,7 +1403,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2093393297
 GameObject:
@@ -6107,5 +6142,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

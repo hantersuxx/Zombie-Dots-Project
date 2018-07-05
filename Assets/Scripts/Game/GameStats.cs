@@ -24,6 +24,15 @@ public class GameStats : IStats
     private int scoreTotal = 0;
     public int ScoreTotal { get => scoreTotal; private set => scoreTotal = value; }
 
+    [SerializeField, ReadOnly]
+    private bool adsEnabled = true;
+    public bool AdsEnabled { get => adsEnabled; private set => adsEnabled = value; }
+
+    public void DisableAds()
+    {
+        AdsEnabled = false;
+    }
+
     public void IncreaseZombiesKilled()
     {
         ZombiesKilledTotal++;
@@ -41,11 +50,11 @@ public class GameStats : IStats
 
     public void InitializeStars()
     {
-        StarsTotal = GameManager.Instance.LevelCollection.LevelsData.Sum(l => l.Level.Stars);
+        StarsTotal = GameManager.Instance.GameData.LevelCollection.LevelsData.Sum(l => l.Level.Stars);
     }
 
     public void InitializeScore()
     {
-        ScoreTotal = GameManager.Instance.LevelCollection.LevelsData.Sum(l => l.Level.Score);
+        ScoreTotal = GameManager.Instance.GameData.LevelCollection.LevelsData.Sum(l => l.Level.Score);
     }
 }

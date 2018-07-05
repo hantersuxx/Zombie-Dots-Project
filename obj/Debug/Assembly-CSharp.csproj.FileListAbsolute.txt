@@ -272,3 +272,12 @@ D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.StandardEvents.dll
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\UnityEditor.StandardEvents.pdb
 D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Firebase.Analytics.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Firebase.App.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Firebase.Auth.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Firebase.Messaging.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Firebase.Platform.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Google.MiniJson.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.Compat.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Unity.Tasks.dll
+D:\Projects\Zombie Dots Project\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

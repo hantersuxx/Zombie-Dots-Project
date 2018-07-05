@@ -20,7 +20,7 @@ public class CreatureStats
     {
         get
         {
-            updateStateTime = 0.5f / MovementSpeed;
+            updateStateTime = 1f / 3f / MovementSpeed;
             return updateStateTime;
         }
     }

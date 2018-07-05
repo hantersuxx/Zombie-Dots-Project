@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelStorage : MonoBehaviour
+public class LevelStorage : MonoBehaviour, IStorage
 {
     [Header("Damage image")]
     [SerializeField]

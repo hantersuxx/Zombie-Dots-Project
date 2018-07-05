@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelsManager : MonoBehaviour
 {
-    public LevelsStorage Storage => FindObjectOfType<LevelsStorage>();
-    public LevelCollection LevelCollection => GameManager.Instance.LevelCollection;
+    public SceneData<LevelsStorage> SceneData { get; private set; } = new SceneData<LevelsStorage>();
+
+    public LevelCollection LevelCollection => GameManager.Instance.GameData.LevelCollection;
 
     public Dictionary<LevelData, GameObject> LevelDataViews { get; private set; } = new Dictionary<LevelData, GameObject>();
 
@@ -47,6 +47,11 @@ public class LevelsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        SceneData.SceneNode = GameManager.Instance.SceneData.SceneNode.AddChild(SceneManager.GetActiveScene().name);
+    }
+
     public void InitializeContentView()
     {
         LevelDataViews.Clear();
@@ -68,9 +73,9 @@ public class LevelsManager : MonoBehaviour
 
     private GameObject AddUnlockedItemToView(LevelData item)
     {
-        GameObject newCell = Instantiate(Storage.CellPrefabUnlocked);
+        GameObject newCell = Instantiate(SceneData.Storage.CellPrefabUnlocked);
         newCell.GetComponent<Button>().onClick.AddListener(() => Select(item));
-        newCell.transform.SetParent(Storage.ContentView.transform, false);
+        newCell.transform.SetParent(SceneData.Storage.ContentView.transform, false);
         SetStars(item, newCell);
         return newCell;
     }
@@ -103,15 +108,15 @@ public class LevelsManager : MonoBehaviour
 
     private GameObject AddLockedItemToView()
     {
-        GameObject newCell = Instantiate(Storage.CellPrefabLocked);
-        newCell.transform.SetParent(Storage.ContentView.transform, false);
+        GameObject newCell = Instantiate(SceneData.Storage.CellPrefabLocked);
+        newCell.transform.SetParent(SceneData.Storage.ContentView.transform, false);
         return newCell;
     }
 
     public void Select(LevelData item)
     {
         CurrentLevelData = item;
-        Storage.SceneFader.FadeTo(item.AssociatedScene);
+        SceneData.Storage.SceneFader.FadeTo(item.AssociatedScene);
     }
 
     public void CompleteLevel()

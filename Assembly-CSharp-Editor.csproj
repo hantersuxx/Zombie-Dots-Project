@@ -338,8 +338,14 @@
     <Reference Include="Firebase.Editor">
       <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Editor/Firebase.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.Analytics">
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.App">
       <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Auth">
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Messaging">
       <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Messaging.dll</HintPath>
@@ -351,10 +357,10 @@
       <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Compat">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/Unity.Compat.dll</HintPath>
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Tasks">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/Unity.Tasks.dll</HintPath>
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/dotNet45/Unity.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="C5">
       <HintPath>D:/Projects/Zombie Dots Project/Assets/PathFinder/UnityC5/C5.dll</HintPath>
@@ -388,12 +394,6 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Analytics">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Auth">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.5f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -736,9 +736,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{71E02FFF-07B9-6AD5-8E36-44554AEAA1E2}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{77A22DF7-B035-FE50-A265-6047A7698F5B}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
+      <Project>{C61B5B7E-8CF3-071F-5D28-36C44C2ACA41}</Project>
+      <Name>Assembly-CSharp-Editor-firstpass</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,5 @@
 ﻿using Firebase;
 using Firebase.Messaging;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FirebaseServices

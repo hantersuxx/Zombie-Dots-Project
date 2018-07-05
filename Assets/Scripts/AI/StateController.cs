@@ -90,14 +90,6 @@ public abstract class StateController : MonoBehaviour, IPooledObject
         CurrentHealth = Stats.BaseHealth;
     }
 
-    //private void FixedUpdate()
-    //{
-    //    if (IsActive)
-    //    {
-    //        CurrentState.UpdateState(this);
-    //    }
-    //}
-
     private void ActivateAICoroutine()
     {
         StartCoroutine(AICoroutine(Stats.UpdateStateTime));

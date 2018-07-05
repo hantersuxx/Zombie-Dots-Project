@@ -307,6 +307,7 @@
     <Compile Include="Assets\Scripts\AI\Models\Transition.cs" />
     <Compile Include="Assets\Scripts\AI\StateController.cs" />
     <Compile Include="Assets\Scripts\AI\ZombieController.cs" />
+    <Compile Include="Assets\Scripts\Banner.cs" />
     <Compile Include="Assets\Scripts\Board\CustomTile.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\Node.cs" />
     <Compile Include="Assets\Scripts\Board\ShortestPath\Models\VectorShortestPath.cs" />
@@ -321,25 +322,35 @@
     <Compile Include="Assets\Scripts\CustomAttributes\TagSelectorAttribute.cs" />
     <Compile Include="Assets\Scripts\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\Game\FirebaseServices.cs" />
+    <Compile Include="Assets\Scripts\Game\GameData.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Game\GameStats.cs" />
     <Compile Include="Assets\Scripts\Game\GooglePlayServices.cs" />
+    <Compile Include="Assets\Scripts\Game\ISavedGames.cs" />
     <Compile Include="Assets\Scripts\Game\IStats.cs" />
-    <Compile Include="Assets\Scripts\Game\LocalData.cs" />
+    <Compile Include="Assets\Scripts\Game\LocalSerializer.cs" />
+    <Compile Include="Assets\Scripts\Game\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Game\MainMenuStorage.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
-    <Compile Include="Assets\Scripts\IBackNavigable.cs" />
+    <Compile Include="Assets\Scripts\IStorage.cs" />
+    <Compile Include="Assets\Scripts\Level\CompleteLevel.cs" />
+    <Compile Include="Assets\Scripts\Level\GameOver.cs" />
+    <Compile Include="Assets\Scripts\Level\HUDFPS.cs" />
     <Compile Include="Assets\Scripts\Level\HumanSave.cs" />
     <Compile Include="Assets\Scripts\Level\InputHandler.cs" />
     <Compile Include="Assets\Scripts\Level\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\Level\LevelMenu.cs" />
     <Compile Include="Assets\Scripts\Level\LevelStorage.cs" />
     <Compile Include="Assets\Scripts\Level\LevelVariables.cs" />
+    <Compile Include="Assets\Scripts\Level\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Level\Vault.cs" />
     <Compile Include="Assets\Scripts\Level\ZombieAttack.cs" />
     <Compile Include="Assets\Scripts\Levels\Level.cs" />
     <Compile Include="Assets\Scripts\Levels\LevelCollection.cs" />
     <Compile Include="Assets\Scripts\Levels\LevelData.cs" />
+    <Compile Include="Assets\Scripts\Levels\LevelsContent.cs" />
     <Compile Include="Assets\Scripts\Levels\LevelsManager.cs" />
+    <Compile Include="Assets\Scripts\Levels\LevelsMenu.cs" />
     <Compile Include="Assets\Scripts\Levels\LevelsStorage.cs" />
     <Compile Include="Assets\Scripts\Levels\LoadTargetSceneButton.cs" />
     <Compile Include="Assets\Scripts\MovementAgent.cs" />
@@ -347,20 +358,12 @@
     <Compile Include="Assets\Scripts\ObjectPooler\IPooledObject.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler\Pool.cs" />
+    <Compile Include="Assets\Scripts\SceneData.cs" />
     <Compile Include="Assets\Scripts\SortingLayers.cs" />
     <Compile Include="Assets\Scripts\Spawner\Spawner.cs" />
     <Compile Include="Assets\Scripts\Spawner\SpawnObject.cs" />
     <Compile Include="Assets\Scripts\Spawner\SpawnPositions.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
-    <Compile Include="Assets\Scripts\UI\CompleteLevel.cs" />
-    <Compile Include="Assets\Scripts\UI\GameOver.cs" />
-    <Compile Include="Assets\Scripts\UI\HUDFPS.cs" />
-    <Compile Include="Assets\Scripts\UI\LevelMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\LevelsContent.cs" />
-    <Compile Include="Assets\Scripts\UI\LevelsMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
-    <Compile Include="Assets\Scripts\Utils\BackNavigation.cs" />
     <Compile Include="Assets\Scripts\Utils\Camera.cs" />
     <Compile Include="Assets\Scripts\Utils\CanvasAutoscaler.cs" />
     <Compile Include="Assets\Scripts\Utils\Convert.cs" />
@@ -371,6 +374,7 @@
     <Compile Include="Assets\Scripts\Utils\SceneFader.cs" />
     <Compile Include="Assets\Scripts\Utils\Serializer.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Utils\TreeNode.cs" />
     <Compile Include="Assets\Scripts\Utils\Vector.cs" />
     <Compile Include="Assets\Scripts\Utils\Vibrator.cs" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-auth-unity\maven-metadata.xml" />
@@ -575,8 +579,14 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.5f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.Analytics">
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.App">
       <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Auth">
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Messaging">
       <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Messaging.dll</HintPath>
@@ -588,10 +598,10 @@
       <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Compat">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/Unity.Compat.dll</HintPath>
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Tasks">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/Unity.Tasks.dll</HintPath>
+      <HintPath>D:/Projects/Zombie Dots Project/Assets/Parse/Plugins/dotNet45/Unity.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="C5">
       <HintPath>D:/Projects/Zombie Dots Project/Assets/PathFinder/UnityC5/C5.dll</HintPath>
@@ -601,12 +611,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/Tom/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Analytics">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Auth">
-      <HintPath>D:/Projects/Zombie Dots Project/Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.5f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -947,6 +951,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{71E02FFF-07B9-6AD5-8E36-44554AEAA1E2}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

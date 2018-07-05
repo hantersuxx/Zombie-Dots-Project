@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LevelsStorage : MonoBehaviour
+public class LevelsStorage : MonoBehaviour, IStorage
 {
     [SerializeField]
     private SceneFader sceneFader;

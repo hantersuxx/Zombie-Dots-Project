@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuStorage : MonoBehaviour
+public class MainMenuStorage : MonoBehaviour, IStorage
 {
     [SerializeField]
     private SceneFader sceneFader;

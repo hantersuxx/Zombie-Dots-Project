@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public LevelStorage Storage => FindObjectOfType<LevelStorage>();
+    public SceneData<LevelStorage> SceneData { get; private set; } = new SceneData<LevelStorage>();
+
     public LevelVariables LevelVariables => LevelVariables.Instance;
 
     [Header("Loader")]
@@ -37,6 +37,11 @@ public class LevelManager : MonoBehaviour
         InstantiateManager(boardManager, BoardManager.Instance);
     }
 
+    private void Start()
+    {
+        SceneData.SceneNode = LevelsManager.Instance.SceneData.SceneNode.AddChild(SceneManager.GetActiveScene().name);
+    }
+
     private void Update()
     {
         if (LevelVariables.GameIsPaused || LevelVariables.GameIsOver)
@@ -56,11 +61,11 @@ public class LevelManager : MonoBehaviour
 
         if (LevelVariables.Damaged)
         {
-            Storage.DamageImage.color = Storage.FlashColor;
+            SceneData.Storage.DamageImage.color = SceneData.Storage.FlashColor;
         }
         else
         {
-            Storage.DamageImage.color = Color.Lerp(Storage.DamageImage.color, Color.clear, Storage.FlashSpeed * Time.deltaTime);
+            SceneData.Storage.DamageImage.color = Color.Lerp(SceneData.Storage.DamageImage.color, Color.clear, SceneData.Storage.FlashSpeed * Time.deltaTime);
         }
         LevelVariables.Damaged = false;
     }
@@ -122,10 +127,10 @@ public class LevelManager : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        Storage.PauseMenu.SetActive(!Storage.PauseMenu.activeSelf);
-        Storage.LevelMenu.SetActive(!Storage.LevelMenu.activeSelf);
+        SceneData.Storage.PauseMenu.SetActive(!SceneData.Storage.PauseMenu.activeSelf);
+        SceneData.Storage.LevelMenu.SetActive(!SceneData.Storage.LevelMenu.activeSelf);
 
-        if (Storage.PauseMenu.activeSelf)
+        if (SceneData.Storage.PauseMenu.activeSelf)
         {
             Time.timeScale = 0f;
             LevelVariables.GameIsPaused = true;
@@ -139,10 +144,10 @@ public class LevelManager : MonoBehaviour
 
     public void ToggleGameOver()
     {
-        Storage.GameOver.SetActive(!Storage.GameOver.activeSelf);
-        Storage.LevelMenu.SetActive(!Storage.LevelMenu.activeSelf);
+        SceneData.Storage.GameOver.SetActive(!SceneData.Storage.GameOver.activeSelf);
+        SceneData.Storage.LevelMenu.SetActive(!SceneData.Storage.LevelMenu.activeSelf);
 
-        if (Storage.GameOver.activeSelf)
+        if (SceneData.Storage.GameOver.activeSelf)
         {
             Time.timeScale = 0f;
         }
@@ -154,10 +159,10 @@ public class LevelManager : MonoBehaviour
 
     public void ToggleCompleteLevel()
     {
-        Storage.CompleteLevel.SetActive(!Storage.CompleteLevel.activeSelf);
-        Storage.LevelMenu.SetActive(!Storage.LevelMenu.activeSelf);
+        SceneData.Storage.CompleteLevel.SetActive(!SceneData.Storage.CompleteLevel.activeSelf);
+        SceneData.Storage.LevelMenu.SetActive(!SceneData.Storage.LevelMenu.activeSelf);
 
-        if (Storage.CompleteLevel.activeSelf)
+        if (SceneData.Storage.CompleteLevel.activeSelf)
         {
             Time.timeScale = 0f;
         }
