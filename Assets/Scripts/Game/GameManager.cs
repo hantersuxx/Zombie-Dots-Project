@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour, IStats
         SceneData.SceneNode = new TreeNode<string>(SceneManager.GetActiveScene().name);
         MNPopup = CreateDialog();
         GooglePlayServices.SignIn();
+        Screen.sleepTimeout = (int)0f;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     private MNPopup CreateDialog()
@@ -101,8 +103,11 @@ public class GameManager : MonoBehaviour, IStats
     {
         while (true)
         {
-            yield return new WaitForSeconds(delay);
-            GooglePlayServices.Write(GameData);
+            if (GooglePlayServices.IsAuthenticated)
+            {
+                yield return new WaitForSeconds(delay);
+                GooglePlayServices.Write(GameData);
+            }
         }
     }
 
@@ -110,16 +115,19 @@ public class GameManager : MonoBehaviour, IStats
     {
         while (true)
         {
-            if (!DataFetched && !DataFetchedPreloaderShowed)
+            if (GooglePlayServices.IsAuthenticated)
             {
-                MNP.ShowPreloader("Loading data", "Please wait");
-                DataFetchedPreloaderShowed = true;
-            }
-            else if (DataFetched && DataFetchedPreloaderShowed)
-            {
-                MNP.HidePreloader();
-                DataFetchedPreloaderShowed = false;
-                break;
+                if (!DataFetched && !DataFetchedPreloaderShowed)
+                {
+                    MNP.ShowPreloader("Loading data", "Please wait");
+                    DataFetchedPreloaderShowed = true;
+                }
+                else if (DataFetched && DataFetchedPreloaderShowed)
+                {
+                    MNP.HidePreloader();
+                    DataFetchedPreloaderShowed = false;
+                    break;
+                }
             }
 
             yield return null;
@@ -130,17 +138,20 @@ public class GameManager : MonoBehaviour, IStats
     {
         while (true)
         {
-            if (Application.internetReachability == NetworkReachability.NotReachable && !ConnectionPreloaderShowed)
+            if (GooglePlayServices.IsAuthenticated)
             {
-                MNP.ShowPreloader("", "Waiting for internet connection. Turn on mobile data or Wi-Fi.");
-                ConnectionPreloaderShowed = true;
-            }
-            else if ((Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork
-                || Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
-                && ConnectionPreloaderShowed)
-            {
-                MNP.HidePreloader();
-                ConnectionPreloaderShowed = false;
+                if (Application.internetReachability == NetworkReachability.NotReachable && !ConnectionPreloaderShowed)
+                {
+                    MNP.ShowPreloader("", "Waiting for internet connection. Turn on mobile data or Wi-Fi.");
+                    ConnectionPreloaderShowed = true;
+                }
+                else if ((Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork
+                    || Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
+                    && ConnectionPreloaderShowed)
+                {
+                    MNP.HidePreloader();
+                    ConnectionPreloaderShowed = false;
+                }
             }
 
             yield return null;

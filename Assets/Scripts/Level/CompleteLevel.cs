@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CompleteLevel : MonoBehaviour
@@ -10,8 +8,8 @@ public class CompleteLevel : MonoBehaviour
     LevelVariables LevelVariables => LevelVariables.Instance;
 
     [SerializeField]
-    private Text zombiesKilled;
-    public Text ZombiesKilled => zombiesKilled;
+    private Text scores;
+    public Text Scores => scores;
 
     [SerializeField]
     private Text hpLeft;
@@ -19,7 +17,10 @@ public class CompleteLevel : MonoBehaviour
 
     private void OnEnable()
     {
-        ZombiesKilled.text = LevelVariables.Score.ToString();
+        //StartCoroutine(AnimateText(Scores, LevelVariables.Score));
+        //StartCoroutine(AnimateText(HpLeft, LevelVariables.CurrentHealth));
+
+        Scores.text = LevelVariables.Score.ToString();
         HpLeft.text = LevelVariables.CurrentHealth.ToString();
     }
 
@@ -42,5 +43,21 @@ public class CompleteLevel : MonoBehaviour
         Extensions.Log(GetType(), "Menu pressed");
         LevelManager.ToggleCompleteLevel();
         LevelManager.SceneData.Storage.SceneFader.FadeTo(LevelManager.SceneData.SceneNode.Parent.Data);
+    }
+
+    private IEnumerator AnimateText(Text field, int maxValue)
+    {
+        int displayValue = 0;
+        field.text = displayValue.ToString();
+
+        yield return new WaitForSeconds(.7f);
+
+        while (displayValue < maxValue)
+        {
+            displayValue++;
+            field.text = displayValue.ToString();
+
+            yield return new WaitForSeconds(.05f);
+        }
     }
 }

@@ -26,6 +26,11 @@ public class LevelMenu : MonoBehaviour
         LevelManager.UpdateText(GoalPointsText, $"Goal: {LevelVariables.Instance.GoalValue}");
     }
 
+    public void Pause()
+    {
+        LevelManager.TogglePauseMenu();
+    }
+
     public void Restart()
     {
         LevelManager.SceneData.Storage.SceneFader.FadeTo(SceneManager.GetActiveScene().name);

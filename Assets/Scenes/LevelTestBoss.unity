@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35686275, g: 0.07450981, b: 0.47058824, a: 0.392}
+  m_Color: {r: 0.35686275, g: 0.07450981, b: 0.47058824, a: 0.9019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -417,7 +417,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 9a847d33380840440b401686b413a77a, type: 3}
     m_FontSize: 125
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 1
     m_MaxSize: 125
     m_Alignment: 4
@@ -426,7 +426,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 9999
 --- !u!222 &161953653
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -729,7 +729,7 @@ GameObject:
   - component: {fileID: 220752413}
   - component: {fileID: 220752412}
   m_Layer: 5
-  m_Name: Killed
+  m_Name: Scores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -790,7 +790,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 9a847d33380840440b401686b413a77a, type: 3}
     m_FontSize: 125
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 1
     m_MaxSize: 125
     m_Alignment: 4
@@ -799,7 +799,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 9999
 --- !u!222 &220752414
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1005,7 +1005,7 @@ GameObject:
   - component: {fileID: 273342128}
   - component: {fileID: 273342129}
   m_Layer: 5
-  m_Name: ZombiesKilled
+  m_Name: ScoresGained
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1271,7 +1271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35790578, g: 0.07342471, b: 0.4716981, a: 0.392}
+  m_Color: {r: 0.35790578, g: 0.07342471, b: 0.4716981, a: 0.9019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f52b134007a224f8f5146be1b2e363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombiesKilled: {fileID: 220752413}
+  scores: {fileID: 220752413}
   hpLeft: {fileID: 603934741}
 --- !u!1 &515294644
 GameObject:
@@ -2134,7 +2134,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 9a847d33380840440b401686b413a77a, type: 3}
     m_FontSize: 125
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 1
     m_MaxSize: 125
     m_Alignment: 4
@@ -2143,7 +2143,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 9999
 --- !u!222 &603934742
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2671,6 +2671,7 @@ MonoBehaviour:
     stats:
       particleCount: 100
       movementSpeed: 0.05
+      updateStateTime: 1
       viewRange: 1
       viewAngle: 1
       baseHealth: 10
@@ -2777,7 +2778,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 200
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2876,7 +2877,7 @@ GameObject:
   - component: {fileID: 883774036}
   - component: {fileID: 883774038}
   m_Layer: 5
-  m_Name: Killed
+  m_Name: Scores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2923,16 +2924,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 9a847d33380840440b401686b413a77a, type: 3}
     m_FontSize: 125
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 125
+    m_MaxSize: 149
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 9999
 --- !u!222 &883774037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3755,8 +3756,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827957620}
-        m_MethodName: TogglePauseMenu
+      - m_Target: {fileID: 329682749}
+        m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3878,7 +3879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35686275, g: 0.07450981, b: 0.47058824, a: 0.392}
+  m_Color: {r: 0.35686275, g: 0.07450981, b: 0.47058824, a: 0.9019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3909,7 +3910,7 @@ GameObject:
   - component: {fileID: 1410258030}
   - component: {fileID: 1410258031}
   m_Layer: 5
-  m_Name: ZombiesKilled
+  m_Name: ScoresGained
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4290,8 +4291,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827957620}
-        m_MethodName: TogglePauseMenu
+      - m_Target: {fileID: 1574110591}
+        m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4533,7 +4534,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 200
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -4900,13 +4901,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 200
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Zombies killed
+  m_Text: Scores gained
 --- !u!222 &1779141900
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5480,13 +5481,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 200
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Zombies killed
+  m_Text: Scores gained
 --- !u!222 &2134580558
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5545,7 +5546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7984ae3aaeb273043b54edc68dc7e8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombiesKilled: {fileID: 883774036}
+  scores: {fileID: 883774036}
   hpLeft: {fileID: 161953652}
 --- !u!95 &2142881208
 Animator:

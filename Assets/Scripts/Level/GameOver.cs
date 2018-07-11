@@ -8,8 +8,8 @@ public class GameOver : MonoBehaviour
     LevelVariables LevelVariables => LevelVariables.Instance;
 
     [SerializeField]
-    private Text zombiesKilled;
-    public Text ZombiesKilled => zombiesKilled;
+    private Text scores;
+    public Text Scores => scores;
 
     [SerializeField]
     private Text hpLeft;
@@ -17,7 +17,7 @@ public class GameOver : MonoBehaviour
 
     private void OnEnable()
     {
-        ZombiesKilled.text = LevelVariables.Score.ToString();
+        Scores.text = LevelVariables.Score.ToString();
         HpLeft.text = LevelVariables.CurrentHealth.ToString();
     }
 

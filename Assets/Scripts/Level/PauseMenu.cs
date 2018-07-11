@@ -5,6 +5,12 @@ public class PauseMenu : MonoBehaviour
 {
     LevelManager LevelManager => LevelManager.Instance;
 
+    public void Continue()
+    {
+        Extensions.Log(GetType(), "Continue pressed");
+        LevelManager.TogglePauseMenu();
+    }
+
     public void Retry()
     {
         Extensions.Log(GetType(), "Retry pressed");
