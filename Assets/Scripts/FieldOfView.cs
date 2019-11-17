@@ -22,14 +22,17 @@ public class FieldOfView : MonoBehaviour
 
     public List<Transform> VisibleTargets { get; private set; } = new List<Transform>();
 
+    private IEnumerator Coroutine { get; set; }
+
     public void StartSearch()
     {
-        StartCoroutine(FindTargetsWithDelay(0.2f));
+        Coroutine = FindTargetsWithDelay(0.2f);
+        StartCoroutine(Coroutine);
     }
 
     public void StopSearch()
     {
-        StopAllCoroutines();
+        StopCoroutine(Coroutine);
     }
 
     private IEnumerator FindTargetsWithDelay(float delay)

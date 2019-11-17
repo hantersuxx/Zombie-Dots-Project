@@ -22,5 +22,14 @@ public static class Globals
     public static string AdmobAppId => "ca-app-pub-4879527705302532~5109824288";
     public static string ZombieDotsBanner => "ca-app-pub-3940256099942544/6300978111";
     public static (string key, string rating) MaxAdContentRating = ("max_ad_content_rating", "PG");
+
+
+    public static bool UseGoogleServices { get; private set; } =
+#if UNITY_EDITOR
+        false;
+#else
+        true;
+#endif
+
     //public static string ZombieDotsBanner => "ca-app-pub-4879527705302532/2911461381";
 }

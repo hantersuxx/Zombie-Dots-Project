@@ -71,6 +71,12 @@ public class LevelsManager : MonoBehaviour
         }
     }
 
+    public void SelectLastUnlocked()
+    {
+        var lastUnlocked = LevelDataViews.Last(e => !e.Key.Level.Locked);
+        lastUnlocked.Value.GetComponent<Button>().Select();
+    }
+
     private GameObject AddUnlockedItemToView(LevelData item)
     {
         GameObject newCell = Instantiate(SceneData.Storage.CellPrefabUnlocked);

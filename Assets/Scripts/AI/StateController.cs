@@ -50,6 +50,8 @@ public abstract class StateController : MonoBehaviour, IPooledObject
 
     public bool IsDead { get; private set; } = false;
 
+    private IEnumerator Coroutine { get; set; }
+
     public event EventHandler TakingDamage;
     public event EventHandler Death;
 
@@ -75,10 +77,10 @@ public abstract class StateController : MonoBehaviour, IPooledObject
         Death -= HandleDeath;
     }
 
-    private void Start()
-    {
-        Init();
-    }
+    //private void Start()
+    //{
+    //    Init();
+    //}
 
     private void Init()
     {
@@ -92,12 +94,13 @@ public abstract class StateController : MonoBehaviour, IPooledObject
 
     private void ActivateAICoroutine()
     {
-        StartCoroutine(AICoroutine(Stats.UpdateStateTime));
+        Coroutine = AICoroutine(Stats.UpdateStateTime);
+        StartCoroutine(Coroutine);
     }
 
     private IEnumerator AICoroutine(float delay)
     {
-        while (IsActive)
+        while (true)
         {
             CurrentState.UpdateState(this);
             yield return new WaitForSeconds(delay);
@@ -106,7 +109,7 @@ public abstract class StateController : MonoBehaviour, IPooledObject
 
     private void DeactivateAICoroutine()
     {
-        StopAllCoroutines();
+        StopCoroutine(Coroutine);
     }
 
     //protected virtual void OnDrawGizmos()

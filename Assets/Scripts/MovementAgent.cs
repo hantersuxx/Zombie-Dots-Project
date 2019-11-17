@@ -14,6 +14,8 @@ public class MovementAgent : MonoBehaviour
     private Vector3? CurrentDestination { get; set; } = null;
     public bool InMove { get; private set; } = false;
 
+    private IEnumerator Coroutine { get; set; }
+
     public event EventHandler MovementStarted;
     public event EventHandler MovementEnded;
 
@@ -51,12 +53,23 @@ public class MovementAgent : MonoBehaviour
         OnMovementEnded(EventArgs.Empty);
     }
 
+    private void StartMovementCoroutine()
+    {
+        Coroutine = MovementCoroutine();
+        StartCoroutine(Coroutine);
+    }
+
+    private void StopMovementCoroutine()
+    {
+        StopCoroutine(Coroutine);
+    }
+
     public bool MoveTo(Vector3 destination)
     {
         if (CurrentDestination == null && !InMove)
         {
             CurrentDestination = destination;
-            StartCoroutine(MovementCoroutine());
+            StartMovementCoroutine();
             return true;
         }
         return false;
@@ -66,7 +79,7 @@ public class MovementAgent : MonoBehaviour
     {
         CurrentDestination = null;
         InMove = false;
-        StopAllCoroutines();
+        StopCoroutine(Coroutine);
     }
 
     private void HandleMovementStarted(object sender, EventArgs e)

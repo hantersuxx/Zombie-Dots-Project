@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour, IStats
     private bool DataFetchedPreloaderShowed { get; set; } = false;
     private bool ConnectionPreloaderShowed { get; set; } = false;
 
+    private AudioSource MenuAudio => GetComponent<AudioSource>();
+    private bool MenuAudioPlaying { get; set; } = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour, IStats
         {
             HandleExists(e.Data);
         }
+        Extensions.Log(GetType(), GameData.LevelCollection.LevelsData.Count.ToString() + " levels loaded");
         StartCoroutine(AutoSave(15f));
     }
 
@@ -90,6 +94,7 @@ public class GameManager : MonoBehaviour, IStats
         GooglePlayServices.SignIn();
         Screen.sleepTimeout = (int)0f;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        StartCoroutine(PlayMenuAudio());
     }
 
     private MNPopup CreateDialog()
@@ -129,7 +134,6 @@ public class GameManager : MonoBehaviour, IStats
                     break;
                 }
             }
-
             yield return null;
         }
     }
@@ -203,6 +207,26 @@ public class GameManager : MonoBehaviour, IStats
             InitializeStars();
             InitializeScore();
         }
+    }
+
+    private IEnumerator PlayMenuAudio()
+    {
+        while (true)
+        {
+            bool contains = SceneData.SceneNode.Data.Contains("Level");
+            if (!contains && !MenuAudioPlaying)
+            {
+                StartCoroutine(MenuAudio.FadeInCoroutine());
+                MenuAudioPlaying = true;
+            }
+            else if (contains && MenuAudioPlaying)
+            {
+                StartCoroutine(MenuAudio.FadeOutCoroutine());
+                MenuAudioPlaying = false;
+            }
+            yield return null;
+        }
+
     }
 
     public void InitializeScore()

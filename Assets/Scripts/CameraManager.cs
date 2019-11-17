@@ -15,26 +15,27 @@ public class CameraManager : MonoBehaviour
     public float ShakeDuration => shakeDuration;
 
     public static CameraManager Instance { get; private set; } = null;
+    
+    private IEnumerator Coroutine { get; set; }
 
     private void Start()
     {
         if (Instance == null)
         {
             Instance = this;
+            Init();
         }
         else if (Instance != this)
         {
             Destroy(gameObject);
         }
-
-        Init();
     }
 
     private void Init()
     {
-        float tileSizeInPixels = 32f;
-        //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
-        Camera.orthographicSize = tileSizeInPixels * Screen.height / Screen.width * 0.25f;
+        //float tileSizeInPixels = 64f;
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+        //Camera.orthographicSize = tileSizeInPixels * Screen.height / Screen.width * 1f;
         float aspectRatio = Camera.aspect; //(width divided by height)
         float camSize = Camera.orthographicSize; //The size value mentioned earlier
         float correctPositionX = aspectRatio * camSize;
@@ -45,7 +46,13 @@ public class CameraManager : MonoBehaviour
 
     public void ShakeCamera()
     {
-        StartCoroutine(ShakeCoroutine());
+        Coroutine = ShakeCoroutine();
+        StartCoroutine(Coroutine);
+    }
+
+    public void StopShakingCamera()
+    {
+        StopCoroutine(Coroutine);
     }
 
     private IEnumerator ShakeCoroutine()
@@ -63,9 +70,9 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        if(Time.timeScale == 0f)
+        if (Time.timeScale == 0f)
         {
-            StopAllCoroutines();
+            StopShakingCamera();
         }
     }
 }

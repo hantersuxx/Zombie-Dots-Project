@@ -12,7 +12,8 @@ public class Vault : MonoBehaviour
 
     public Text HP => hp;
     public List<Transform> Transforms { get; private set; }
-    //public int TotalCirclesCount { get; private set; }
+
+    private IEnumerator Coroutine { get; set; }
 
     private void Start()
     {
@@ -27,7 +28,6 @@ public class Vault : MonoBehaviour
                 Transforms.Add(transforms[i]);
             }
         }
-        //TotalCirclesCount = Transforms.Count;
         MakeRotation();
     }
 
@@ -38,13 +38,23 @@ public class Vault : MonoBehaviour
 
     private void MakeRotation()
     {
-        StopAllCoroutines();
         for (int i = 0; i < Transforms.Count; i++)
         {
             float multiplier = Random.Range(1, 20);
             float angle = (i % 2 == 0) ? Time.deltaTime : Time.deltaTime * -1f;
-            StartCoroutine(RotationCoroutine(Transforms[i], multiplier * angle));
+            StartRotation(i, multiplier, angle);
         }
+    }
+
+    private void StartRotation(int i, float multiplier, float angle)
+    {
+        Coroutine = RotationCoroutine(Transforms[i], multiplier * angle);
+        StartCoroutine(Coroutine);
+    }
+
+    private void StopRotation()
+    {
+        StopCoroutine(Coroutine);
     }
 
     private IEnumerator RotationCoroutine(Transform transform, float angle)
@@ -56,35 +66,8 @@ public class Vault : MonoBehaviour
         }
     }
 
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    var obj = collision.gameObject;
-    //    if (obj.tag == Tags.Zombie)
-    //    {
-    //        OnZombieStay();
-    //    }
-    //}
-
-    //private void OnZombieStay()
-    //{
-    //    var collider = GetComponent<CircleCollider2D>();
-    //    float diff = LevelManager.Instance.BaseHealth / TotalCirclesCount;
-    //    if ((Transforms.Count - 1) * diff > LevelManager.Instance.CurrentHealth)
-    //    {
-    //        collider.radius -= collider.radius / 2 / Transforms.Count;
-    //        var transform = Transforms.First();
-    //        Transforms.Remove(transform);
-    //        Destroy(transform.gameObject);
-    //        MakeRotation();
-    //        for (int i = 0; i < 50; i++)
-    //        {
-    //            ObjectPooler.Instance.SpawnFromPool(Tags.CreatureParticle, transform.position);
-    //        }
-    //    }
-    //}
-
-    private void OnDestroy()
+    private void OnDisable()
     {
-        StopAllCoroutines();
+        StopRotation();
     }
 }

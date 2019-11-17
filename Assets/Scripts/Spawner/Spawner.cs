@@ -56,6 +56,8 @@ public class Spawner : MonoBehaviour
 
     public bool IsSpawning { get; private set; } = false;
 
+    private IEnumerator Coroutine { get; set; }
+
     private void Start()
     {
         TotalRate = SpawnObjects.Sum(o => o.Rate);
@@ -69,13 +71,14 @@ public class Spawner : MonoBehaviour
     public void Spawn()
     {
         IsSpawning = true;
-        StartCoroutine(SpawnCoroutine());
+        Coroutine = SpawnCoroutine();
+        StartCoroutine(Coroutine);
     }
 
     public void StopSpawning()
     {
         IsSpawning = false;
-        StopAllCoroutines();
+        StopCoroutine(Coroutine);
     }
 
     private IEnumerator SpawnCoroutine()

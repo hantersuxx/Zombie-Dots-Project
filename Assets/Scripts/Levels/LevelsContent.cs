@@ -7,5 +7,6 @@ public class LevelsContent : MonoBehaviour
     private void Start()
     {
         LevelsManager.Instance.InitializeContentView();
+        LevelsManager.Instance.SelectLastUnlocked();
     }
 }

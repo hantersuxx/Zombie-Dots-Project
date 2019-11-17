@@ -11,8 +11,8 @@ public static class SpawnPosition
 [System.Flags]
 public enum SpawnPositions
 {
-    Top = (1 << 0),
-    Left = (1 << 1),
-    Right = (1 << 2),
-    Nearby = (1 << 3)
+    Top = 1 << 0,
+    Left = 1 << 1,
+    Right = 1 << 2,
+    Nearby = 1 << 3
 }

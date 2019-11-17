@@ -46,18 +46,22 @@ public class BoardManager : MonoBehaviour
     {
         JumpPointParam = new JumpPointParam(Grid, EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.Never, HeuristicMode.MANHATTAN);
 
-        TileSizeX = (int)tileSizeX;
-        TileSizeY = (int)tileSizeY;
-        MinX = (int)Math.Ceiling(Camera.OrthographicBounds().min.x);
-        MinY = (int)Math.Ceiling(Camera.OrthographicBounds().min.y);
-        MaxX = (int)Math.Floor(Camera.OrthographicBounds().max.x);
-        MaxY = (int)Math.Floor(Camera.OrthographicBounds().max.y);
+        //TileSizeX = (int)tileSizeX;
+        //TileSizeY = (int)tileSizeY;
+        //MinX = (int)Math.Ceiling(Camera.OrthographicBounds().min.x);
+        //MinY = (int)Math.Ceiling(Camera.OrthographicBounds().min.y);
+        //MaxX = (int)Math.Floor(Camera.OrthographicBounds().max.x);
+        //MaxY = (int)Math.Floor(Camera.OrthographicBounds().max.y);
+        MinX = 0;
+        MinY = 0;
+        MaxX = 15;
+        MaxY = 8;
 
         Grid = new StaticGrid(MaxX + 1, MaxY + 1);
         GridDictionary = new Dictionary<Vector3, EpPathFinding.cs.Node>();
-        for (int x = MinX; x <= MaxX; x += TileSizeX)
+        for (int x = MinX; x <= MaxX; x++)
         {
-            for (int y = MinY; y <= MaxY; y += TileSizeY)
+            for (int y = MinY; y <= MaxY; y++)
             {
                 var position = new Vector3Int(x, y, 0);
                 var hasObstruction = Physics2D.OverlapCircleAll(new Vector2(position.x, position.y), TileSizeX / 2f)

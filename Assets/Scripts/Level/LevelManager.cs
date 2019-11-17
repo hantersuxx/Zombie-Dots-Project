@@ -26,15 +26,15 @@ public class LevelManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+
+            InstantiateManager(cameraManager, CameraManager.Instance);
+            InstantiateManager(objectPooler, ObjectPooler.Instance);
+            InstantiateManager(boardManager, BoardManager.Instance);
         }
         else if (Instance != this)
         {
             Destroy(gameObject);
         }
-
-        InstantiateManager(cameraManager, CameraManager.Instance);
-        InstantiateManager(objectPooler, ObjectPooler.Instance);
-        InstantiateManager(boardManager, BoardManager.Instance);
     }
 
     private void Start()
@@ -190,14 +190,6 @@ public class LevelManager : MonoBehaviour
             value++;
             text.text = value.ToString();
             yield return new WaitForSeconds(.05f);
-        }
-    }
-
-    private void OnApplicationFocus(bool focus)
-    {
-        if (!focus && !LevelVariables.GameIsPaused && !LevelVariables.GameIsOver)
-        {
-            TogglePauseMenu();
         }
     }
 }

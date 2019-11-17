@@ -35,4 +35,14 @@ public class LevelMenu : MonoBehaviour
     {
         LevelManager.SceneData.Storage.SceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
+
+#if (!UNITY_EDITOR)
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus && !LevelManager.LevelVariables.GameIsPaused && !LevelManager.LevelVariables.GameIsOver)
+        {
+            LevelManager.TogglePauseMenu();
+        }
+    }
+#endif
 }
